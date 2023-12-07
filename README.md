@@ -22,4 +22,13 @@ Python 3.10
 - Jinga 3.1.2
 - pytest 7.2.2
 UnitTesting -
+Styling:
+npm install -g sass
 ```
+
+# Docs
+
+How to compile sass
+
+yarn or npm i command in the root project and then the following command:
+sass ./src/static/scss/app.scss ./src/static/css/style.css

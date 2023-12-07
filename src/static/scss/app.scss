@@ -1,7 +1,10 @@
+$grid-columns: 24;
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
 @import "./global/global";
 @import "./global/button";
 @import "./global/form";
-@import "./global/status";
 
 // modules
 @import "./module/header";

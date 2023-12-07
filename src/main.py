@@ -4,7 +4,6 @@ from sys import argv
 from flask import Flask
 from werkzeug.middleware.profiler import ProfilerMiddleware
 from src.routes.route import routes
-from src.services.BackgroundService import BackgroundService
 
 app = Flask(__name__)
 
@@ -21,11 +20,6 @@ def run():
     functions. When this function is ran, the website
     will show up.
     """
-    try:
-        BackgroundService()
-    except Exception as exception:
-        raise Exception(
-            f"There was something wrong starting the web application: error: {exception}")
 
     app.debug = True
     app.run(port=5555)
