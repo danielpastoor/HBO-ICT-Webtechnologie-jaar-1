@@ -1,0 +1,30 @@
+.btn {
+    padding: 10px 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s linear;
+    border: none;
+    box-shadow: none;
+
+    &:hover {
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;        
+        background-color: var(--secondary-color, black);
+    }
+
+    &-primary {
+        background-color: var(--primary-color, black);
+        color: white
+    }
+
+    &-secondary {
+        background-color: var(--secondary-color, black);
+        color: white
+    }
+
+    &.active {
+        background-color: var(--secondary-color, black);
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+}

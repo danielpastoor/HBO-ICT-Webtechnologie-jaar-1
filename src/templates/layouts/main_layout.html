@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% set bodyClass = bodyClass|default("") %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% set title = title|default("") %}
+    <title>{{ title }}</title>
+    {% if "detail" in bodyClass %}
+    {% endif %}
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block header %}
+    {% endblock %}
+</head>
+
+<body class="{{ bodyClass }}">
+    <header>
+        <a class="nav-logo" href="/">
+            <picture>
+                <img src="/static/img/logo.svg" alt="logo">
+            </picture>
+        </a>
+
+        <!-- [html-validate-disable attr-delimiter] -->
+        <!-- [html-validate-disable parser-error] -->
+        <nav class="nav-items">
+            <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>Home</a>
+        </nav>
+        <!-- [html-validate-enable attr-delimiter] -->
+        <!-- [html-validate-enable parser-error] -->
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+        <div class="content-wrapper">
+            <div class="content">
+                <div class="left">
+                    <h3 class="h3">Problems?</h3>
+                    <ul>
+                        <li><a href="mailto:d.h.s.pastoor@st.hanze.nl">d.h.s.pastoor@st.hanze.nl</a></li>
+                        <li><a href="mailto:n.visser@st.hanze.nl">n.visser@st.hanze.nl</a></li>
+                    </ul>
+                </div>
+                <div class="nav-items">
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content-bottom">
+            <p>
+                <span class="copyright">
+                    &copy; Hbo Opdracht - 2023
+                </span>
+                <a href="/general-explenation" class="nav-item">Terms of service</a>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>
