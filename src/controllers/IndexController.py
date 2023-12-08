@@ -20,5 +20,19 @@ class IndexController(ControllerBase):
         return render_template("pages/index.html")
 
 
+class ContactPage(ControllerBase):
+    """ContactPage controller for showing the Contact page
+
+    Returns:
+        _type_: page
+    """
+
+    def index(self):
+        """ Endpoint for getting the index page
+        """
+        # return rendered html
+        return render_template("pages/contact.html")
+
+
 if __name__ == "__main__":
     pass

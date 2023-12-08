@@ -3,7 +3,7 @@
 
 from flask import Flask
 
-from src.controllers.IndexController import IndexController
+from src.controllers.IndexController import IndexController, ContactPage
 
 
 def routes(app: Flask):
@@ -11,6 +11,7 @@ def routes(app: Flask):
     """
     # Add controllers
     IndexController.register(app, "/")
+    ContactPage.register(app, "/contact")
 
 
 if __name__ == "__main__":
