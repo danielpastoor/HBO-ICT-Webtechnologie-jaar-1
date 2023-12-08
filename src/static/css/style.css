@@ -12384,7 +12384,7 @@ textarea.form-control-lg {
   }
 }
 * {
-  --primary-color: #000;
+  --primary-color: #938e8e;
   --secondary-color: #83181B;
   --tertiary-color: #83F7AD;
 }
@@ -12600,7 +12600,7 @@ header .nav-items .nav-item:not(.btn) {
   transition: all 0.2s linear;
 }
 header .nav-items .nav-item:not(.btn):hover, header .nav-items .nav-item:not(.btn).active {
-  background: var(--primary-color, black);
+  background: var(--primary-color, #938e8e);
   color: white;
 }
 
@@ -12682,5 +12682,29 @@ div.card .text {
 div.card .number {
   font-size: 80px;
 }
-
+.nav-item {
+  padding: 0 10px; /* Zorgt voor wat ruimte tussen de navigatie-items */
+}
+.search-bar {
+  flex-grow: 1; /* Zorgt ervoor dat de zoekbalk ruimte inneemt tussen navigatie en knoppen */
+  max-width: 300px; /* Maximale breedte van de zoekbalk */
+  margin-right: 10px; /* Dezelfde spacing als de navigatie links */
+}
+.form-control-dark {
+  background-color: #fff;
+  border-color: #333;
+  color: #fff;
+}
+.custom-footer {
+  background-color: rgba(255, 255, 255, 0); /* Transparante achtergrond */
+  border-top: 1px solid rgba(128, 128, 128, 0.5); /* Grijze fading lijn */
+}
+.header-logo img {
+  height: 50px; /* Pas de hoogte aan om de afbeelding te herschalen */
+  width: auto; /* Behoud de aspect ratio van de afbeelding */
+}
+/*.custom-footer-container {*/
+/*  padding-left: 5px; !* Nog kleinere linker padding *!*/
+/*  padding-right: 5px; !* Nog kleinere rechter padding *!*/
+/*}*/
 /*# sourceMappingURL=style.css.map */

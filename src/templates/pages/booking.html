@@ -1,0 +1,39 @@
+{% extends 'layouts/main_layout.html' %}
+{% set bodyClass = "booking" %}
+{% set title = "Booking" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Maak uw boeking</h2>
+
+    <!-- Boekingsformulier -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-6">
+            <form>
+                <!-- Formuliervelden zoals naam, e-mail, enz. -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Naam</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <!-- Andere velden... -->
+                <button type="submit" class="btn btn-primary">Verstuur</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Kalender -->
+    <div id="calendar"></div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            // Kalenderopties en -events
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}
+

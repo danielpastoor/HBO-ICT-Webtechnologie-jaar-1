@@ -1,0 +1,58 @@
+{% extends 'layouts/main_layout.html' %}
+{% set bodyClass = "pricing" %}
+{% set title = "Pricing" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Onze Prijzen</h2>
+    <div class="row justify-content-center">
+
+        <!-- Prijs Optie 1 -->
+        <div class="col-lg-5">
+            <div class="card mb-5 bg-white">
+                <div class="card-header text-center">Standaard Plaats</div>
+                <div class="card-body">
+                    <h5 class="card-title">€20 / nacht</h5>
+                    <p class="card-text">
+                        - Een standaard plek voor een tent of caravan<br>
+                        - Electriciteitsaansluiting<br>
+                        - Toegang tot sanitair
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prijs Optie 2 -->
+        <div class="col-lg-5">
+            <div class="card mb-5 bg-white">
+                <div class="card-header text-center">Luxe Plaats</div>
+                <div class="card-body">
+                    <h5 class="card-title">€35 / nacht</h5>
+                    <p class="card-text">
+                        - Een ruimere plek met extra voorzieningen<br>
+                        - Wateraansluiting<br>
+                        - Privé sanitair<br>
+                        - Gratis WiFi
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prijs Optie 3 -->
+        <div class="col-lg-5">
+            <div class="card mb-5 bg-white">
+                <div class="card-header text-center">Groepsplaats</div>
+                <div class="card-body">
+                    <h5 class="card-title">€50 / nacht</h5>
+                    <p class="card-text">
+                        - Plaats voor meerdere tenten/caravans<br>
+                        - Centrale vuurplaats<br>
+                        - Toegang tot alle voorzieningen
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

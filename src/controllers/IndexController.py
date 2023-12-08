@@ -16,8 +16,64 @@ class IndexController(ControllerBase):
     def index(self):
         """ Endpoint for getting the index page
         """
-        # return renderd html
+        # return rendered html
         return render_template("pages/index.html")
+
+
+class ContactPage(ControllerBase):
+    """ContactPage controller for showing the Contact page
+
+    Returns:
+        _type_: page
+    """
+
+    def index(self):
+        """ Endpoint for getting the index page
+        """
+        # return rendered html
+        return render_template("pages/contact.html")
+
+
+class BookingPage(ControllerBase):
+    """ContactPage controller for showing the Contact page
+
+    Returns:
+        _type_: page
+    """
+
+    def index(self):
+        """ Endpoint for getting the index page
+        """
+        # return rendered html
+        return render_template("pages/booking.html")
+
+
+class PricingPage(ControllerBase):
+    """ContactPage controller for showing the Contact page
+
+    Returns:
+        _type_: page
+    """
+
+    def index(self):
+        """ Endpoint for getting the index page
+        """
+        # return rendered html
+        return render_template("pages/pricing.html")
+
+
+class FaqPage(ControllerBase):
+    """ContactPage controller for showing the Contact page
+
+    Returns:
+        _type_: page
+    """
+
+    def index(self):
+        """ Endpoint for getting the index page
+        """
+        # return rendered html
+        return render_template("pages/faq.html")
 
 
 if __name__ == "__main__":
