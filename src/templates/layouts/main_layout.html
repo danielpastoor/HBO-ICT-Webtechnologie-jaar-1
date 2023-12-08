@@ -26,11 +26,16 @@
             </a>
 
             <nav class="d-flex flex-wrap align-items-center">
-                <a href="/" class="nav-item text-white">Home</a>
-                <a href="#" class="nav-item text-white">Booking</a>
-                <a href="#" class="nav-item text-white">Pricing</a>
-                <a href="#" class="nav-item text-white">FAQs</a>
-                <a href="#" class="nav-item text-white">Contact</a>
+                <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Home</a>
+                <a href="/booking/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Booking</a>
+                <a href="/pricing/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Pricing</a>
+                <a href="/faqs/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>FAQs</a>
+                <a href="/contact/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Contact</a>
             </nav>
 
             <div class="d-flex align-items-center">
@@ -62,11 +67,16 @@
 
             <!-- Midden navigatie -->
             <nav class="nav footer-nav">
-                <a href="/" class="nav-item text-muted">Home</a>
-                <a href="#" class="nav-item text-muted">Booking</a>
-                <a href="#" class="nav-item text-muted">Pricing</a>
-                <a href="#" class="nav-item text-muted">FAQs</a>
-                <a href="#" class="nav-item text-muted">Contact</a>
+                <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Home</a>
+                <a href="/booking/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Booking</a>
+                <a href="/pricing/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Pricing</a>
+                <a href="/faqs/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>FAQs</a>
+                <a href="/contact/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>Contact</a>
             </nav>
 
             <!-- Rechter gedeelte (Sociale media iconen) -->
