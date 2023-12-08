@@ -11,57 +11,82 @@
     <title>{{ title }}</title>
     {% if "detail" in bodyClass %}
     {% endif %}
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css">
     {% block header %}
     {% endblock %}
 </head>
 
 <body class="{{ bodyClass }}">
-    <header>
-        <a class="nav-logo" href="/">
-            <picture>
-                <img src="/static/img/logo.svg" alt="logo">
-            </picture>
-        </a>
+<header class="p-3 bg-dark text-white">
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+                <img src="static/img/272863.png" alt="logo">
+            </a>
 
-        <!-- [html-validate-disable attr-delimiter] -->
-        <!-- [html-validate-disable parser-error] -->
-        <nav class="nav-items">
-            <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %} class="nav-item" {% endif %}>Home</a>
-        </nav>
-        <!-- [html-validate-enable attr-delimiter] -->
-        <!-- [html-validate-enable parser-error] -->
-    </header>
+            <nav class="d-flex flex-wrap align-items-center">
+                <a href="/" class="nav-item text-white">Home</a>
+                <a href="#" class="nav-item text-white">Booking</a>
+                <a href="#" class="nav-item text-white">Pricing</a>
+                <a href="#" class="nav-item text-white">FAQs</a>
+                <a href="#" class="nav-item text-white">Contact</a>
+            </nav>
 
-    {% block content %}
-    {% endblock %}
+            <div class="d-flex align-items-center">
+                <form class="form-inline my-2 my-lg-0 search-bar">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..."
+                           aria-label="Search">
+                </form>
 
-    <footer>
-        <div class="content-wrapper">
-            <div class="content">
-                <div class="left">
-                    <h3 class="h3">Problems?</h3>
-                    <ul>
-                        <li><a href="mailto:d.h.s.pastoor@st.hanze.nl">d.h.s.pastoor@st.hanze.nl</a></li>
-                        <li><a href="mailto:n.visser@st.hanze.nl">n.visser@st.hanze.nl</a></li>
-                    </ul>
-                </div>
-                <div class="nav-items">
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                    </ul>
-                </div>
+                <button type="button" class="btn btn-success">Login/Sign-up</button>
             </div>
         </div>
-        <div class="content-bottom">
-            <p>
-                <span class="copyright">
-                    &copy; Hbo Opdracht - 2023
-                </span>
-                <a href="/general-explenation" class="nav-item">Terms of service</a>
-            </p>
+    </div>
+</header>
+
+{% block content %}
+{% endblock %}
+
+<!-- Footer -->
+<footer class="custom-footer py-3 my-4">
+    <div class="container-fluid custom-footer-container">
+        <div class="d-flex align-items-center justify-content-between">
+            <!-- Linker gedeelte -->
+            <div class="footer-text d-flex align-items-center">
+                <a href="/" class="text-decoration-none lh-1">
+                    <img src="static/img/272863.png" alt="logo" style="height: 24px;">
+                </a>
+                <span class="text-muted ms-2">© 2023 HBO ICT | Nigel & Daniel</span>
+            </div>
+
+            <!-- Midden navigatie -->
+            <nav class="nav footer-nav">
+                <a href="/" class="nav-item text-muted">Home</a>
+                <a href="#" class="nav-item text-muted">Booking</a>
+                <a href="#" class="nav-item text-muted">Pricing</a>
+                <a href="#" class="nav-item text-muted">FAQs</a>
+                <a href="#" class="nav-item text-muted">Contact</a>
+            </nav>
+
+            <!-- Rechter gedeelte (Sociale media iconen) -->
+            <ul class="nav list-unstyled d-flex">
+                <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-twitter"
+                                                                   style="font-size: 24px; height: 24px;"></i></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-instagram"
+                                                                   style="font-size: 24px; height: 24px;"></i></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-facebook"
+                                                                   style="font-size: 24px; height: 24px;"></i></a></li>
+            </ul>
         </div>
-    </footer>
+    </div>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

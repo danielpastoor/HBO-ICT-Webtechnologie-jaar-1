@@ -16,7 +16,7 @@ class IndexController(ControllerBase):
     def index(self):
         """ Endpoint for getting the index page
         """
-        # return renderd html
+        # return rendered html
         return render_template("pages/index.html")
 
 

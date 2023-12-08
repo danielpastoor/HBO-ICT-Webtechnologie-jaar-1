@@ -1,11 +1,13 @@
-{% extends 'layouts/main_layout.html' %}
+{% extends "layouts/main_layout.html" %}
 {% set bodyClass = "index" %}
-{% set title = "Home" %}
+{% set title = "Home Page" %}
 
-{%block content%}
-
-<main>
-    
-</main>
-
-{%endblock%}
+{% block content %}
+    <!-- Begin van de hoofdinhoud van de pagina -->
+    <div class="container mt-4">
+        <h1>Questions?</h1>
+        <p>Ask one of the following: <br>- Daniel Pastoor <br> - Nigel Visser</p>
+        <!-- Meer inhoud kan hier worden toegevoegd -->
+    </div>
+    <!-- Einde van de hoofdinhoud van de pagina -->
+{% endblock %}
