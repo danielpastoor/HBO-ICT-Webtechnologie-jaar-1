@@ -2,7 +2,7 @@ ______________
 
 # HBO Project
 
-Version: 1.0 | Platform: Linux, Windows | Authors: Nigel Visser, Daniel Pastoor
+Version: 1.1 | Platform: Linux, Windows | Authors: Nigel Visser, Daniel Pastoor
 ________________
 
 ## Description
