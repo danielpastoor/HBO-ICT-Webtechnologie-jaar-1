@@ -12700,11 +12700,42 @@ div.card .number {
   border-top: 1px solid rgba(128, 128, 128, 0.5); /* Grijze fading lijn */
 }
 .header-logo img {
-  height: 50px; /* Pas de hoogte aan om de afbeelding te herschalen */
-  width: auto; /* Behoud de aspect ratio van de afbeelding */
+  height: 50px;
+  width: auto;
 }
-/*.custom-footer-container {*/
-/*  padding-left: 5px; !* Nog kleinere linker padding *!*/
-/*  padding-right: 5px; !* Nog kleinere rechter padding *!*/
-/*}*/
-/*# sourceMappingURL=style.css.map */
+/* Aanpassingen aan de carousel voor volledige breedte */
+.carousel {
+  width: 100%;
+  margin-top: -1px;
+}
+/* Stel de maximale hoogte van de afbeeldingen in */
+.carousel img {
+  max-height: 700px;
+  width: 100%;
+}
+.carousel-item {
+    backface-visibility: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.carousel-item-next.carousel-item-left, .carousel-item-prev.carousel-item-right {
+    transform: scale(0.9);
+}
+
+.carousel-item.active {
+    transform: scale(1);
+}
+.rounded {
+    border: 2px solid grey; /* Grijze randen */
+    border-radius: 15px; /* Ronde hoeken */
+}
+.border-gray {
+  border-color: #ced4da !important; /* Bootstrap's standaard grijze randkleur */
+}

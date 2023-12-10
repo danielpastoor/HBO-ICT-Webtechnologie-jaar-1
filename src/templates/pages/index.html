@@ -3,11 +3,75 @@
 {% set title = "Home Page" %}
 
 {% block content %}
-    <!-- Begin van de hoofdinhoud van de pagina -->
-    <div class="container mt-4">
-        <h1>Questions?</h1>
-        <p>Ask one of the following: <br>- Daniel Pastoor <br> - Nigel Visser</p>
-        <!-- Meer inhoud kan hier worden toegevoegd -->
+
+<!-- Bootstrap Carousel -->
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- Carousel-items -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/static/img/pexels-1.jpg" class="d-block w-100" alt="Image 1">
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/pexels-2.jpg" class="d-block w-100" alt="Image 2">
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/pexels-3.jpg" class="d-block w-100" alt="Image 3">
+        </div>
     </div>
-    <!-- Einde van de hoofdinhoud van de pagina -->
+
+    <!-- Vorige en volgende knoppen -->
+    <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>
+<div class="container"> <!-- Container to center and contain the row -->
+  <div class="row align-items-md-stretch">
+    <div class="col-12 pt-4"> <!-- Full width on all screen sizes -->
+      <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+        <h2>Content</h2>
+        <p>Lorem ipsum dolor sit amet. Ea provident quidem sed veniam rerum in excepturi quaerat et aspernatur eveniet vel alias odio ut molestias dolorem est dicta praesentium. Eum amet fuga ab molestias assumenda ut doloremque laudantium ut quidem corrupti qui voluptatem esse et iusto porro! Et minima unde cum nemo exercitationem ad recusandae autem nam quia natus aut soluta fugiat. Et doloremque maxime At laborum placeat qui fuga molestiae.</p>
+        <button class="btn btn-outline-secondary" type="button">Example button</button>
+      </div>
+    </div>
+    <div class="col-12 pt-4"> <!-- Full width on all screen sizes -->
+      <div class="h-100 p-5 text-bg-dark rounded-3">
+        <h2>Content</h2>
+        <p>Lorem ipsum dolor sit amet. Ea provident quidem sed veniam rerum in excepturi quaerat et aspernatur eveniet vel alias odio ut molestias dolorem est dicta praesentium. Eum amet fuga ab molestias assumenda ut doloremque laudantium ut quidem corrupti qui voluptatem esse et iusto porro! Et minima unde cum nemo exercitationem ad recusandae autem nam quia natus aut soluta fugiat. Et doloremque maxime At laborum placeat qui fuga molestiae.</p>
+        <button class="btn btn-outline-light" type="button">Example button</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container"> <!-- Container to center and contain the row -->
+  <div class="row align-items-md-stretch">
+    <div class="col-12 pt-4"> <!-- Full width on all screen sizes -->
+      <div class="h-100 p-5 text-bg-dark rounded-3">
+        <h2>Content</h2>
+        <p>Lorem ipsum dolor sit amet. Ea provident quidem sed veniam rerum in excepturi quaerat et aspernatur eveniet vel alias odio ut molestias dolorem est dicta praesentium. Eum amet fuga ab molestias assumenda ut doloremque laudantium ut quidem corrupti qui voluptatem esse et iusto porro! Et minima unde cum nemo exercitationem ad recusandae autem nam quia natus aut soluta fugiat. Et doloremque maxime At laborum placeat qui fuga molestiae.</p>
+        <button class="btn btn-outline-light" type="button">Example button</button>
+      </div>
+    </div>
+    <div class="col-12 pt-4"> <!-- Full width on all screen sizes -->
+      <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+        <h2>Content</h2>
+        <p>Lorem ipsum dolor sit amet. Ea provident quidem sed veniam rerum in excepturi quaerat et aspernatur eveniet vel alias odio ut molestias dolorem est dicta praesentium. Eum amet fuga ab molestias assumenda ut doloremque laudantium ut quidem corrupti qui voluptatem esse et iusto porro! Et minima unde cum nemo exercitationem ad recusandae autem nam quia natus aut soluta fugiat. Et doloremque maxime At laborum placeat qui fuga molestiae.</p>
+        <button class="btn btn-outline-secondary" type="button">Example button</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    $('.carousel').carousel({
+        interval: 5000  // 5000 ms = 5 seconden per slide
+    });
+});
+</script>
+
 {% endblock %}

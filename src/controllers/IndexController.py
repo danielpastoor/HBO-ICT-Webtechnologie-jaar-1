@@ -35,7 +35,7 @@ class ContactPage(ControllerBase):
 
 
 class BookingPage(ControllerBase):
-    """ContactPage controller for showing the Contact page
+    """BookingPage controller for showing the Contact page
 
     Returns:
         _type_: page
@@ -49,7 +49,7 @@ class BookingPage(ControllerBase):
 
 
 class PricingPage(ControllerBase):
-    """ContactPage controller for showing the Contact page
+    """PricingPage controller for showing the Contact page
 
     Returns:
         _type_: page
@@ -63,7 +63,7 @@ class PricingPage(ControllerBase):
 
 
 class FaqPage(ControllerBase):
-    """ContactPage controller for showing the Contact page
+    """FaqPage controller for showing the Contact page
 
     Returns:
         _type_: page
@@ -74,6 +74,34 @@ class FaqPage(ControllerBase):
         """
         # return rendered html
         return render_template("pages/faq.html")
+
+
+class LoginPage(ControllerBase):
+    """LoginPage controller for showing the Contact page
+
+    Returns:
+        _type_: page
+    """
+
+    def index(self):
+        """ Endpoint for getting the index page
+        """
+        # return rendered html
+        return render_template("pages/login.html")
+
+
+class RegisterPage(ControllerBase):
+    """RegisterPage controller for showing the Contact page
+
+    Returns:
+        _type_: page
+    """
+
+    def index(self):
+        """ Endpoint for getting the index page
+        """
+        # return rendered html
+        return render_template("pages/register.html")
 
 
 if __name__ == "__main__":

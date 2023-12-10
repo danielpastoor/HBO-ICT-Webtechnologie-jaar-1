@@ -3,7 +3,9 @@
 
 from flask import Flask
 
-from src.controllers.IndexController import IndexController, ContactPage, BookingPage, PricingPage, FaqPage
+from src.controllers.IndexController import (IndexController, ContactPage,
+                                             BookingPage, PricingPage, FaqPage,
+                                             LoginPage, RegisterPage)
 
 
 def routes(app: Flask):
@@ -15,6 +17,8 @@ def routes(app: Flask):
     BookingPage.register(app, "/booking")
     PricingPage.register(app, "/pricing")
     FaqPage.register(app, "/faqs")
+    LoginPage.register(app, "/login")
+    RegisterPage.register(app, "/register")
 
 
 if __name__ == "__main__":
