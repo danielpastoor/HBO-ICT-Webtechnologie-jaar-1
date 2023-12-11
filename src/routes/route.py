@@ -3,9 +3,12 @@
 
 from flask import Flask
 
-from src.controllers.IndexController import (IndexController, ContactPage,
-                                             BookingPage, PricingPage, FaqPage,
-                                             LoginPage, RegisterPage)
+from src.controllers.AuthenticationController import LoginPage, RegisterPage
+from src.controllers.BookingController import BookingPage
+from src.controllers.ContactController import ContactPage
+from src.controllers.FAQController import FaqPage
+from src.controllers.IndexController import IndexController
+from src.controllers.PricingController import PricingPage
 
 
 def routes(app: Flask):

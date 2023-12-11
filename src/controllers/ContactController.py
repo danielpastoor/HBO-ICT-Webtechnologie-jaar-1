@@ -6,8 +6,8 @@ from flask import render_template
 from src.controllers.Base.ControllerBase import ControllerBase
 
 
-class IndexController(ControllerBase):
-    """index controller for showing the home page
+class ContactPage(ControllerBase):
+    """ContactPage controller for showing the Contact page
 
     Returns:
         _type_: page
@@ -17,7 +17,8 @@ class IndexController(ControllerBase):
         """ Endpoint for getting the index page
         """
         # return rendered html
-        return render_template("pages/index.html")
+        return render_template("pages/contact.html")
+
 
 
 if __name__ == "__main__":
