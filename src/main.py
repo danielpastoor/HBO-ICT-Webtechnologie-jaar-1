@@ -4,8 +4,12 @@ from sys import argv
 from flask import Flask
 from werkzeug.middleware.profiler import ProfilerMiddleware
 from src.routes.route import routes
+from src.settings import init_env
 
 app = Flask(__name__)
+
+# load config
+init_env()
 
 # for enabling profiler
 if len(argv) > 1 and "--profile" in argv:
