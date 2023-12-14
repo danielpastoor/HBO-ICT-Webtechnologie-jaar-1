@@ -5,8 +5,8 @@ from flask import render_template, request
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
-from src.models.AccommodationEntity import BookingEntity
 from src.models.BaseModel.TransientObject import TransientObject
+from src.models.BookingEntity import BookingEntity
 
 
 class IndexController(ControllerBase):

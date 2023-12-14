@@ -1,0 +1,25 @@
+{% extends 'layouts/main_layout.html' %}
+{% set bodyClass = "pricing" %}
+{% set title = "Pricing" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Onze Prijzen</h2>
+    <div class="row justify-content-center">
+        {% for accommodation in accommodations %}
+            <div class="col-lg-5">
+                <div class="card mb-5 bg-white">
+                    <div class="card-header text-center">{{ accommodation.name }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ accommodation.price }} / nacht</h5>
+                        <p class="card-text">{{ accommodation.max_persons }} personen</p>
+                        <p class="card-text">
+                            {{ accommodation.description }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -8,7 +8,7 @@ from src.controllers.BookingController import BookingPage
 from src.controllers.ContactController import ContactPage
 from src.controllers.FAQController import FaqPage
 from src.controllers.IndexController import IndexController
-from src.controllers.PricingController import PricingPage
+from src.controllers.AccommodationController import AccommodationController
 
 
 def routes(app: Flask):
@@ -18,7 +18,7 @@ def routes(app: Flask):
     IndexController.register(app, "/")
     ContactPage.register(app, "/contact")
     BookingPage.register(app, "/booking")
-    PricingPage.register(app, "/pricing")
+    AccommodationController.register(app, "/accommodation")
     FaqPage.register(app, "/faqs")
     LoginPage.register(app, "/login")
     RegisterPage.register(app, "/register")

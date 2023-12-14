@@ -22,7 +22,7 @@ class BaseEntity(TransientObject):
         return self.GetValue("created_at")
 
     @created_at.setter
-    def Created_at(self, value:datetime) -> None:
+    def created_at(self, value:datetime) -> None:
         self.SetValue("created_at", value)
 
     # Modified At

@@ -1,7 +1,7 @@
 from src.models.BaseModel.BaseEntity import BaseEntity
 
 
-class BookingEntity(BaseEntity):
+class AccommodationEntity(BaseEntity):
     def __init__(self):
         pass
 
@@ -14,6 +14,15 @@ class BookingEntity(BaseEntity):
     @name.setter
     def name(self, value: str) -> None:
         self.SetValue("name", value)
+
+    # accommodation price
+    @property
+    def max_persons(self) -> int:
+        return self.GetValue("max_persons")
+
+    @max_persons.setter
+    def max_persons(self, value: int) -> None:
+        self.SetValue("max_persons", value)
 
     # accommodation price
     @property
