@@ -1,10 +1,11 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template
+from flask import render_template, request
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
+from src.models.AccommodationEntity import BookingEntity
 from src.models.BaseModel.TransientObject import TransientObject
 
 
@@ -21,12 +22,12 @@ class IndexController(ControllerBase):
 
         applicationContext = ApplicationContext()
 
-        data = applicationContext.Get("table_name")
+        # SELECT * FROM table_name
+        data = applicationContext.Get(BookingEntity())
 
-        print(data)
 
         # return rendered html
-        return render_template("pages/index.html")
+        return render_template("pages/index.html", data=data)
 
 if __name__ == "__main__":
     pass
