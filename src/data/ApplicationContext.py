@@ -31,6 +31,7 @@ class ApplicationContext:
             except Error as e:
                 print(f"The error '{e}' occurred")
 
+        print("Connection to MySQL DB successful")
         return self.__connection
 
     def Get[T:TransientObject](self, itemType:T, column: str = "*", condition: str =  None ) -> list[T]:
@@ -39,7 +40,9 @@ class ApplicationContext:
         if( condition is not None):
             query += f" WHERE {condition}"
 
+        print(query)
         cursor = self.__connect().cursor(dictionary=True)
+        print("hallo")
         result: list[T] = list[T]()
         try:
             cursor.execute(query)
@@ -101,5 +104,6 @@ class ApplicationContext:
         print(type)
         name = type.__name__
 
+        print(name.replace("Entity", " ").lower())
         return name.replace("Entity", " ").lower()
 

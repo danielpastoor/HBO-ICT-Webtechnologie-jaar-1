@@ -20,14 +20,8 @@ class IndexController(ControllerBase):
         """ Endpoint for getting the index page
         """
 
-        applicationContext = ApplicationContext()
-
-        # SELECT * FROM table_name
-        data = applicationContext.Get(BookingEntity())
-
-
         # return rendered html
-        return render_template("pages/index.html", data=data)
+        return render_template("pages/index.html")
 
 if __name__ == "__main__":
     pass
