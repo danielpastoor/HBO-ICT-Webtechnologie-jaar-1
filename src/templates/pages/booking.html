@@ -3,37 +3,23 @@
 {% set title = "Booking" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Maak uw boeking</h2>
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Maak uw boeking</h2>
 
-    <!-- Boekingsformulier -->
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-6">
-            <form>
-                <!-- Formuliervelden zoals naam, e-mail, enz. -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">Naam</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+        <!-- Boekingsformulier -->
+        <form id="bookingForm">
+            <div class="wizard-wrapper">
+                <div class="wizard-header"></div>
+                <div class="wizard-steps">
+                    {% include 'components/BookingWizard/step-information.html' %}
+                    {% include 'components/BookingWizard/step-booking-data.html' %}
+                    {% include 'components/BookingWizard/step-payment.html' %}
                 </div>
-                <!-- Andere velden... -->
-                <button type="submit" class="btn btn-primary">Verstuur</button>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-
-    <!-- Kalender -->
-    <div id="calendar"></div>
-</div>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            // Kalenderopties en -events
-        });
-        calendar.render();
-    });
-</script>
 {% endblock %}
 
+{% block scripts %}
+    <script src="/static/js/script.js"></script>
+{% endblock %}

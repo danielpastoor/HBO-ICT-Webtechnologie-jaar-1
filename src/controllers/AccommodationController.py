@@ -24,7 +24,21 @@ class AccommodationController(ControllerBase):
         data = applicationContext.Get(AccommodationEntity())
 
         # return rendered html
-        return render_template("pages/accommodation.html", accommodations=data)
+        return render_template("pages/accommodation/accommodationOverview.html", accommodations=data)
+
+    def accommodation(self, accommodation_id):
+        """ Endpoint for getting the index page
+        """
+        applicationContext = ApplicationContext()
+
+        data = applicationContext.Get(AccommodationEntity(), condition=f"id = {accommodation_id}")
+
+        if len(data) != 1:
+            return "There went something wrong", 500
+
+        # return rendered html
+        return render_template("pages/accommodation/accommodationDetail.html", accommodation=data[0])
+
 
 if __name__ == "__main__":
     pass
