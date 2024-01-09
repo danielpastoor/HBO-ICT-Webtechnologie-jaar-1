@@ -51,15 +51,23 @@ class ControllerBase:
 
                         # create url rule
                         rule = cls.build_rule("/", value)
+
                         # add url rule
                         app.add_url_rule(rule, route_name, proxy, methods=methods)
                     else:
-                        # route str
-                        route_str = f'/{name}/'
+                        methods = None
                         # create url rule
-                        rule = cls.build_rule(route_str, value)
+                        rule = cls.build_rule(name, value)
+
+                        if "__route_methods__" in value.__dict__:
+                            methods = []
+
+                            for method in value.__dict__["__route_methods__"]:
+                                if method.lower() in special_methods:
+                                    methods.append(method.upper())
+
                         # add url rule
-                        app.add_url_rule(rule, route_name, proxy)
+                        app.add_url_rule(rule, route_name, proxy, methods=methods)
                 # raise error if there is an invalid no decorator
                 except DecoratorCompatibilityError:
                     raise DecoratorCompatibilityError(
@@ -120,13 +128,12 @@ class ControllerBase:
     def build_rule(cls, rule, method=None):
         # Initialize variable
         rule_parts = []
+        arg_parts = []
         # Get the route base
         route_base = cls.get_route_base()
         if route_base:
             # Add route base to rule parts
             rule_parts.append(route_base)
-        # Add rule to rule parts
-        rule_parts.append(rule)
         ignored_rule_args = ['self']
         if hasattr(cls, 'base_args'):
             ignored_rule_args += cls.base_args
@@ -137,7 +144,14 @@ class ControllerBase:
             for arg in args:
                 if arg not in ignored_rule_args:
                     # Append the argument to the rule parts
-                    rule_parts.append("<%s>" % arg)
+                    arg_parts.append("<%s>" % arg)
+
+
+        if not (len(arg_parts) > 0 and route_base == rule):
+            # Add rule to rule parts
+            rule_parts.append(f'/{rule}/')
+
+        rule_parts = rule_parts + arg_parts
 
         # Join the rule parts with "/"
         result = "/%s" % "/".join(rule_parts)
@@ -223,3 +237,20 @@ class DecoratorCompatibilityError(Exception):
         Exception (_type_): _description_
     """    
     pass
+
+# methods decorator
+
+def RouteMethods(methods: []):
+    def decorator(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            return func(*args, **kwargs)
+
+        # Store decorator information in the wrapper
+        if '__route_methods__' not in wrapper.__dict__:
+            wrapper.__route_methods__ = []
+
+        wrapper.__route_methods__ = wrapper.__route_methods__ + methods
+        return wrapper
+
+    return decorator

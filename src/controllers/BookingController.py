@@ -3,7 +3,7 @@
 # needed imports
 from flask import render_template
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase
+from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
 from src.data.ApplicationContext import ApplicationContext
 from src.models.AccommodationEntity import AccommodationEntity
 
@@ -15,6 +15,7 @@ class BookingPage(ControllerBase):
         _type_: page
     """
 
+    @RouteMethods(["Get", "Post"])
     def book(self, accommodation_id):
         """ Endpoint for getting the index page
         """
@@ -27,7 +28,6 @@ class BookingPage(ControllerBase):
 
         # return rendered html
         return render_template("pages/booking.html", booking=data[0])
-
 
 if __name__ == "__main__":
     pass
