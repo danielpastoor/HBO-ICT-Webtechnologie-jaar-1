@@ -7,7 +7,7 @@
         <h2 class="mb-4 text-center">Maak uw boeking</h2>
 
         <!-- Boekingsformulier -->
-        <form id="bookingForm">
+        <form id="bookingForm" method="post">
             <div class="wizard-wrapper">
                 <div class="wizard-header"></div>
                 <div class="wizard-steps">
@@ -20,6 +20,12 @@
     </div>
 {% endblock %}
 
+{% block header %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
 {% block scripts %}
     <script src="/static/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/static/js/rangepicker.js"></script>
 {% endblock %}
