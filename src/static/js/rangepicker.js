@@ -15,32 +15,46 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    flatpickr("#bookingdates", {
-        mode: "range",
-        minDate: "today",
-        inline: true,
-        dateFormat: "Y-m-d",
-        disable: [
-            {
-                from: "2025-04-01",
-                to: "2025-05-01"
-            },
-            {
-                from: "2025-09-01",
-                to: "2025-12-01"
-            }
-        ],
-        onChange: function (selectedDates, dateStr) {
-            document.getElementById("bookingdates").value = dateStr;
+    var bookingDateElement = document.getElementById("");
 
-            if (selectedDates.length > 0) {
-                document.querySelector("input[name='checkindate']").value = selectedDates[0].toString("Y-m-d");
+    if (bookingDateElement) {
+        var disableDates = []
 
-                if (selectedDates.length > 1)
-                    document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toString("Y-m-d");
+        var booked_dates_string = bookingDateElement.getAttribute("data-booked-dates");
+
+        if (booked_dates_string) {
+            var booked_dates = JSON.parse(booked_dates_string)
+
+            if (booked_dates) {
+                for (let i = 0; i < booked_dates.length; i++) {
+                    var booked_date = booked_dates[i]
+
+                    disableDates.push({
+                        from: booked_date["start_date"],
+                        to: booked_date["end_date"]
+                    })
+                }
             }
         }
-    });
+
+        flatpickr("#bookingdates", {
+            mode: "range",
+            minDate: "today",
+            inline: true,
+            dateFormat: "Y-m-d",
+            disable: disableDates,
+            onChange: function (selectedDates, dateStr) {
+                document.getElementById("bookingdates").value = dateStr;
+
+                if (selectedDates.length > 0) {
+                    document.querySelector("input[name='checkindate']").value = selectedDates[0].toISOString().substring(0, 10);
+
+                    if (selectedDates.length > 1)
+                        document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toISOString().substring(0, 10);
+                }
+            }
+        });
+    }
 });
 
 

@@ -1,5 +1,6 @@
 """ Index Controller
 """
+import json
 from datetime import datetime
 
 # needed imports
@@ -29,10 +30,21 @@ class BookingPage(ControllerBase):
             data = applicationContext.Get(AccommodationEntity(), condition= f"id = {accommodation_id}")
 
             if len(data) != 1:
-                return "There went something wrong", 500
+                return render_template("pages/error.html"), 500
+
+            booked = applicationContext.Get(BookingEntity(), condition=f"accommodation_id = {accommodation_id}")
+
+            booked_dates = []
+
+            for booking in booked:
+                booked_dates.append({
+                    "start_date": booking.start_date,
+                    "end_date": booking.end_date
+                })
+
 
             # return rendered html
-            return render_template("pages/booking.html", booking=data[0])
+            return render_template("pages/booking.html", accomondation=data[0], booked_dates_str=json.dump(booked_dates))
 
         elif request.method == 'POST':
             bookingEntity = BookingEntity()
@@ -67,7 +79,7 @@ class BookingPage(ControllerBase):
                 if len(users) > 0:
                     user = users[0]
                 else:
-                    return render_template("pages/error.html")
+                    return render_template("pages/error.html"), 500
 
             bookingEntity.user_id = user.id
 
