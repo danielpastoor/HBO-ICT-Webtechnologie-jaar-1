@@ -1,21 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
     flatpickr("#weekRange", {
         mode: "range",
+        weekNumbers: true,
         minDate: "today",
+        plugins: [new rangePlugin({input: "#secondWeekRange"})],
         dateFormat: "Y-m-d",
-        // disable: [
-        //   function(date) {
-        //     // Disable all days except Mondays
-        //     return (date.getDay() !== 1);
-        //   },
-        //   }
-        // ],
         onChange: function (selectedDates, dateStr) {
             document.getElementById("weekRange").value = dateStr;
         }
     });
 
-    var bookingDateElement = document.getElementById("");
+    var bookingDateElement = document.getElementById("bookingdates");
 
     if (bookingDateElement) {
         var disableDates = []
@@ -40,19 +35,20 @@ document.addEventListener('DOMContentLoaded', function () {
         flatpickr("#bookingdates", {
             mode: "range",
             minDate: "today",
+            showMonths: 2,
             inline: true,
             dateFormat: "Y-m-d",
             disable: disableDates,
-            onChange: function (selectedDates, dateStr) {
-                document.getElementById("bookingdates").value = dateStr;
-
-                if (selectedDates.length > 0) {
-                    document.querySelector("input[name='checkindate']").value = selectedDates[0].toISOString().substring(0, 10);
-
-                    if (selectedDates.length > 1)
-                        document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toISOString().substring(0, 10);
-                }
-            }
+            // onChange: function (selectedDates, dateStr) {
+            //     document.getElementById("bookingdates").value = dateStr;
+            //
+            //     if (selectedDates.length > 0) {
+            //         document.querySelector("input[name='checkindate']").value = selectedDates[0].toISOString().substring(0, 10);
+            //
+            //         if (selectedDates.length > 1)
+            //             document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toISOString().substring(0, 10);
+            //     }
+            // }
         });
     }
 });

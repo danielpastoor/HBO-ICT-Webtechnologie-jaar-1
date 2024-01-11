@@ -40,9 +40,8 @@ class ApplicationContext:
         if( condition is not None):
             query += f" WHERE {condition}"
 
-        print(query)
         cursor = self.__connect().cursor(dictionary=True)
-        print("hallo")
+
         result: list[T] = list[T]()
         try:
             cursor.execute(query)
@@ -59,7 +58,7 @@ class ApplicationContext:
         return result
 
     def Add[T](self, data: T):
-        self.__execute_query(self.ins_query_maker(self.__GetTableName(type(T)), data.GetCurrent()))
+        self.__execute_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
 
     def Delete[T](self, itemType:T, Id):
         delete_comment = f"DELETE FROM {self.__GetTableName(type(itemType))} WHERE id = {Id}"
@@ -92,18 +91,27 @@ class ApplicationContext:
         dictsize = len(rowdict)
         sql = ''
         for i in range(dictsize):
-            if (type(rowdict[keys[i]]).__name__ == 'str'):
+            print(keys[i])
+            print(type(rowdict[keys[i]]).__name__)
+            print(type(rowdict[keys[i]]).__name__ == 'NoneType')
+            if (type(rowdict[keys[i]]).__name__ == 'str' or type(rowdict[keys[i]]).__name__ == 'datetime'):
                 sql += '\'' + str(rowdict[keys[i]]) + '\''
+            elif (type(rowdict[keys[i]]).__name__ == 'NoneType'):
+                print("add null")
+                print(sql)
+                sql += ' NULL'
+
+                print(sql)
             else:
                 sql += str(rowdict[keys[i]])
+
             if (i < dictsize - 1):
                 sql += ', '
+                print("insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")")
         return "insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")"
 
     def __GetTableName(self, type) -> str:
-        print(type)
         name = type.__name__
 
-        print(name.replace("Entity", " ").lower())
         return name.replace("Entity", " ").lower()
 

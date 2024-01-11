@@ -1,7 +1,7 @@
 from datetime import datetime
 from src.models.BaseModel.BaseEntity import BaseEntity
 
-class UserEntity(BaseEntity):
+class UsersEntity(BaseEntity):
     def __init__(self):
         pass
 
@@ -42,14 +42,23 @@ class UserEntity(BaseEntity):
         self.SetValue("city", value)
 
 
-    # adress
+    # address
     @property
-    def adress(self) -> str:
-        return self.GetValue("adress")
+    def address(self) -> str:
+        return self.GetValue("address")
 
-    @adress.setter
-    def adress(self, value: str) -> None:
-        self.SetValue("adress", value)
+    @address.setter
+    def address(self, value: str) -> None:
+        self.SetValue("address", value)
+
+    # postalcode
+    @property
+    def postalcode(self) -> str:
+        return self.GetValue("postalcode")
+
+    @postalcode.setter
+    def postalcode(self, value: str) -> None:
+        self.SetValue("postalcode", value)
 
     # house number
     @property

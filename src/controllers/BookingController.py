@@ -10,7 +10,7 @@ from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
 from src.data.ApplicationContext import ApplicationContext
 from src.models.AccommodationEntity import AccommodationEntity
 from src.models.BookingEntity import BookingEntity
-from src.models.UserEntity import UserEntity
+from src.models.UsersEntity import UsersEntity
 
 
 class BookingPage(ControllerBase):
@@ -38,13 +38,16 @@ class BookingPage(ControllerBase):
 
             for booking in booked:
                 booked_dates.append({
-                    "start_date": booking.start_date,
-                    "end_date": booking.end_date
+                    "start_date": str(booking.start_date),
+                    "end_date": str(booking.end_date)
                 })
+
+            print(booked_dates)
+            print(json.dumps(booked_dates))
 
 
             # return rendered html
-            return render_template("pages/booking.html", accomondation=data[0], booked_dates_str=json.dump(booked_dates))
+            return render_template("pages/booking.html", accomondation=data[0], booked_dates_str=json.dumps(booked_dates))
 
         elif request.method == 'POST':
             bookingEntity = BookingEntity()
@@ -57,9 +60,9 @@ class BookingPage(ControllerBase):
 
             email = request.form.get('email')
 
-            users = applicationContext.Get(UserEntity(), condition=f"email = {email}")
+            users = applicationContext.Get(UsersEntity(), condition=f"email = '{email}'")
 
-            user = UserEntity()
+            user = UsersEntity()
 
             if len(users) > 0:
                 user = users[0]
@@ -67,14 +70,15 @@ class BookingPage(ControllerBase):
                 user.username = request.form.get('username')
                 user.email = request.form.get('email')
                 user.postalcode = request.form.get('postalcode')
-                user.adress = request.form.get('street')
+                user.address = request.form.get('street')
                 user.housenumber = request.form.get('housenumber')
                 user.city = request.form.get('city')
                 user.creditcard = request.form.get('creditcard')
+                user.password = None
 
                 applicationContext.Add(user)
 
-                users = applicationContext.Get(UserEntity(), condition=f"email = {email}")
+                users = applicationContext.Get(UsersEntity(), condition=f"email = '{email}'")
 
                 if len(users) > 0:
                     user = users[0]
