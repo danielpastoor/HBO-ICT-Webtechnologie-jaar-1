@@ -4,6 +4,7 @@ from typing import TypeVar
 import mysql.connector
 from mysql.connector import Error
 
+from src.data.UserEntity import UserEntity
 from src.models.BaseModel.TransientObject import TransientObject
 
 
@@ -124,7 +125,22 @@ class ApplicationContext:
         cursor = self.__connect().cursor(dictionary=True)
         try:
             cursor.execute(query, (username,))
-            return cursor.fetchone()  # This should return a dictionary
+            user_data = cursor.fetchone()  # Fetching the user data as a dictionary
+
+            if user_data:
+                # Create and return a UserEntity object
+                return UserEntity(
+                    username=user_data['username'],
+                    email=user_data['email'],
+                    password=user_data['password'],
+                    city=user_data['city'],
+                    postcode=user_data['postcode'],
+                    address=user_data['address'],
+                    housenumber=user_data['housenumber']
+                )
+            else:
+                return None
+
         except Error as e:
             print(f"Error fetching user: {e}")
             return None

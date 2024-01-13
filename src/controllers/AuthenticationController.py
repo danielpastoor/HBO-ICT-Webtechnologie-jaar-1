@@ -1,8 +1,10 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template, request, redirect, flash
+from flask import render_template, request, redirect, flash, make_response
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
@@ -13,6 +15,10 @@ class LoginPage(ControllerBase):
 
     def index(self):
         """ Endpoint for getting the login page """
+        if current_user.is_authenticated:
+            # If user is already logged in, redirect to a different page
+            return redirect('/')
+
         return render_template("pages/login.html")
 
     def post(self):
@@ -20,12 +26,20 @@ class LoginPage(ControllerBase):
         username = request.form.get('username')
         password = request.form.get('password')
 
+        remember = 'remember_me' in request.form
+
         # Logic to validate user credentials
         user = self.validate_credentials(username, password)
+
         if user:
             # Login successful: set up the user session, etc.
+            login_user(user, remember=remember)
+            # Create a response and set a cookie
+            response = make_response(redirect('/'))
+            # Set a cookie with the user's username
+            response.set_cookie('user_cookie', user.username, max_age=60*60*24*30)  # Expires in 30 days
             flash("Login successful!", "success")
-            return redirect('/accommodation')  # Redirect to home or another dashboard page
+            return response
         else:
             # Login failed
             flash("Invalid username or password", "error")
@@ -35,10 +49,21 @@ class LoginPage(ControllerBase):
         app_context = ApplicationContext()
         user = app_context.get_user_by_username(username)
 
-        if user and 'password' in user:
-            hashed_password = user['password']
-            return check_password_hash(hashed_password, password)
-        return False
+        if user and check_password_hash(user.password, password):
+            return user
+        return None
+
+
+class LogoutPage(ControllerBase):
+
+    @login_required
+    def get(self):
+        """Handle the logout process."""
+        logout_user()
+        flash("You have been logged out.", "info")
+        # Create a response
+        response = make_response(redirect('/login'))
+        return response  # Redirect to the index page or your chosen login page
 
 
 class RegisterPage(ControllerBase):
