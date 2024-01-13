@@ -1,0 +1,24 @@
+{% extends 'layouts/main_layout.html' %}
+{% set bodyClass = "pricing" %}
+{% set title = "Pricing" %}
+
+{% block content %}
+    <div class="container mt-5">
+        {% include 'components/card-filters.html' %}
+
+        <div>
+            {% for accommodation in accommodations %}
+                {% include 'components/card-accommondation.html' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block header %}
+    <link rel="stylesheet" href="https://npmcdn.com/flatpickr@4.6.13/dist/themes/airbnb.css">
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/static/js/rangepicker.js"></script>
+{% endblock %}

@@ -1,10 +1,10 @@
 class TransientObject:
-    __CurrentData = dict[str, object]()
+    def __createCurrentIfNotExist(self):
+        if "_TransientObject__CurrentData" not in self.__dict__ and "__CurrentData" not in self.__dict__:
+           self.__CurrentData = {}
 
-    def __init__(self):
-        pass
-
-    def GetValue(self, key: str, defaulValue: object = None) -> object:
+    def GetValue[T](self, key: str, defaulValue: T = None) -> T:
+        self.__createCurrentIfNotExist()
         if key in self.__CurrentData:
             return self.__CurrentData[key]
         elif defaulValue is not None:
@@ -12,8 +12,14 @@ class TransientObject:
 
         return None
 
-    def SetValue(self, key: str, value: object) -> None:
+    def SetValue[T](self, key: str, value: T) -> None:
+        self.__createCurrentIfNotExist()
         self.__CurrentData[key] = value
 
     def GetCurrent(self):
+        self.__createCurrentIfNotExist()
         return self.__CurrentData
+
+    def SetCurrent(self, dictionary: dict[str, object]) -> None:
+        self.__createCurrentIfNotExist()
+        self.__CurrentData = dictionary

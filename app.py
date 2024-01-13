@@ -6,8 +6,8 @@ There is also a profiler option. If you want to use it, input the following
 in the command line:
 python3 app.py --profile
 """
-from src.main import run
 
+from src.main import run
 
 def main():
     """

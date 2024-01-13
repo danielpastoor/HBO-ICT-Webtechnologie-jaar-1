@@ -1,18 +1,21 @@
 import os
+from typing import TypeVar
 
 import mysql.connector
 from mysql.connector import Error
 
 from src.models.BaseModel.TransientObject import TransientObject
 
+
 class ApplicationContext:
-    __connection = None
-    __host_name = os.environ.get("DATABASE_HOST")
-    __user_name = os.environ.get("DATABASE_USERNAME")
-    __user_password = os.environ.get("DATABASE_PASSWORD")
-    __database = os.environ.get("DATABASE_NAME")
+
     def __init__(self):
-        pass
+        self.__connection = None
+        self.__host_name = os.environ.get("DATABASE_HOST")
+        self.__user_name = os.environ.get("DATABASE_USERNAME")
+        self.__user_password = os.environ.get("DATABASE_PASSWORD")
+        self.__database = os.environ.get("DATABASE_NAME")
+        self.__port = os.environ.get("DATABASE_PORT")
 
     def __connect(self):
         if self.__connection == None:
@@ -21,42 +24,50 @@ class ApplicationContext:
                     database=self.__database,
                     host=self.__host_name,
                     user=self.__user_name,
-                    passwd=self.__user_password
+                    passwd=self.__user_password,
+                    port=self.__port
                 )
                 print("Connection to MySQL DB successful")
             except Error as e:
                 print(f"The error '{e}' occurred")
 
+        print("Connection to MySQL DB successful")
         return self.__connection
 
-    def Get(self, table: str, column: str = "*", condition: str =  None ):
-        query = f"SELECT {column} FROM {table}"
+    def Get[T:TransientObject](self, itemType:T, column: str = "*", condition: str =  None ) -> list[T]:
+        query = f"SELECT {column} FROM {self.__GetTableName(type(itemType))}"
 
         if( condition is not None):
             query += f" WHERE {condition}"
 
         cursor = self.__connect().cursor(dictionary=True)
-        result = None
+
+        result: list[T] = list[T]()
         try:
             cursor.execute(query)
-            result = cursor.fetchall()
-            return result
+            tmpResult = cursor.fetchall()
+
+            for r in tmpResult:
+                tmpItem : TransientObject = type(itemType)()
+                tmpItem.SetCurrent(r)
+                result.append(tmpItem)
+
         except Error as e:
             print(f"The error '{e}' occurred")
 
         return result
 
-    def Add(self, table: str, data: TransientObject):
-        self.__execute_query(self.ins_query_maker(table, data.GetCurrent()))
+    def Add[T](self, data: T):
+        self.__execute_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
 
-    def Delete(self, table: str, Id):
-        delete_comment = f"DELETE FROM {table} WHERE id = {Id}"
+    def Delete[T](self, itemType:T, Id):
+        delete_comment = f"DELETE FROM {self.__GetTableName(type(itemType))} WHERE id = {Id}"
         self.__execute_query(delete_comment)
 
-    def Update(self, table: str, data: dict[str, object], id):
+    def Update[T](self, itemType:T, data: dict[str, object], id):
         update_query = f"""
             UPDATE
-              {table}
+              {self.__GetTableName(type(itemType))}
             SET
               {",".join([f"{key} = {value}" for key, value in data.items()])}
             WHERE
@@ -80,10 +91,27 @@ class ApplicationContext:
         dictsize = len(rowdict)
         sql = ''
         for i in range(dictsize):
-            if (type(rowdict[keys[i]]).__name__ == 'str'):
+            print(keys[i])
+            print(type(rowdict[keys[i]]).__name__)
+            print(type(rowdict[keys[i]]).__name__ == 'NoneType')
+            if (type(rowdict[keys[i]]).__name__ == 'str' or type(rowdict[keys[i]]).__name__ == 'datetime'):
                 sql += '\'' + str(rowdict[keys[i]]) + '\''
+            elif (type(rowdict[keys[i]]).__name__ == 'NoneType'):
+                print("add null")
+                print(sql)
+                sql += ' NULL'
+
+                print(sql)
             else:
                 sql += str(rowdict[keys[i]])
+
             if (i < dictsize - 1):
                 sql += ', '
+                print("insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")")
         return "insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")"
+
+    def __GetTableName(self, type) -> str:
+        name = type.__name__
+
+        return name.replace("Entity", " ").lower()
+

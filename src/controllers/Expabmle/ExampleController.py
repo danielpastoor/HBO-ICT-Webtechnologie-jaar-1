@@ -23,7 +23,6 @@ class ExampleController(ControllerBase):
         applicationContext = ApplicationContext()
 
         data = applicationContext.Get("table_name")
-
         print(data)
 
         # return rendered html
