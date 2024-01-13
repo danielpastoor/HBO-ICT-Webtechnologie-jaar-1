@@ -146,7 +146,6 @@ class ControllerBase:
                     # Append the argument to the rule parts
                     arg_parts.append("<%s>" % arg)
 
-
         if not (len(arg_parts) > 0 and route_base == rule):
             # Add rule to rule parts
             rule_parts.append(f'/{rule}/')
@@ -235,8 +234,9 @@ class DecoratorCompatibilityError(Exception):
 
     Args:
         Exception (_type_): _description_
-    """    
+    """
     pass
+
 
 # methods decorator
 

@@ -34,10 +34,10 @@ class ApplicationContext:
         print("Connection to MySQL DB successful")
         return self.__connection
 
-    def Get[T:TransientObject](self, itemType:T, column: str = "*", condition: str =  None ) -> list[T]:
+    def Get[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None) -> list[T]:
         query = f"SELECT {column} FROM {self.__GetTableName(type(itemType))}"
 
-        if( condition is not None):
+        if (condition is not None):
             query += f" WHERE {condition}"
 
         cursor = self.__connect().cursor(dictionary=True)
@@ -48,7 +48,7 @@ class ApplicationContext:
             tmpResult = cursor.fetchall()
 
             for r in tmpResult:
-                tmpItem : TransientObject = type(itemType)()
+                tmpItem: TransientObject = type(itemType)()
                 tmpItem.SetCurrent(r)
                 result.append(tmpItem)
 
@@ -60,11 +60,11 @@ class ApplicationContext:
     def Add[T](self, data: T):
         self.__execute_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
 
-    def Delete[T](self, itemType:T, Id):
+    def Delete[T](self, itemType: T, Id):
         delete_comment = f"DELETE FROM {self.__GetTableName(type(itemType))} WHERE id = {Id}"
         self.__execute_query(delete_comment)
 
-    def Update[T](self, itemType:T, data: dict[str, object], id):
+    def Update[T](self, itemType: T, data: dict[str, object], id):
         update_query = f"""
             UPDATE
               {self.__GetTableName(type(itemType))}
@@ -86,7 +86,7 @@ class ApplicationContext:
         except Error as e:
             print(f"The error '{e}' occurred")
 
-    def ins_query_maker(self, tablename:str, rowdict):
+    def ins_query_maker(self, tablename: str, rowdict):
         keys = list(rowdict.keys())
         dictsize = len(rowdict)
         sql = ''
@@ -94,9 +94,9 @@ class ApplicationContext:
             print(keys[i])
             print(type(rowdict[keys[i]]).__name__)
             print(type(rowdict[keys[i]]).__name__ == 'NoneType')
-            if (type(rowdict[keys[i]]).__name__ == 'str' or type(rowdict[keys[i]]).__name__ == 'datetime'):
+            if type(rowdict[keys[i]]).__name__ == 'str' or type(rowdict[keys[i]]).__name__ == 'datetime':
                 sql += '\'' + str(rowdict[keys[i]]) + '\''
-            elif (type(rowdict[keys[i]]).__name__ == 'NoneType'):
+            elif type(rowdict[keys[i]]).__name__ == 'NoneType':
                 print("add null")
                 print(sql)
                 sql += ' NULL'
@@ -105,13 +105,26 @@ class ApplicationContext:
             else:
                 sql += str(rowdict[keys[i]])
 
-            if (i < dictsize - 1):
+            if i < dictsize - 1:
                 sql += ', '
                 print("insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")")
         return "insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")"
 
     def __GetTableName(self, type) -> str:
-        name = type.__name__
+        # Check if the entity class has a __tablename__ attribute
+        if hasattr(type, '__tablename__'):
+            return type.__tablename__
+        else:
+            # Fallback to default naming convention
+            name = type.__name__
+            return name.replace("Entity", "").lower()
 
-        return name.replace("Entity", " ").lower()
-
+    def get_user_by_username(self, username):
+        query = "SELECT * FROM users WHERE username = %s"
+        cursor = self.__connect().cursor(dictionary=True)
+        try:
+            cursor.execute(query, (username,))
+            return cursor.fetchone()  # This should return a dictionary
+        except Error as e:
+            print(f"Error fetching user: {e}")
+            return None

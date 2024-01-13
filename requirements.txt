@@ -3,3 +3,4 @@ Jinja2==3.1.2
 werkzeug==3.0.1
 mysql-connector-python==8.2.0
 python-dotenv==1.0.0
+pip~=23.3.1
