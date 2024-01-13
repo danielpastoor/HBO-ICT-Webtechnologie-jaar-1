@@ -53,7 +53,24 @@
                                aria-label="Search">
                     </form>
 
-                    <a href="/login" class="btn btn-secondary">Login/Sign-up</a>
+                    {% if current_user.is_authenticated %}
+                        <!-- Dropdown Menu for Logged-In Users -->
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user"></i> Profile
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/settings">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <!-- Display login/register button when not logged in -->
+                        <a href="/login" class="btn btn-secondary">Login/Sign-up</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

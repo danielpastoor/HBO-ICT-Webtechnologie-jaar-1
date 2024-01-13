@@ -19,9 +19,13 @@ class IndexController(ControllerBase):
     def index(self):
         """ Endpoint for getting the index page
         """
+        # user_cookie = request.cookies.get('user_cookie') #TODO: revisite later
+        # if user_cookie:
+        # Perform actions based on the user_cookie
 
         # return rendered html
         return render_template("pages/index.html")
+
 
 if __name__ == "__main__":
     pass

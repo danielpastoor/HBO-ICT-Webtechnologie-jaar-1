@@ -1,7 +1,8 @@
+from flask_login import UserMixin
 from src.models.BaseModel.TransientObject import TransientObject
 
 
-class UserEntity(TransientObject):
+class UserEntity(UserMixin, TransientObject):
     __tablename__ = 'users'
 
     def __init__(self, username, email, password, city, postcode, address, housenumber):
@@ -32,3 +33,5 @@ class UserEntity(TransientObject):
             'housenumber': self.housenumber
         }
 
+    def get_id(self):
+        return self.username
