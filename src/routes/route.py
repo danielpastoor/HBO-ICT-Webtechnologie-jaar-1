@@ -3,7 +3,7 @@
 
 from flask import Flask
 
-from src.controllers.AuthenticationController import LoginPage, RegisterPage, LogoutPage
+from src.controllers.AuthenticationController import LoginPage, RegisterPage, LogoutPage, ResetPasswordController
 from src.controllers.BookingController import BookingPage
 from src.controllers.ContactController import ContactPage
 from src.controllers.FAQController import FaqPage
@@ -23,6 +23,7 @@ def routes(app: Flask):
     LoginPage.register(app, "/login")
     RegisterPage.register(app, "/register")
     LogoutPage.register(app, "/logout")
+    ResetPasswordController.register(app, "/reset-password")
 
 
 if __name__ == "__main__":

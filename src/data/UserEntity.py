@@ -5,10 +5,7 @@ from src.models.BaseModel.TransientObject import TransientObject
 class UserEntity(UserMixin, TransientObject):
     __tablename__ = 'users'
 
-    def __init__(self):
-        pass
-
-    def __init__(self, username, email, password, city, postcode, address, housenumber, id = None):
+    def __init__(self, username, email, password, city, postcode, address, housenumber):
         if not username:
             raise ValueError("Username cannot be empty")
         if not email:
@@ -24,7 +21,6 @@ class UserEntity(UserMixin, TransientObject):
         self.postcode = postcode
         self.address = address
         self.housenumber = housenumber
-        self.id = id
 
     def GetCurrent(self):
         return {
@@ -35,7 +31,6 @@ class UserEntity(UserMixin, TransientObject):
             'postcode': self.postcode,
             'address': self.address,
             'housenumber': self.housenumber,
-            'id': self.id
         }
 
     def get_id(self):

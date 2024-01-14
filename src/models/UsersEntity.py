@@ -2,7 +2,7 @@ from datetime import datetime
 from src.models.BaseModel.BaseEntity import BaseEntity
 
 class UsersEntity(BaseEntity):
-    def __init__(self):
+        def __init__(self):
         pass
 
     # Name of the person
