@@ -1,57 +1,52 @@
 footer {
-    .content-wrapper {
-        position: relative;
-        display: flex;
-        justify-content: center;
+  background: $secondary;
+  color: white;
 
-        &:after {
-            content: "";
-            position: absolute;
-            height: 2px;
-            background-color: black;
-            width: 100%;
-            bottom: 0;
-            right: 0;
-            left: 0;
-        }
+  h5, a, span {
+    color: white;
+  }
 
-        .content {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-evenly;
-            padding-bottom: 20px;
-            max-width: calc(100% - 50px);
-            width: 100%;
+  h5 {
+    font-size: 36px;
+  }
 
-            @media only screen and (min-width: 1400px) {
-                max-width: 1350px;
-            }
-
-            ul {
-                list-style-type: none;
-                margin: 0;
-            }
-
-            h3 {
-                margin-bottom: 15px;
-            }
-
-            .left {
-                li {
-                    margin-bottom: 10px
-                }
-
-                li:last-child {
-                    margin-bottom: 0;
-                }
-            }
-        }
+  .footer-main {
+    .nav {
+      a {
+        font-family: $font-family-base !important;
+      }
     }
 
-    .content-bottom {
-        height: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .contact-wrapper {
+      i {
+        margin-right: 5px;
+        color: $primary;
+      }
+
+      a {
+        font-family: $font-family-base !important;
+      }
     }
+
+    .quick-links-wrapper {
+      list-style-type: disc;
+
+      li.nav-item {
+
+        &::marker {
+          color: $primary;
+          font-size: 25px;
+        }
+
+        a {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .copy-right {
+    background: darken($secondary, 10%);
+    color: white;
+  }
 }
