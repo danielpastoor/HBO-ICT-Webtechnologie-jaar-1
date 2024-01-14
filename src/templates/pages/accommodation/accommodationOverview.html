@@ -1,14 +1,19 @@
 {% extends 'layouts/main_layout.html' %}
 {% set bodyClass = "pricing" %}
-{% set title = "Pricing" %}
+{% set title = "Accommodatie" %}
 
 {% block content %}
-    <div class="container mt-5">
-        {% include 'components/card-filters.html' %}
+    {% include 'components/blocks/hero/block-hero.html' %}
 
-        <div>
+    {% include 'components/blocks/block-filters.html' %}
+
+
+    <div class="block block-accommodations">
+        <div class="row">
             {% for accommodation in accommodations %}
-                {% include 'components/card-accommondation.html' %}
+                <div class="mb-5">
+                    {% include 'components/cards/card-accommodation.html' %}
+                </div>
             {% endfor %}
         </div>
     </div>

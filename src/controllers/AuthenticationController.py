@@ -34,6 +34,7 @@ class LoginPage(ControllerBase):
         if user:
             # Login successful: set up the user session, etc.
             login_user(user, remember=remember)
+
             # Create a response and set a cookie
             response = make_response(redirect('/'))
             # Set a cookie with the user's username

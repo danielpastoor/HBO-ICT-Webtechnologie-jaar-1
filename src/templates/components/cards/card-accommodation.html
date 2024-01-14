@@ -1,0 +1,30 @@
+<div class="col-sm-12 col-md-24" style="visibility: visible; animation-name: fadeInRight;">
+    <article class="card card-accommodation flex-column flex-md-row align-items-md-stretch">
+        <div><a href="/accommodation/{{ accommodation.id }}">
+            <picture>
+                <img src="{{ accommodation.thumbnail_image }}">
+            </picture>
+        </a></div>
+
+        <div class="body">
+            <h5 class="title"><a
+                    href="/accommodation/{{ accommodation.id }}">{{ accommodation.name }}</a></h5>
+            <div class="d-flex justify-content-start mb-2">
+                <div class="rating">
+                    <span class="fas fa-star"></span><span
+                        class="fas fa-star"></span><span
+                        class="fas fa-star"></span><span
+                        class="fas fa-star"></span><span
+                        class="fas fa-star"></span></div>
+                <span class="reviews-text" >reviews</span>
+            </div>
+            <p class="text">{{ accommodation.description }}</p>
+
+            <a class="btn btn-primary mt-4" href="/accommodation/{{ accommodation.id }}">Meer Info</a>
+            <div class="price-wrap"><span
+                    class="price">€{{ accommodation.price }}</span><span>/nacht</span>
+                <span>{{ accommodation.max_persons }} PP max</span>
+            </div>
+        </div>
+    </article>
+</div>

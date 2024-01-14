@@ -25,14 +25,14 @@ class DashboardController(ControllerBase):
         """ Endpoint for getting the index page
         """
 
-        print(flask_login.current_user)
-
-        applicationContext = ApplicationContext()
-
-        bookings = applicationContext.Get(BookingEntity(), "*", f"id = {flask_login.current_user.id}")
+        # print(flask_login.current_user)
+        #
+        # applicationContext = ApplicationContext()
+        #
+        # bookings = applicationContext.Get(BookingEntity(), "*", f"id = {flask_login.current_user.id}")
 
         # return rendered html
-        return render_template("pages/dashboard/dashboard.html", bookings=bookings)
+        return render_template("pages/dashboard/dashboard.html", bookings=[])
 
 
 

@@ -69,7 +69,7 @@ class UsersEntity(BaseEntity):
     def housenumber(self, value: str) -> None:
         self.SetValue("housenumber", value)
 
-    # Credit card
+    # Credit cards
     @property
     def credit_card(self) -> str:
         return self.GetValue("credit_card")
