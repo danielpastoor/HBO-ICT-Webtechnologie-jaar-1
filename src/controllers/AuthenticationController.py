@@ -79,8 +79,8 @@ class ResetPasswordController(ControllerBase):
             flash("User not found", "error")
             return render_template('pages/reset-password.html')
 
+        #TODO: Maak custom functie voor update password
         update_data = {"password": generate_password_hash(password)}
-        app_context.Update(UserEntity(), update_data, user.id)
 
         flash("Password reset successful", "success")
         return redirect("/login")
