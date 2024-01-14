@@ -1,0 +1,29 @@
+{% extends 'layouts/main_layout.html' %}
+{% set isAdmin = true %}
+{% set bodyClass = "dashboard" %}
+{% set title = "Dashboard" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center">Dashboard</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Booking Start Date</th>
+                <th scope="col">Booking End Date</th>
+                <th scope="col">Accommodation</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.start_date }}</td>
+                    <td>{{ booking.end_date }}</td>
+                    <td>{{ booking.accommodation_id }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
