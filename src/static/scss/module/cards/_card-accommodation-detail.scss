@@ -1,0 +1,93 @@
+.card-accommodation-detail {
+  picture {
+    max-width: 500px;
+    max-height: 350px;
+    width: 500px;
+    display: block;
+    height: 366px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .body {
+    position: relative;
+    padding: 30px 90px 30px 45px;;
+
+    .title {
+      font-size: 24px;
+      font-weight: 400;
+      letter-spacing: .075em;
+
+      a {
+        color: black;
+      }
+    }
+
+    .price-wrap {
+      position: absolute;
+      overflow: hidden;
+      text-align: center;
+      top: 0;
+      right: 0;
+      line-height: 1;
+      font-weight: 300;
+      letter-spacing: .025em;
+      text-transform: uppercase;
+      color: rgba(68, 67, 73, 0.4);
+      background: transparent;
+      z-index: 1;
+      font-size: 16px;
+      padding: 30px 17px 20px;
+      display: flex;
+      flex-direction: column;
+
+      &:before {
+        position: absolute;
+        content: '';
+        bottom: 0;
+        left: 14px;
+        width: 400%;
+        height: 100%;
+        background: #ffce40;
+        transform: skew(45deg);
+        transform-origin: 50% 100%;
+        will-change: transform;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      @media (min-width: 768px) {
+        .price-wrap::before {
+          left: 24px;
+        }
+      }
+
+      .price {
+        font-weight: bold;
+        color: black;
+        font-size: 20px;
+      }
+    }
+
+    .rating {
+      .fas.fa-star {
+        font-size: 19px;
+        letter-spacing: 0;
+        line-height: 24px;
+        color: #ffcc00;
+      }
+    }
+
+    .reviews-text {
+      margin-left: 12px;
+    }
+
+    .text {
+      color: #9b9b9b;
+    }
+  }
+}

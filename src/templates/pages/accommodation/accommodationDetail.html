@@ -5,32 +5,51 @@
 {% block content %}
     {% include 'components/blocks/hero/block-hero.html' %}
 
-    <section>
-     <img class="" src="{{ accommodation.image }}" alt="Card image cap">
-     <img class="" src="{{ accommodation.image }}" alt="Card image cap">
-     <img class="" src="{{ accommodation.image }}" alt="Card image cap">
-     <img class="" src="{{ accommodation.image }}" alt="Card image cap">
-     <img class="" src="{{ accommodation.image }}" alt="Card image cap">
-    </section>
-    <section class="card mb-5 bg-white">
-        <div class="d-flex">
-            <div class="card-body">
-                <div class="card-header text-center">
-                    <div class="row">
-                        <div class="col-24 col-md-12">
-                            <h2 class="card-title">{{ accommodation.name }}</h2>
-                        </div>
-                        <div class="col-24 col-md-12">
-                            <a href="/booking/book/{{ accommodation.id }}" class="btn btn-primary">Book</a>
-                        </div>
-                    </div>
+    <div class="container-xl mt-4">
+        <article class="card card-accommodation-detail flex-column flex-md-row align-items-md-stretch">
+            <div id="accommodation-images" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                    <button data-target="#accommodation-images" data-slide-to="0" class="active"></button>
+                    {% for index in range(accommodation.get_images_count()) %}
+                        <button data-target="#accommodation-images" data-slide-to="{{ index + 1 }}"></button>
+                    {% endfor %}
                 </div>
-                <h5 class="card-title">{{ accommodation.price }} / nacht</h5>
-                <p class="card-text">{{ accommodation.max_persons }} personen</p>
-                <p class="card-text">
-                    {{ accommodation.description }}
-                </p>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <picture>
+                            <img class="" src="/static/img/{{ accommodation.thumbnail_image }}" alt="Card image cap">
+                        </picture>
+                    </div>
+                    {% for image in accommodation.get_images() %}
+                        <div class="carousel-item">
+                            <picture>
+                                <img class="" src="/static/img/{{ image }}" alt="Card image cap">
+                            </picture>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
-    </section>
+
+            <div class="body">
+                <h5 class="title"><a
+                        href="/accommodation/{{ accommodation.id }}">{{ accommodation.name }}</a></h5>
+                <div class="d-flex justify-content-start mb-2">
+                    <div class="rating">
+                        <span class="fas fa-star"></span><span
+                            class="fas fa-star"></span><span
+                            class="fas fa-star"></span><span
+                            class="fas fa-star"></span><span
+                            class="fas fa-star"></span></div>
+                    <span class="reviews-text">reviews</span>
+                </div>
+                <p class="text">{{ accommodation.description }}</p>
+
+                <a class="btn btn-primary mt-4" href="/booking/book/{{ accommodation.id }}">Boeken</a>
+                <div class="price-wrap"><span
+                        class="price">€{{ accommodation.price }}</span><span>/nacht</span>
+                    <span>{{ accommodation.max_persons }} PP max</span>
+                </div>
+            </div>
+        </article>
+    </div>
 {% endblock %}
