@@ -35,22 +35,30 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var loginForm = document.getElementById('login-form');
-            var usernameInput = document.getElementById('username');
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var loginForm = document.getElementById('login-form');
+    var usernameInput = document.getElementById('username');
+    var rememberCheckbox = document.getElementById('remember_me');
 
-            loginForm.addEventListener('submit', function() {
-                if (document.getElementById('remember_me').checked) {
-                    localStorage.setItem('savedUsername', usernameInput.value);
-                } else {
-                    localStorage.removeItem('savedUsername');
-                }
-            });
+    // Set the checkbox state based on what's saved in local storage
+    rememberCheckbox.checked = localStorage.getItem('remember_me') === 'true';
 
-            if (localStorage.getItem('savedUsername')) {
-                usernameInput.value = localStorage.getItem('savedUsername');
-            }
-        });
-    </script>
+    // Populate the username field if it's saved and the remember me checkbox is checked
+    if (rememberCheckbox.checked && localStorage.getItem('savedUsername')) {
+        usernameInput.value = localStorage.getItem('savedUsername');
+    }
+
+    loginForm.addEventListener('submit', function() {
+        // Save the username in local storage if remember me is checked
+        if (rememberCheckbox.checked) {
+            localStorage.setItem('savedUsername', usernameInput.value);
+            localStorage.setItem('remember_me', 'true');
+        } else {
+            localStorage.removeItem('savedUsername');
+            localStorage.removeItem('remember_me');
+        }
+    });
+});
+</script>
 {% endblock %}
