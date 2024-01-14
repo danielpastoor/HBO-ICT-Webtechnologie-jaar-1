@@ -4,52 +4,61 @@
   max-width: 300px; /* Maximale breedte van de zoekbalk */
   margin-right: 10px; /* Dezelfde spacing als de navigatie links */
 }
+
 .form-control-dark {
   background-color: #fff;
   border-color: #333;
   color: #fff;
 }
+
 .custom-footer {
   background-color: rgba(255, 255, 255, 0); /* Transparante achtergrond */
   border-top: 1px solid rgba(128, 128, 128, 0.5); /* Grijze fading lijn */
 }
+
 .header-logo img {
   height: 50px;
   width: auto;
 }
-/* Aanpassingen aan de carousel voor volledige breedte */
-.carousel {
-  width: 100%;
-  margin-top: -1px;
-}
-/* Stel de maximale hoogte van de afbeeldingen in */
-.carousel img {
-  max-height: 700px;
-  width: 100%;
-}
-.carousel-item {
+
+#myCarousel {
+  &.carousel {
+    width: 100%;
+    margin-top: -1px;
+  }
+
+  /* Stel de maximale hoogte van de afbeeldingen in */
+  .carousel img {
+    max-height: 700px;
+    width: 100%;
+  }
+
+  .carousel-item {
     backface-visibility: hidden;
     visibility: hidden;
     opacity: 0;
     transition: transform 1s ease, opacity 1s ease;
-}
+  }
 
-.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+  .carousel-item-next, .carousel-item-prev, .carousel-item.active {
     visibility: visible;
     opacity: 1;
-}
+  }
 
-.carousel-item-next.carousel-item-left, .carousel-item-prev.carousel-item-right {
+  .carousel-item-next.carousel-item-left, .carousel-item-prev.carousel-item-right {
     transform: scale(0.9);
+  }
+
+  .carousel-item.active {
+    transform: scale(1);
+  }
 }
 
-.carousel-item.active {
-    transform: scale(1);
-}
 .rounded {
-    border: 2px solid grey; /* Grijze randen */
-    border-radius: 15px; /* Ronde hoeken */
+  border: 2px solid grey; /* Grijze randen */
+  border-radius: 15px; /* Ronde hoeken */
 }
+
 .border-gray {
   border-color: #ced4da !important; /* Bootstrap's standaard grijze randkleur */
 }

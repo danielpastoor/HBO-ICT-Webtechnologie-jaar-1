@@ -50,3 +50,16 @@ class AccommodationEntity(BaseEntity):
     @thumbnail_image.setter
     def thumbnail_image(self, value: str) -> None:
         self.SetValue("thumbnail_image", value)
+
+    @property
+    def images(self) -> str:
+        return self.GetValue("images", "/static/img/default-accomodation.jpg")
+
+    @images.setter
+    def images(self, value: str) -> None:
+        self.SetValue("images", value)
+    def get_images(self):
+        return self.images.split(';')
+
+    def get_images_count(self) -> int:
+        return len(self.get_images())
