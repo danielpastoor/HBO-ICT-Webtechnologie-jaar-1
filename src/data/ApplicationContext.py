@@ -66,11 +66,21 @@ class ApplicationContext:
         self.__execute_query(delete_comment)
 
     def Update[T](self, itemType: T, data: dict[str, object], id):
+        update_dict = {}
+
+        for key, value in data.items():
+            if type(value).__name__ == 'str' or type(value).__name__ == 'datetime':
+                update_dict[key] = '\'' + str(value) + '\''
+            elif type(value).__name__ == 'NoneType':
+                update_dict[key] = ' NULL'
+            else:
+                update_dict[key] = str(value)
+
         update_query = f"""
             UPDATE
               {self.__GetTableName(type(itemType))}
             SET
-              {",".join([f"{key} = {value}" for key, value in data.items()])}
+              {",".join([f"{key} = {value}" for key, value in update_dict.items()])}
             WHERE
               id = {id}
         """
@@ -92,23 +102,15 @@ class ApplicationContext:
         dictsize = len(rowdict)
         sql = ''
         for i in range(dictsize):
-            print(keys[i])
-            print(type(rowdict[keys[i]]).__name__)
-            print(type(rowdict[keys[i]]).__name__ == 'NoneType')
             if type(rowdict[keys[i]]).__name__ == 'str' or type(rowdict[keys[i]]).__name__ == 'datetime':
                 sql += '\'' + str(rowdict[keys[i]]) + '\''
             elif type(rowdict[keys[i]]).__name__ == 'NoneType':
-                print("add null")
-                print(sql)
                 sql += ' NULL'
-
-                print(sql)
             else:
                 sql += str(rowdict[keys[i]])
 
             if i < dictsize - 1:
                 sql += ', '
-                print("insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")")
         return "insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")"
 
     def __GetTableName(self, type) -> str:
@@ -136,7 +138,8 @@ class ApplicationContext:
                     city=user_data['city'],
                     postcode=user_data['postcode'],
                     address=user_data['address'],
-                    housenumber=user_data['housenumber']
+                    housenumber=user_data['housenumber'],
+                    id=user_data['id']
                 )
             else:
                 return None
