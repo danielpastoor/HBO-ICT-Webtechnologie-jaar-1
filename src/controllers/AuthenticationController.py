@@ -4,14 +4,18 @@
 from flask import render_template, request, redirect, flash, make_response
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
+import logging
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase
+from src.controllers.Base.ControllerBase import ControllerBase, is_password_complex
 from src.data.ApplicationContext import ApplicationContext
 from src.data.UserEntity import UserEntity
 
 
 class LoginPage(ControllerBase):
+
+    def __init__(self):
+        self.auth_processor = AuthenticationProcessor()
 
     def index(self):
         """ Endpoint for getting the login page """
@@ -29,7 +33,7 @@ class LoginPage(ControllerBase):
         remember = 'remember_me' in request.form
 
         # Logic to validate user credentials
-        user = self.validate_credentials(username, password)
+        user = self.auth_processor.validate_credentials(username, password)
 
         if user:
             # Login successful: set up the user session, etc.
@@ -45,13 +49,40 @@ class LoginPage(ControllerBase):
             flash("Invalid username or password", "error")
             return render_template("pages/login.html")
 
-    def validate_credentials(self, username, password):
-        app_context = ApplicationContext()
-        user = app_context.get_user_by_username(username)
 
-        if user and check_password_hash(user.password, password):
+class AuthenticationProcessor:
+    MAX_LOGIN_ATTEMPTS = 5  # Maximaal toegestane inlogpogingen
+
+    def __init__(self):
+        self.app_context = ApplicationContext()
+        self.failed_login_attempts = {}  # Houdt mislukte inlogpogingen bij
+
+    def validate_credentials(self, username, password):
+        """
+        Valideert de inloggegevens van de gebruiker. """
+
+        user = self.app_context.get_user_by_username(username)
+
+        # Controleer of de gebruiker bestaat
+        if not user:
+            logging.warning(f"Inlogpoging voor niet-bestaande gebruiker: {username}")
+            return None
+
+        # Controleer op te veel mislukte inlogpogingen
+        if self.failed_login_attempts.get(username, 0) >= self.MAX_LOGIN_ATTEMPTS:
+            logging.warning(f"Account vergrendeld wegens te veel mislukte inlogpogingen: {username}")
+            return None
+
+        # Valideer het wachtwoord
+        if check_password_hash(user.password, password):
+            logging.info(f"Gebruiker {username} succesvol ingelogd")
+            self.failed_login_attempts[username] = 0  # Reset de teller bij succesvolle inlog
             return user
-        return None
+        else:
+            # Verhoog het aantal mislukte inlogpogingen
+            self.failed_login_attempts[username] = self.failed_login_attempts.get(username, 0) + 1
+            logging.warning(f"Onjuiste wachtwoordpoging voor gebruiker: {username}")
+            return None
 
 
 class ResetPasswordController(ControllerBase):
@@ -73,17 +104,24 @@ class ResetPasswordController(ControllerBase):
             flash("Passwords do not match", "error")
             return render_template('pages/reset-password.html')
 
+        if not is_password_complex(password):
+            flash("Password is not complex enough", "error")
+            return render_template('pages/register.html')
+
         user = app_context.get_user_by_username(username)
 
         if user is None:
             flash("User not found", "error")
             return render_template('pages/reset-password.html')
 
-        #TODO: Maak custom functie voor update password
-        update_data = {"password": generate_password_hash(password)}
-
-        flash("Password reset successful", "success")
-        return redirect("/login")
+        # Update the user's password
+        success = app_context.update_user_password(username, password)
+        if success:
+            flash("Password reset successful", "success")
+            return redirect("/login")
+        else:
+            flash("Password reset failed", "error")
+            return render_template('pages/reset-password.html')
 
 
 class LogoutPage(ControllerBase):
@@ -119,6 +157,10 @@ class RegisterPage(ControllerBase):
         # Validate and hash the password
         if password != confirm_password:
             flash("Passwords do not match", "error")
+            return render_template('pages/register.html')
+
+        if not is_password_complex(password):
+            flash("Password is not complex enough", "error")
             return render_template('pages/register.html')
 
         hashed_password = generate_password_hash(password)

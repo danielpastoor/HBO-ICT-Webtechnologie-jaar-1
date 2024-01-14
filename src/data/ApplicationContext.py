@@ -3,6 +3,7 @@ from typing import TypeVar
 
 import mysql.connector
 from mysql.connector import Error
+from werkzeug.security import generate_password_hash
 
 from src.data.UserEntity import UserEntity
 from src.models.BaseModel.TransientObject import TransientObject
@@ -154,3 +155,19 @@ class ApplicationContext:
         except Error as e:
             print(f"Error fetching user: {e}")
             return None
+
+    def update_user_password(self, username, new_password):
+
+        hashed_password = generate_password_hash(new_password)
+        update_query = "UPDATE users SET password = %s WHERE username = %s"
+
+        try:
+            cursor = self.__connect().cursor()
+            cursor.execute(update_query, (hashed_password, username))
+            self.__connection.commit()
+            cursor.close()
+            return True
+        except Error as e:
+            print(f"Error updating user password: {e}")
+            return False
+

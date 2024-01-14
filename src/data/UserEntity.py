@@ -35,3 +35,4 @@ class UserEntity(UserMixin, TransientObject):
 
     def get_id(self):
         return self.username
+

@@ -1,6 +1,7 @@
 from datetime import datetime
 from src.models.BaseModel.BaseEntity import BaseEntity
 
+
 class UsersEntity(BaseEntity):
     def __init__(self):
         pass
@@ -40,7 +41,6 @@ class UsersEntity(BaseEntity):
     @city.setter
     def city(self, value: str) -> None:
         self.SetValue("city", value)
-
 
     # address
     @property
