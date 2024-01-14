@@ -146,8 +146,7 @@ class ApplicationContext:
                     city=user_data['city'],
                     postcode=user_data['postcode'],
                     address=user_data['address'],
-                    housenumber=user_data['housenumber'],
-                    id=user_data['id']
+                    housenumber=user_data['housenumber']
                 )
             else:
                 return None

@@ -6,10 +6,9 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
+from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
 from src.data.UserEntity import UserEntity
-from src.models.UsersEntity import UsersEntity
 
 
 class LoginPage(ControllerBase):
@@ -50,40 +49,41 @@ class LoginPage(ControllerBase):
         app_context = ApplicationContext()
         user = app_context.get_user_by_username(username)
 
-        if not user or not user.password:
-            return None
-
         if user and check_password_hash(user.password, password):
             return user
         return None
 
-    @RouteMethods(["GET", "POST"])
-    def ResetPassword(self):
 
-        if request.method == "POST":
-            app_context = ApplicationContext()
+class ResetPasswordController(ControllerBase):
 
-            username = request.form.get('username')
-            password = request.form.get('password')
-            confirm_password = request.form.get('confirm_password')
+    def get(self):
+        """ Render the reset password page """
+        return render_template('pages/reset-password.html')
 
-            # Validate and hash the password
-            if password != confirm_password:
-                flash("Passwords do not match", "error")
-                return render_template('pages/reset-password.html')
+    def post(self):
+        """ Handle the reset password POST request """
+        app_context = ApplicationContext()
 
-            user = app_context.get_user_by_username(username)
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
 
-            if user is None:
-                return render_template('pages/error.html')
-
-            update_data = {"password": generate_password_hash(password)}
-
-            app_context.Update(UsersEntity(), update_data, user.id)
-
-            return redirect("/login")
-        else:
+        # Validate and hash the password
+        if password != confirm_password:
+            flash("Passwords do not match", "error")
             return render_template('pages/reset-password.html')
+
+        user = app_context.get_user_by_username(username)
+
+        if user is None:
+            flash("User not found", "error")
+            return render_template('pages/reset-password.html')
+
+        #TODO: Maak custom functie voor update password
+        update_data = {"password": generate_password_hash(password)}
+
+        flash("Password reset successful", "success")
+        return redirect("/login")
 
 
 class LogoutPage(ControllerBase):
