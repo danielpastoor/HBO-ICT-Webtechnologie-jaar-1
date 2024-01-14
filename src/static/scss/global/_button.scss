@@ -5,34 +5,51 @@
   padding: 0.375rem 23px 0.375rem;
   background: none;
   box-shadow: none;
+  font-weight: bold;
 
   &:hover {
     border-bottom-left-radius: 5px;
     border-top-right-radius: 5px;
+    transition: background .4s .4s, border-color .4s 0s;
   }
 
   &-primary {
-    border: 2px var(--primary-color) solid;
+    border: 2px black solid;
     color: black;
 
     &:hover {
-      background: var(--primary-color);
-      border: 2px var(--primary-color) solid;
+      background: var(--bs-primary);
+      border: 2px var(--bs-primary) solid;
+      color: white;
+    }
+
+    &.filled {
+      background: var(--bs-primary);
+      color: white;
+    }
+
+    &.btn-white {
+      border: 2px white solid;
+      color: white;
     }
   }
 
   &-secondary {
-    border: 2px var(--secondary-color) solid;
+    border: 2px var(--bs-secondary) solid;
     color: black;
 
     &:hover {
-      background: var(--secondary-color);
-      border: 2px var(--secondary-color) solid;
+      background: var(--bs-secondary);
+      border: 2px var(--bs-secondary) solid;
+    }
+
+    &.filled {
+      background: var(--bs-secondary);
     }
   }
 
   &.active {
-    background-color: var(--secondary-color, black);
+    background-color: var(--bs-secondary, black);
     border-bottom-left-radius: 5px;
     border-top-right-radius: 5px;
   }

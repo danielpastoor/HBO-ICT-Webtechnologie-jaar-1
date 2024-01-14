@@ -13,6 +13,9 @@
     <title>{{ title }}</title>
     {% if "detail" in bodyClass %}
     {% endif %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css">
@@ -22,74 +25,89 @@
 </head>
 
 <body class="{{ bodyClass }}">
-<header class="p-3 text-white">
-    <div class="container-fluid">
-        <div class="d-flex flex-wrap align-items-center justify-content-between">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
-                <img src="/static/img/272863.png" alt="logo">
-            </a>
+<header>
+    <div class="nav-aside-wrapper d-flex flex-wrap align-items-center justify-content-between">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none header-logo">
+            <img src="/static/img/272863.png" alt="logo">
+            Block en Huisjes
+        </a>
 
-            <nav class="d-flex flex-wrap align-items-center">
-                {% if isDashboard %}
-                    {% if isAdmin %}
-                        <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
-                           class="nav-item" {% endif %}>
-                            <i class="fas fa-home"></i> Homes
-                        </a>
-                    {% else %}
-                        <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
-                           class="nav-item" {% endif %}>
-                            <i class="fas fa-home"></i> Homesss
-                        </a>
-                    {% endif %}
+        <div class="information-wrapper d-flex">
+            <div class="open-times d-flex">
+                <i class="far fa-clock"></i>
+                <span>9:00</span>
+                -
+                <span>17:00</span>
+            </div>
+            <div class="d-flex">
+                <i class="fas fa-phone-alt"></i>
+                <a class="link-phone" href="tel:+1 323-913-4688">+1 323-913-4688</a>
+            </div>
+        </div>
+        <a class="btn btn-primary" href="/accommodation">BOEK NU</a>
+    </div>
+
+    <div class="nav-wrapper d-flex flex-wrap align-items-center justify-content-between bs-secondary">
+        <nav class="d-flex flex-wrap align-items-center">
+            {% if isDashboard %}
+                {% if isAdmin %}
+                    <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                       class="nav-item" {% endif %}>
+                        <i class="fas fa-home"></i> Homes
+                    </a>
                 {% else %}
                     <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                    <a href="/accommodation/" {% if bodyClass == "accommodation" %}
-                       class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-tags"></i> Accommodation
-                    </a>
-                    <a href="/faqs/" {% if bodyClass == "faqs" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-question-circle"></i> FAQs
-                    </a>
-                    <a href="/contact/" {% if bodyClass == "contact" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-envelope"></i> Contact
+                        <i class="fas fa-home"></i> Homesss
                     </a>
                 {% endif %}
+            {% else %}
+                <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="/accommodation/" {% if bodyClass == "accommodation" %}
+                   class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>
+                    <i class="fas fa-tags"></i> Accommodation
+                </a>
+                <a href="/faqs/" {% if bodyClass == "faqs" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>
+                    <i class="fas fa-question-circle"></i> FAQs
+                </a>
+                <a href="/contact/" {% if bodyClass == "contact" %} class="nav-item active" {% else %}
+                   class="nav-item" {% endif %}>
+                    <i class="fas fa-envelope"></i> Contact
+                </a>
+            {% endif %}
 
-            </nav>
+        </nav>
 
-            <div class="d-flex align-items-center">
-                <form class="form-inline my-2 my-lg-0 search-bar">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search..."
-                           aria-label="Search">
-                </form>
+        <div class="d-flex align-items-center">
+            <form class="form-inline my-2 my-lg-0 search-bar">
+                <input type="search" class="form-control form-control-dark" placeholder="Search..."
+                       aria-label="Search">
+            </form>
 
-                {% if current_user.is_authenticated %}
-                    <!-- Dropdown Menu for Logged-In Users -->
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user"></i> Profile
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                            <a class="dropdown-item" href="/profile">Profile</a>
-                            <a class="dropdown-item" href="/settings">Settings</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/logout">Logout</a>
-                        </div>
+            {% if current_user.is_authenticated %}
+                <!-- Dropdown Menu for Logged-In Users -->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle text-white" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user"></i> Profile
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                        <a class="dropdown-item" href="/profile">Profile</a>
+                        <a class="dropdown-item" href="/settings">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">Logout</a>
                     </div>
-                {% else %}
-                    <!-- Display login/register button when not logged in -->
-                    <a href="/login" class="btn btn-secondary">Login/Sign-up</a>
-                {% endif %}
-            </div>
+                </div>
+            {% else %}
+                <!-- Display login/register button when not logged in -->
+                <a href="/login" class="btn btn-secondary">Login/Sign-up</a>
+            {% endif %}
         </div>
     </div>
 </header>
@@ -100,51 +118,59 @@
 </div>
 
 <!-- Footer -->
-<footer class="custom-footer py-3 my-4">
-    <div class="container-xl">
-        <div class="container-fluid custom-footer-container">
-            <div class="d-flex align-items-center justify-content-between">
-                <!-- Linker gedeelte -->
-                <div class="footer-text d-flex align-items-center">
-                    <a href="/" class="text-decoration-none lh-1">
-                        <img src="/static/img/272863.png" alt="logo" style="height: 24px;">
-                    </a>
-                    <span class="text-muted ms-2">© 2023 HBO ICT | Nigel & Daniel</span>
+<footer class="mt-4">
+    <div class="footer-main">
+        <div class="container-xl">
+            <div class="row row-cols-3 py-5">
+                <div class="col">
+                    <h5>Contact Ons</h5>
+                    <ul class="nav flex-column contact-wrapper">
+                        <li class="nav-item mb-2">
+                            <div class="d-flex">
+                                <i class="fas fa-phone-alt"></i>
+                                <a class="link-phone" href="tel:+1 323-913-4688">+1 323-913-4688</a>
+                            </div>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <div class="d-flex">
+                                <i class="fas fa-envelope"></i>
+                                <a class="link-phone" href="mailto:example@example.nl">example@example.nl</a>
+                            </div>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <div class="d-flex">
+                                <i class="fas fa-paper-plane"></i>
+                                <a class="link-phone" href="mailto:example@example.nl">25671 ZK Berenburg 15
+                                    Groningen</a>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
 
-                <!-- Midden navigatie -->
-                <nav class="d-flex flex-wrap align-items-center">
-                    <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-home"></i> Home
-                    </a>
-                    <a href="/accommodation/" {% if bodyClass == "accommodation" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-tags"></i> Accommodation
-                    </a>
-                    <a href="/faqs/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-question-circle"></i> FAQs
-                    </a>
-                    <a href="/contact/" {% if bodyClass == "booking" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-envelope"></i> Contact
-                    </a>
-                </nav>
+                <div class="col">
+                    <h5>Populaire Accommodaties</h5>
+                    <ul class="nav flex-column populair-accommodations">
+                    </ul>
+                </div>
 
-                <!-- Rechter gedeelte (Sociale media iconen) -->
-                <ul class="nav list-unstyled d-flex">
-                    <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-twitter"
-                                                                       style="font-size: 24px; height: 24px;"></i></a>
-                    </li>
-                    <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-instagram"
-                                                                       style="font-size: 24px; height: 24px;"></i></a>
-                    </li>
-                    <li class="ms-3"><a class="text-muted" href="#"><i class="bi bi-facebook"
-                                                                       style="font-size: 24px; height: 24px;"></i></a>
-                    </li>
-                </ul>
+                <div class="col">
+                    <h5>Snelle Links</h5>
+                    <ul class="nav flex-column quick-links-wrapper mb-4">
+                        <li class="nav-item"><a href="/accommodation/"
+                                                     class="nav-link p-0">Accomodaties</a></li>
+                        <li class="nav-item"><a href="/faqs/" class="nav-link p-0">FAQS</a></li>
+                        <li class="nav-item"><a href="/contact/" class="nav-link p-0">Contact</a></li>
+                    </ul>
+
+                    <a class="btn btn-primary btn-white" href="/accommodation">BOEK NU</a>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="copy-right py-4">
+        <div class="container-xl">
+            <span class="ms-2">© 2024 HBO ICT | Nigel & Daniel</span>
         </div>
     </div>
 </footer>
@@ -152,9 +178,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 {% block scripts %}
 {% endblock %}

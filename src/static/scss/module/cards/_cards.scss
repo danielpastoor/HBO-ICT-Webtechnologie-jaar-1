@@ -1,5 +1,5 @@
 div.card {
-    background-color: var(--primary-color);
+    background-color: var(--bs-primary);
     padding: 10px 15px;
     border-radius: 10px;
     display: flex;
@@ -7,20 +7,20 @@ div.card {
     align-items: center;
 
     &.seconadary {
-        background-color: var(--secondary-color);
+        background-color: var(--bs-secondary);
         color: white;
 
         .number {
-            color: var(--tertiary-color);
+            color: var(--bs-tertiary);
         }
     }
 
     &.tertiary {
-        background-color: var(--tertiary-color);
+        background-color: var(--bs-tertiary);
         color: white;
 
         .number {
-            color: var(--secondary-color);
+            color: var(--bs-secondary);
         }
     }
 
