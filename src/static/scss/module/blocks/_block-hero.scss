@@ -1,0 +1,27 @@
+.block-hero {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  padding: 80px 0 !important;
+  text-align: center;
+  background-color: #cccccc;
+
+  .hero-title {
+    color: white;
+  }
+
+  .thumbnail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(100% + 150px);
+    height: calc(100% + 150px);
+    will-change: transform;
+    animation: bgPos 100s linear infinite;
+    transform: translate3d(-75px, -75px, 0) rotate(0.001deg);
+    background-position: 50% 50%;
+    background-size: cover;
+    z-index: -1;
+  }
+}
+

@@ -1,0 +1,23 @@
+.block {
+  padding: var(--block-spacing) 0;
+
+  &:not(.block-hero) {
+    margin-top: 1.5rem !important;
+  }
+
+  &:not(.full-width) {
+    @extend .container-xl;
+  }
+
+  &[id] {
+    scroll-margin-top: calc(var(--header-height) / 2 + var(--admin-bar-height));
+  }
+}
+
+section,
+.block {
+  position: relative;
+}
+
+@import "./block-hero";
+

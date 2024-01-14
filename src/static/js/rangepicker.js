@@ -2,12 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     flatpickr("#weekRange", {
         mode: "range",
         weekNumbers: true,
+        showMonths: 2,
         minDate: "today",
-        plugins: [new rangePlugin({input: "#secondWeekRange"})],
-        dateFormat: "Y-m-d",
-        onChange: function (selectedDates, dateStr) {
-            document.getElementById("weekRange").value = dateStr;
-        }
+        dateFormat: "Y-m-d"
     });
 
     var bookingDateElement = document.getElementById("bookingdates");
@@ -39,16 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
             inline: true,
             dateFormat: "Y-m-d",
             disable: disableDates,
-            // onChange: function (selectedDates, dateStr) {
-            //     document.getElementById("bookingdates").value = dateStr;
-            //
-            //     if (selectedDates.length > 0) {
-            //         document.querySelector("input[name='checkindate']").value = selectedDates[0].toISOString().substring(0, 10);
-            //
-            //         if (selectedDates.length > 1)
-            //             document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toISOString().substring(0, 10);
-            //     }
-            // }
         });
     }
 });

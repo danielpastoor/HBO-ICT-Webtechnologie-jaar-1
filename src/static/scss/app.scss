@@ -1,4 +1,8 @@
 $grid-columns: 24;
+$link-color: #ffdb73;
+$link-color: #ffc727;
+$btn-border-radius: 0;
+$border-radius: 0;
 
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 
@@ -9,4 +13,12 @@ $grid-columns: 24;
 // modules
 @import "./module/header";
 @import "./module/footer";
-@import "./module/card";
+@import "./module/nigel";
+
+// sections
+// ------------
+@import "./module/blocks/blocks";
+
+// cars
+// ------------
+@import "./module/cards/cards";

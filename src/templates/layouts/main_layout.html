@@ -2,6 +2,8 @@
 <html lang="en">
 
 {% set bodyClass = bodyClass|default("") %}
+{% set isDashboard = isDashboard|default(false) %}
+{% set isAdmin = isAdmin|default(false) %}
 
 <head>
     <meta charset="UTF-8">
@@ -21,19 +23,32 @@
 
 <body class="{{ bodyClass }}">
 <header class="p-3 text-white">
-    <div class="container-xl">
-        <div class="container-fluid">
-            <div class="d-flex flex-wrap align-items-center justify-content-between">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
-                    <img src="/static/img/272863.png" alt="logo">
-                </a>
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
+                <img src="/static/img/272863.png" alt="logo">
+            </a>
 
-                <nav class="d-flex flex-wrap align-items-center">
+            <nav class="d-flex flex-wrap align-items-center">
+                {% if isDashboard %}
+                    {% if isAdmin %}
+                        <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                           class="nav-item" {% endif %}>
+                            <i class="fas fa-home"></i> Homes
+                        </a>
+                    {% else %}
+                        <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                           class="nav-item" {% endif %}>
+                            <i class="fas fa-home"></i> Homesss
+                        </a>
+                    {% endif %}
+                {% else %}
                     <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-home"></i> Home
                     </a>
-                    <a href="/accommodation/" {% if bodyClass == "accommodation" %} class="nav-item active" {% else %}
+                    <a href="/accommodation/" {% if bodyClass == "accommodation" %}
+                       class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-tags"></i> Accommodation
                     </a>
@@ -45,33 +60,35 @@
                        class="nav-item" {% endif %}>
                         <i class="fas fa-envelope"></i> Contact
                     </a>
-                </nav>
+                {% endif %}
 
-                <div class="d-flex align-items-center">
-                    <form class="form-inline my-2 my-lg-0 search-bar">
-                        <input type="search" class="form-control form-control-dark" placeholder="Search..."
-                               aria-label="Search">
-                    </form>
+            </nav>
 
-                    {% if current_user.is_authenticated %}
-                        <!-- Dropdown Menu for Logged-In Users -->
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-user"></i> Profile
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                                <a class="dropdown-item" href="/profile">Profile</a>
-                                <a class="dropdown-item" href="/settings">Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/logout">Logout</a>
-                            </div>
+            <div class="d-flex align-items-center">
+                <form class="form-inline my-2 my-lg-0 search-bar">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..."
+                           aria-label="Search">
+                </form>
+
+                {% if current_user.is_authenticated %}
+                    <!-- Dropdown Menu for Logged-In Users -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i> Profile
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                            <a class="dropdown-item" href="/profile">Profile</a>
+                            <a class="dropdown-item" href="/settings">Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
-                    {% else %}
-                        <!-- Display login/register button when not logged in -->
-                        <a href="/login" class="btn btn-secondary">Login/Sign-up</a>
-                    {% endif %}
-                </div>
+                    </div>
+                {% else %}
+                    <!-- Display login/register button when not logged in -->
+                    <a href="/login" class="btn btn-secondary">Login/Sign-up</a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -132,19 +149,6 @@
     </div>
 </footer>
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.js"
-        integrity="sha512-bBl4oHIOeYj6jgOLtaYQO99mCTSIb1HD0ImeXHZKqxDNC7UPWTywN2OQRp+uGi0kLurzgaA3fm4PX6e2Lnz9jQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.min.js"
-        integrity="sha512-JCQkxdym6GmQ+AFVioDUq8dWaWN6tbKRhRyHvYZPupQ6DxpXzkW106FXS1ORgo/m3gxtt5lHRMqSdm2OfPajtg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.global.js"
-        integrity="sha512-zAadCzZHXo/f5A/3uhF50bZXahdYNqisNgKKniyoJJVpp27b2bR82N4hPLGj3/qBEh3tGZ9SYGmSA1jpdtNF5A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.10/index.min.js"
-        integrity="sha512-xCMh+IX6X2jqIgak2DBvsP6DNPne/t52lMbAUJSjr3+trFn14zlaryZlBcXbHKw8SbrpS0n3zlqSVmZPITRDSQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

@@ -41,3 +41,12 @@ class AccommodationEntity(BaseEntity):
     @description.setter
     def description(self, value: str) -> None:
         self.SetValue("description", value)
+
+    # accommodation description
+    @property
+    def thumbnail_image(self) -> str:
+        return self.GetValue("thumbnail_image", "/static/img/default-accomodation.jpg")
+
+    @thumbnail_image.setter
+    def thumbnail_image(self, value: str) -> None:
+        self.SetValue("thumbnail_image", value)
