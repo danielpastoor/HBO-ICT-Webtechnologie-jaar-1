@@ -5,6 +5,7 @@ import mysql.connector
 from mysql.connector import Error
 from werkzeug.security import generate_password_hash
 
+from src.data.ContactFormEntity import ContactFormEntity
 from src.data.UserEntity import UserEntity
 from src.models.BaseModel.TransientObject import TransientObject
 
@@ -170,4 +171,28 @@ class ApplicationContext:
         except Error as e:
             print(f"Error updating user password: {e}")
             return False
+
+    def submit_contact_form(self, contact_form_entity: ContactFormEntity):
+        """Inserts contact form data into the database."""
+        insert_query = """
+        INSERT INTO contactformulier_inzendingen (name, email, message, sent_on) 
+        VALUES (%s, %s, %s, %s)
+        """
+        data = (
+            contact_form_entity.name,
+            contact_form_entity.email,
+            contact_form_entity.message,
+            contact_form_entity.sent_on
+        )
+
+        try:
+            cursor = self.__connect().cursor()
+            cursor.execute(insert_query, data)
+            self.__connection.commit()
+            cursor.close()
+            return True
+        except Error as e:
+            print(f"Error inserting contact form data: {e}")
+            return False
+
 
