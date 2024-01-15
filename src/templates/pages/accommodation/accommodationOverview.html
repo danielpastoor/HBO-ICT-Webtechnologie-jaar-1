@@ -7,22 +7,7 @@
 
     {% include 'components/blocks/block-filters.html' %}
 
-
-    <div class="block block-accommodations">
-        <div class="row">
-            {% if found_items %}
-                {% for accommodation in accommodations %}
-                    <div class="mb-5">
-                        {% include 'components/cards/card-accommodation.html' %}
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="mb-5">
-                    Geen Accommodaties gevonden
-                </div>
-            {% endif %}
-        </div>
-    </div>
+    {% include 'components/blocks/block-accommodations.html' %}
 {% endblock %}
 
 {% block header %}

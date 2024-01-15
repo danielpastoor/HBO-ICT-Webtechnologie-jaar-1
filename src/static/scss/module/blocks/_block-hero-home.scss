@@ -1,0 +1,48 @@
+.block-hero-home {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  height: 100%;
+  max-height: 629px;
+  text-align: center;
+  background-color: #cccccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .hero-title {
+    color: white;
+  }
+
+  .hero-sub-title {
+    color: $primary;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .thumbnail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(100% + 150px);
+    height: calc(100% + 150px);
+    will-change: transform;
+    animation: bgPos 100s linear infinite;
+    transform: translate3d(-75px, -75px, 0) rotate(0.001deg);
+    background-position: 50% 50%;
+    background-size: cover;
+    z-index: -1;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: black;
+      opacity: 0.2;
+    }
+  }
+}
+
