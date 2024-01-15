@@ -117,6 +117,7 @@ class ResetPasswordController(ControllerBase):
 
         # Update the user's password
         success = app_context.update_user_password(username, password)
+
         if success:
             flash("Password reset successful", "success")
             return redirect("/login")

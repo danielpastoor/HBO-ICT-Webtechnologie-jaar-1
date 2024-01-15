@@ -10,11 +10,17 @@
 
     <div class="block block-accommodations">
         <div class="row">
-            {% for accommodation in accommodations %}
+            {% if found_items %}
+                {% for accommodation in accommodations %}
+                    <div class="mb-5">
+                        {% include 'components/cards/card-accommodation.html' %}
+                    </div>
+                {% endfor %}
+            {% else %}
                 <div class="mb-5">
-                    {% include 'components/cards/card-accommodation.html' %}
+                    Geen Accommodaties gevonden
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}
