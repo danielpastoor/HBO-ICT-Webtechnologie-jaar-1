@@ -12952,6 +12952,12 @@ section,
   width: 100%;
 }
 
+.block-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 div.card {
   background-color: var(--bs-primary);
   padding: 10px 15px;
