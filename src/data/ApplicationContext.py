@@ -37,8 +37,8 @@ class ApplicationContext:
         print("Connection to MySQL DB successful")
         return self.__connection
 
-    def First[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None) -> T | None:
-        data = self.Get(itemType, column, condition)
+    def First[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None, join: str = None) -> T | None:
+        data = self.Get(itemType, column, condition, join)
 
         if data is None or len(data) == 0:
             return None

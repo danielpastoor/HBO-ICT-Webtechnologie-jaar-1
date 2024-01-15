@@ -16,11 +16,14 @@
                         class="fas fa-star"></span><span
                         class="fas fa-star"></span><span
                         class="fas fa-star"></span></div>
-                <span class="reviews-text" >reviews</span>
+                <span class="reviews-text">reviews</span>
             </div>
             <p class="text">{{ accommodation.description }}</p>
 
-            <a class="btn btn-primary mt-4" href="/accommodation/{{ accommodation.id }}">Meer Info</a>
+            <div>
+                <a class="btn btn-primary mt-4 me-2" href="/accommodation/{{ accommodation.id }}">Meer Info</a>
+                <a class="btn btn-primary mt-4 filled" href="/booking/book/{{ accommodation.id }}">Boeken</a>
+            </div>
             <div class="price-wrap"><span
                     class="price">€{{ accommodation.price }}</span><span>/nacht</span>
                 <span>{{ accommodation.max_persons }} PP max</span>

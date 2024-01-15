@@ -1,11 +1,11 @@
 {% set title = title|default("") %}
 {% set hero_url = hero_url|default("/static/img/default-hero.jpg") %}
 
-<section class="block block-hero full-width">
+<div class="block block-hero full-width">
     <div class="block-hero-full-width">
         <div class="container">
             <h2 class="hero-title">{{ title }}</h2>
         </div>
         <div class="thumbnail" style="background-image: url({{ hero_url }});"></div>
     </div>
-</section>
+</div>

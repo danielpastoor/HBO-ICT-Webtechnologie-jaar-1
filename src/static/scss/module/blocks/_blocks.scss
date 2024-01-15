@@ -1,8 +1,12 @@
 .block {
   padding: var(--block-spacing) 0;
 
-  &:not(.block-hero) {
-    margin-top: 1.5rem !important;
+  &:not(.block-hero):not(.block-hero-home) {
+    margin-top: 6.25rem !important;
+
+    &.small-top {
+      margin-top: 2rem !important;
+    }
   }
 
   &:not(.full-width) {
@@ -20,4 +24,7 @@ section,
 }
 
 @import "./block-hero";
-
+@import "./block-hero-home";
+@import "./block-about-us";
+@import "./block-gallery";
+@import "./block-accommodations-slider";

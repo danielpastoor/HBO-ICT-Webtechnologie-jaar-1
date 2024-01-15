@@ -25,6 +25,7 @@
 
     &.filled {
       background: var(--bs-primary);
+      border: 2px var(--bs-primary) solid;
       color: white;
     }
 
