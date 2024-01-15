@@ -38,8 +38,11 @@ class IndexController(ControllerBase):
                                                  """
                                                  )
 
+        accommodations = applicationContext.Get(AccommodationEntity())
+
         # return rendered html
-        return render_template("pages/index.html", accommodation=accommodation)
+        return render_template("pages/index.html", accommodation=accommodation, accommodations=accommodations,
+                               found_items=len(accommodations))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,33 @@
+<article class="card card-accommodation-vertical">
+    <div><a href="/accommodation/{{ accommodation.id }}">
+        <picture>
+            <img src="/static/img/{{ accommodation.thumbnail_image }}">
+        </picture>
+    </a>
+    </div>
+
+    <div class="price-wrap"><span
+            class="price">€{{ accommodation.price }}</span><span>/nacht</span>
+        <span>{{ accommodation.max_persons }} PP max</span>
+    </div>
+
+    <div class="body">
+        <h5 class="title"><a
+                href="/accommodation/{{ accommodation.id }}">{{ accommodation.name }}</a></h5>
+        <div class="d-flex justify-content-start mb-2">
+            <div class="rating">
+                <span class="fas fa-star"></span><span
+                    class="fas fa-star"></span><span
+                    class="fas fa-star"></span><span
+                    class="fas fa-star"></span><span
+                    class="fas fa-star"></span></div>
+            <span class="reviews-text">reviews</span>
+        </div>
+        <p class="text">{{ accommodation.description }}</p>
+
+        <div>
+            <a class="btn btn-primary mt-4 me-2" href="/accommodation/{{ accommodation.id }}">Meer Info</a>
+            <a class="btn btn-primary mt-4 filled" href="/booking/book/{{ accommodation.id }}">Boeken</a>
+        </div>
+    </div>
+</article>
