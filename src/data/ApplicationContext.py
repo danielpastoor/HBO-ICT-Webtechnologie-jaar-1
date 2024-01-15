@@ -45,10 +45,13 @@ class ApplicationContext:
 
         return data[0]
 
-    def Get[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None) -> list[T]:
+    def Get[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None, join: str = None) -> list[T]:
         query = f"SELECT {column} FROM {self.__GetTableName(type(itemType))}"
 
-        if (condition is not None):
+        if (join is not None):
+            query += f" {join}"
+
+        if condition is not None:
             query += f" WHERE {condition}"
 
         cursor = self.__connect().cursor(dictionary=True)
