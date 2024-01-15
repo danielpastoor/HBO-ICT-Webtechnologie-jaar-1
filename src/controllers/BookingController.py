@@ -4,7 +4,9 @@ import json
 from datetime import datetime
 
 # needed imports
-from flask import render_template, request
+from flask import render_template, request, redirect
+from flask_login import current_user
+
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
 from src.data.ApplicationContext import ApplicationContext
@@ -24,6 +26,10 @@ class BookingPage(ControllerBase):
     def book(self, accommodation_id):
         """ Endpoint for getting the index page
         """
+
+        if not current_user.is_authenticated:
+            return redirect(f"/login")
+
         applicationContext = ApplicationContext()
 
         if request.method == 'GET':
@@ -41,10 +47,6 @@ class BookingPage(ControllerBase):
                     "start_date": str(booking.start_date),
                     "end_date": str(booking.end_date)
                 })
-
-            print(booked_dates)
-            print(json.dumps(booked_dates))
-
 
             # return rendered html
             return render_template("pages/booking.html", accomondation=data[0], booked_dates_str=json.dumps(booked_dates))
@@ -73,7 +75,6 @@ class BookingPage(ControllerBase):
                 user.address = request.form.get('street')
                 user.housenumber = request.form.get('housenumber')
                 user.city = request.form.get('city')
-                user.creditcard = request.form.get('creditcard')
                 user.password = None
 
                 applicationContext.Add(user)

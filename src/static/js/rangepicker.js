@@ -4,7 +4,22 @@ document.addEventListener('DOMContentLoaded', function () {
         weekNumbers: true,
         showMonths: 2,
         minDate: "today",
-        dateFormat: "Y-m-d"
+        dateFormat: "Y-m-d",
+        onChange: (selectedDates, dateStr, instance) => {
+            var secondDate = selectedDates[1] ? selectedDates[1] : selectedDates[0];
+
+            const diffTime = Math.abs(selectedDates[0] - secondDate);
+            let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+            if (diffDays % 7 !== 0 && diffDays > 1) {
+                const newEndDate = new Date(selectedDates[0]);
+                newEndDate.setDate(newEndDate.getDate() + Math.ceil((diffDays - 2) / 7) * 7);
+
+                newEndDate.setDate(newEndDate.getDate() - 1)
+
+                instance.setDate([selectedDates[0], newEndDate], true);
+            }
+        }
     });
 
     var bookingDateElement = document.getElementById("bookingdates");
@@ -36,6 +51,21 @@ document.addEventListener('DOMContentLoaded', function () {
             inline: true,
             dateFormat: "Y-m-d",
             disable: disableDates,
+            onChange: function (selectedDates, dateStr, instance) {
+                var secondDate = selectedDates[1] ? selectedDates[1] : selectedDates[0];
+
+                const diffTime = Math.abs(selectedDates[0] - secondDate);
+                let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+                if (diffDays % 7 !== 0 && diffDays > 1) {
+                    const newEndDate = new Date(selectedDates[0]);
+                    newEndDate.setDate(newEndDate.getDate() + Math.ceil((diffDays - 2) / 7) * 7);
+
+                    newEndDate.setDate(newEndDate.getDate() - 1)
+
+                    instance.setDate([selectedDates[0], newEndDate], true);
+                }
+            }
         });
     }
 });
