@@ -1,8 +1,9 @@
 """ Index Controller
 """
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
+import flask_login
 # needed imports
 from flask import render_template, request, redirect
 from flask_login import current_user
@@ -33,7 +34,7 @@ class BookingPage(ControllerBase):
         applicationContext = ApplicationContext()
 
         if request.method == 'GET':
-            data = applicationContext.Get(AccommodationEntity(), condition= f"id = {accommodation_id}")
+            data = applicationContext.Get(AccommodationEntity(), condition=f"id = {accommodation_id}")
 
             if len(data) != 1:
                 return render_template("pages/error.html"), 500
@@ -49,48 +50,50 @@ class BookingPage(ControllerBase):
                 })
 
             # return rendered html
-            return render_template("pages/booking.html", accomondation=data[0], booked_dates_str=json.dumps(booked_dates))
+            return render_template("pages/booking.html", accomondation=data[0],
+                                   booked_dates_str=json.dumps(booked_dates))
 
         elif request.method == 'POST':
-            bookingEntity = BookingEntity()
+            date_format = "%Y-%m-%d"
+            check_in_date_str = request.form.get('checkindate')
+            check_out_date_str = request.form.get('checkoutdate')
 
-            bookingEntity.accommodation_id = accommodation_id
-            bookingEntity.booking_date = datetime.now()
-            bookingEntity.start_date = request.form.get('checkindate')
-            bookingEntity.end_date = request.form.get('checkoutdate')
-            bookingEntity.SetCreationDate()
+            if not (check_in_date_str and check_out_date_str):
+                return render_template("pages/error.html"), 500
 
-            email = request.form.get('email')
+            user = applicationContext.First(UsersEntity(), condition=f"email = '{flask_login.current_user.email}'")
 
-            users = applicationContext.Get(UsersEntity(), condition=f"email = '{email}'")
+            if user is None:
+                return render_template("pages/error.html"), 500
 
-            user = UsersEntity()
+            check_in_date = datetime.strptime(check_in_date_str, date_format)
+            check_out_date = datetime.strptime(check_out_date_str, date_format)
 
-            if len(users) > 0:
-                user = users[0]
-            else:
-                user.username = request.form.get('username')
-                user.email = request.form.get('email')
-                user.postalcode = request.form.get('postalcode')
-                user.address = request.form.get('street')
-                user.housenumber = request.form.get('housenumber')
-                user.city = request.form.get('city')
-                user.password = None
+            day_difference = (check_out_date - check_in_date).days + 1
 
-                applicationContext.Add(user)
+            booking_count = int(day_difference // 7)
 
-                users = applicationContext.Get(UsersEntity(), condition=f"email = '{email}'")
+            last_start_date = check_in_date
 
-                if len(users) > 0:
-                    user = users[0]
-                else:
-                    return render_template("pages/error.html"), 500
+            for booking_number in range(booking_count):
+                if booking_number > 0:
+                    last_start_date = last_start_date + timedelta(
+                        days=7)
 
-            bookingEntity.user_id = user.id
+                booking = BookingEntity()
+                booking.accommodation_id = accommodation_id
+                booking.booking_date = datetime.now()
+                booking.start_date = last_start_date
+                booking.end_date = check_out_date if booking_number == booking_count - 1 else booking.start_date + timedelta(
+                    days=7)
+                booking.user_id = user.id
+                booking.SetCreationDate()
+                applicationContext.Add(booking)
 
-            applicationContext.Add(bookingEntity)
+            return redirect(f"/booking/thankyou/{accommodation_id}")
 
-            return render_template("pages/thank-you.html")
+    def thankyou(self, accommodation_id):
+        return redirect("pages/thank-you.html")
 
 
 if __name__ == "__main__":
