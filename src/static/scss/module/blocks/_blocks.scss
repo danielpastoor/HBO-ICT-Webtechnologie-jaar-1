@@ -9,10 +9,6 @@
     }
   }
 
-  &:not(.full-width) {
-    @extend .container-xl;
-  }
-
   &[id] {
     scroll-margin-top: calc(var(--header-height) / 2 + var(--admin-bar-height));
   }

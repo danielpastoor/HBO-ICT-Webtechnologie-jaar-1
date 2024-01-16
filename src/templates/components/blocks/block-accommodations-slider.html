@@ -1,29 +1,30 @@
 {% if found_items %}
+    <section class="block block-accommodations-slider">
+        <div class="container-xl">
+            <h2 class="title">Accommodaties</h2>
+            <div id="carouselAccommodationControls" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for accommodation in accommodations %}
+                        <div class="carousel-item active">
+                            {% include 'components/cards/card-accommodation-vertical.html' %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
 
-    <div class="block block-accommodations-slider">
-        <h2 class="title">Accommodaties</h2>
-        <div id="carouselAccommodationControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                {% for accommodation in accommodations %}
-                    <div class="carousel-item active">
-                        {% include 'components/cards/card-accommodation-vertical.html' %}
-                    </div>
-                {% endfor %}
+            <div class="d-flex justify-content-between mt-4">
+                <button class="carousel-button" type="button" data-bs-target="#carouselAccommodationControls"
+                        data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-button" type="button" data-bs-target="#carouselAccommodationControls"
+                        data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
-
-        <div class="d-flex justify-content-between mt-4">
-            <button class="carousel-button" type="button" data-bs-target="#carouselAccommodationControls"
-                    data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-button" type="button" data-bs-target="#carouselAccommodationControls"
-                    data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
+    </section>
 
 {% endif %}
