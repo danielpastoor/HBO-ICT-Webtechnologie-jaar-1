@@ -12979,6 +12979,25 @@ section,
   font-weight: 500;
 }
 
+.block-uppsells .icon {
+  width: fit-content;
+  position: relative;
+  font-size: 47px;
+  line-height: 1;
+  z-index: 1;
+  padding-bottom: 20px;
+  color: #ffdb73;
+}
+.block-uppsells .icon svg > * {
+  fill: #f7f7f7;
+}
+.block-uppsells .icon i {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(31%, -25%);
+}
+
 div.card {
   background-color: var(--bs-primary);
   padding: 10px 15px;

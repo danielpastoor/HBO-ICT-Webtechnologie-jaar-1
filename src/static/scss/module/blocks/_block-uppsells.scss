@@ -1,0 +1,24 @@
+.block-uppsells {
+  .icon {
+    width: fit-content;
+    position: relative;
+    font-size: 47px;
+    line-height: 1;
+    z-index: 1;
+    padding-bottom: 20px;
+    color: #ffdb73;
+
+    svg > * {
+      fill: #f7f7f7;
+    }
+
+    i {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(31%, -25%);
+    }
+
+  }
+}
+
