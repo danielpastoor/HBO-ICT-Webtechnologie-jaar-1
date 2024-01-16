@@ -64,8 +64,12 @@ class AccommodationController(ControllerBase):
         if len(data) != 1:
             return "There went something wrong", 500
 
+        accommodations = applicationContext.Get(AccommodationEntity())
+
         # return rendered html
-        return render_template("pages/accommodation/accommodationDetail.html", accommodation=data[0])
+        return render_template("pages/accommodation/accommodationDetail.html", accommodation=data[0],
+                               accommodations=accommodations,
+                               found_items=len(accommodations))
 
 
 if __name__ == "__main__":

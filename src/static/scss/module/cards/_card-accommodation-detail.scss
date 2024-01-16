@@ -90,4 +90,20 @@
       color: #9b9b9b;
     }
   }
+
+  .carousel-indicators {
+    button {
+      background: white;
+      padding: 5px 5px;
+      border: none;
+      outline: none;
+      width: unset;
+      height: unset;
+      opacity: 1;
+
+      &.active {
+        background: $primary;
+      }
+    }
+  }
 }

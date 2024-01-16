@@ -13188,6 +13188,18 @@ div.card .number {
 .card-accommodation-detail .body .text {
   color: #9b9b9b;
 }
+.card-accommodation-detail .carousel-indicators button {
+  background: white;
+  padding: 5px 5px;
+  border: none;
+  outline: none;
+  width: unset;
+  height: unset;
+  opacity: 1;
+}
+.card-accommodation-detail .carousel-indicators button.active {
+  background: #ffdb73;
+}
 
 .card-accommodation-vertical {
   position: relative;
