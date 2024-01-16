@@ -7,11 +7,11 @@
 
     <div class="container-xl mt-4">
         <article class="card card-accommodation-detail flex-column flex-md-row align-items-md-stretch">
-            <div id="accommodation-images" class="carousel slide" data-bs-ride="true">
+            <div id="accommodation-images" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button data-target="#accommodation-images" data-slide-to="0" class="active"></button>
+                    <button data-bs-target="#accommodation-images" data-bs-slide-to="0" class="active"></button>
                     {% for index in range(accommodation.get_images_count()) %}
-                        <button data-target="#accommodation-images" data-slide-to="{{ index + 1 }}"></button>
+                        <button class="ms-1" data-bs-target="#accommodation-images" data-bs-slide-to="{{ index + 1 }}"></button>
                     {% endfor %}
                 </div>
                 <div class="carousel-inner">
@@ -52,4 +52,8 @@
             </div>
         </article>
     </div>
+
+
+    {% include 'components/blocks/block-upsells.html' %}
+    {% include 'components/blocks/block-accommodations-slider.html' %}
 {% endblock %}
