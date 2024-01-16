@@ -53,6 +53,11 @@
     }
   }
 
+  &-success {
+    border: 2px var(--bs-success) solid;
+    color: black;
+  }
+
   &.active {
     background-color: var(--bs-secondary, black);
     border-bottom-left-radius: 5px;

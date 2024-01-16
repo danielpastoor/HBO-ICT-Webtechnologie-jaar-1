@@ -12609,6 +12609,10 @@ p.error {
 .btn-secondary.filled {
   background: var(--bs-secondary);
 }
+.btn-success {
+  border: 2px var(--bs-success) solid;
+  color: black;
+}
 .btn.active, .page-authentication .img .active.toggle-button {
   background-color: var(--bs-secondary, black);
   border-bottom-left-radius: 5px;
@@ -13391,7 +13395,7 @@ div.card .number {
 .card-accommodation-vertical picture {
   max-width: 500px;
   max-height: 350px;
-  width: 500px;
+  width: 100%;
   display: block;
   height: 366px;
 }

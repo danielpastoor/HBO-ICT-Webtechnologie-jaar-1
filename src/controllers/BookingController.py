@@ -50,7 +50,7 @@ class BookingPage(ControllerBase):
                 })
 
             # return rendered html
-            return render_template("pages/booking.html", accomondation=data[0],
+            return render_template("pages/booking.html", accommodation=data[0],
                                    booked_dates_str=json.dumps(booked_dates))
 
         elif request.method == 'POST':
