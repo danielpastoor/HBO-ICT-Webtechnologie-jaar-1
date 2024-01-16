@@ -20,13 +20,13 @@
     &:hover {
       background: var(--bs-primary);
       border: 2px var(--bs-primary) solid;
-      color: white;
+      color: $secondary;
     }
 
     &.filled {
       background: var(--bs-primary);
       border: 2px var(--bs-primary) solid;
-      color: white;
+      color: $secondary;
     }
 
     &.btn-white {

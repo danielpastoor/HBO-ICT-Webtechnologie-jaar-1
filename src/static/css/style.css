@@ -12564,12 +12564,12 @@ p.error {
 .btn-primary:hover {
   background: var(--bs-primary);
   border: 2px var(--bs-primary) solid;
-  color: white;
+  color: #444349;
 }
 .btn-primary.filled {
   background: var(--bs-primary);
   border: 2px var(--bs-primary) solid;
-  color: white;
+  color: #444349;
 }
 .btn-primary.btn-white {
   border: 2px white solid;
@@ -12959,6 +12959,24 @@ section,
   outline: none;
   border: none;
   padding: 10px;
+}
+
+.block-cta {
+  position: relative;
+  background: url("/static/img/default-cta.jpg");
+  padding: 130px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.block-cta .title {
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.block-cta .text {
+  max-width: 250px;
+  font-weight: 500;
 }
 
 div.card {
