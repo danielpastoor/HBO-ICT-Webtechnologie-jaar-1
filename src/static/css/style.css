@@ -12564,16 +12564,19 @@ p.error {
 .btn-primary:hover {
   background: var(--bs-primary);
   border: 2px var(--bs-primary) solid;
-  color: #444349;
+  color: #444349 !important;
 }
 .btn-primary.filled {
   background: var(--bs-primary);
   border: 2px var(--bs-primary) solid;
-  color: #444349;
+  color: #444349 !important;
 }
 .btn-primary.btn-white {
   border: 2px white solid;
   color: white;
+}
+.btn-primary.btn-outline-primary {
+  border: 2px var(--bs-primary) solid;
 }
 .btn-secondary {
   border: 2px var(--bs-secondary) solid;
@@ -12819,8 +12822,7 @@ section,
   position: relative;
   overflow: hidden;
   z-index: 1;
-  height: 100%;
-  max-height: 629px;
+  height: 629px;
   text-align: center;
   background-color: #cccccc;
   display: flex;
