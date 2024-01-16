@@ -2963,7 +2963,7 @@ textarea.form-control-lg {
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
 }
-.btn-check[disabled] + .btn, .btn-check:disabled + .btn {
+.btn-check[disabled] + .btn, .page-authentication .img .btn-check[disabled] + .toggle-button, .btn-check:disabled + .btn, .page-authentication .img .btn-check:disabled + .toggle-button {
   pointer-events: none;
   filter: none;
   opacity: 0.65;
@@ -3164,11 +3164,11 @@ textarea.form-control-lg {
 .input-group > .form-floating:focus-within {
   z-index: 5;
 }
-.input-group .btn {
+.input-group .btn, .input-group .page-authentication .img .toggle-button, .page-authentication .img .input-group .toggle-button {
   position: relative;
   z-index: 2;
 }
-.input-group .btn:focus {
+.input-group .btn:focus, .input-group .page-authentication .img .toggle-button:focus, .page-authentication .img .input-group .toggle-button:focus {
   z-index: 5;
 }
 
@@ -3190,7 +3190,8 @@ textarea.form-control-lg {
 .input-group-lg > .form-control,
 .input-group-lg > .form-select,
 .input-group-lg > .input-group-text,
-.input-group-lg > .btn {
+.input-group-lg > .btn,
+.page-authentication .img .input-group-lg > .toggle-button {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   border-radius: var(--bs-border-radius-lg);
@@ -3199,7 +3200,8 @@ textarea.form-control-lg {
 .input-group-sm > .form-control,
 .input-group-sm > .form-select,
 .input-group-sm > .input-group-text,
-.input-group-sm > .btn {
+.input-group-sm > .btn,
+.page-authentication .img .input-group-sm > .toggle-button {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   border-radius: var(--bs-border-radius-sm);
@@ -3415,7 +3417,7 @@ textarea.form-control-lg {
   z-index: 4;
 }
 
-.btn {
+.btn, .page-authentication .img .toggle-button {
   --bs-btn-padding-x: 0.75rem;
   --bs-btn-padding-y: 0.375rem;
   --bs-btn-font-family: ;
@@ -3449,41 +3451,41 @@ textarea.form-control-lg {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn {
+  .btn, .page-authentication .img .toggle-button {
     transition: none;
   }
 }
-.btn:hover {
+.btn:hover, .page-authentication .img .toggle-button:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
 }
-.btn-check + .btn:hover {
+.btn-check + .btn:hover, .page-authentication .img .btn-check + .toggle-button:hover {
   color: var(--bs-btn-color);
   background-color: var(--bs-btn-bg);
   border-color: var(--bs-btn-border-color);
 }
-.btn:focus-visible {
+.btn:focus-visible, .page-authentication .img .toggle-button:focus-visible {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:focus-visible + .btn {
+.btn-check:focus-visible + .btn, .page-authentication .img .btn-check:focus-visible + .toggle-button {
   border-color: var(--bs-btn-hover-border-color);
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+.btn-check:checked + .btn, .page-authentication .img .btn-check:checked + .toggle-button, :not(.btn-check) + .btn:active, .page-authentication .img :not(.btn-check) + .toggle-button:active, .btn:first-child:active, .page-authentication .img .toggle-button:first-child:active, .btn.active, .page-authentication .img .active.toggle-button, .btn.show, .page-authentication .img .show.toggle-button {
   color: var(--bs-btn-active-color);
   background-color: var(--bs-btn-active-bg);
   border-color: var(--bs-btn-active-border-color);
 }
-.btn-check:checked + .btn:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible, .btn.active:focus-visible, .btn.show:focus-visible {
+.btn-check:checked + .btn:focus-visible, .page-authentication .img .btn-check:checked + .toggle-button:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .page-authentication .img :not(.btn-check) + .toggle-button:active:focus-visible, .btn:first-child:active:focus-visible, .page-authentication .img .toggle-button:first-child:active:focus-visible, .btn.active:focus-visible, .page-authentication .img .active.toggle-button:focus-visible, .btn.show:focus-visible, .page-authentication .img .show.toggle-button:focus-visible {
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
-.btn:disabled, .btn.disabled, fieldset:disabled .btn {
+.btn:disabled, .page-authentication .img .toggle-button:disabled, .btn.disabled, .page-authentication .img .disabled.toggle-button, fieldset:disabled .btn, fieldset:disabled .page-authentication .img .toggle-button, .page-authentication .img fieldset:disabled .toggle-button {
   color: var(--bs-btn-disabled-color);
   pointer-events: none;
   background-color: var(--bs-btn-disabled-bg);
@@ -3491,7 +3493,7 @@ textarea.form-control-lg {
   opacity: var(--bs-btn-disabled-opacity);
 }
 
-.btn-primary {
+.btn-primary, .page-authentication .img .toggle-button {
   --bs-btn-color: #000;
   --bs-btn-bg: #ffdb73;
   --bs-btn-border-color: #ffdb73;
@@ -3627,7 +3629,7 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #212529;
 }
 
-.btn-outline-primary {
+.btn-outline-primary, .page-authentication .img .toggle-button {
   --bs-btn-color: #ffdb73;
   --bs-btn-border-color: #ffdb73;
   --bs-btn-hover-color: #000;
@@ -3785,14 +3787,14 @@ textarea.form-control-lg {
   color: var(--bs-btn-hover-color);
 }
 
-.btn-lg, .btn-group-lg > .btn {
+.btn-lg, .btn-group-lg > .btn, .page-authentication .img .btn-group-lg > .toggle-button {
   --bs-btn-padding-y: 0.5rem;
   --bs-btn-padding-x: 1rem;
   --bs-btn-font-size: 1.25rem;
   --bs-btn-border-radius: var(--bs-border-radius-lg);
 }
 
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm, .btn-group-sm > .btn, .page-authentication .img .btn-group-sm > .toggle-button {
   --bs-btn-padding-y: 0.25rem;
   --bs-btn-padding-x: 0.5rem;
   --bs-btn-font-size: 0.875rem;
@@ -4159,23 +4161,35 @@ textarea.form-control-lg {
   display: inline-flex;
   vertical-align: middle;
 }
-.btn-group > .btn,
-.btn-group-vertical > .btn {
+.btn-group > .btn, .page-authentication .img .btn-group > .toggle-button,
+.btn-group-vertical > .btn,
+.page-authentication .img .btn-group-vertical > .toggle-button {
   position: relative;
   flex: 1 1 auto;
 }
-.btn-group > .btn-check:checked + .btn,
+.btn-group > .btn-check:checked + .btn, .page-authentication .img .btn-group > .btn-check:checked + .toggle-button,
 .btn-group > .btn-check:focus + .btn,
+.page-authentication .img .btn-group > .btn-check:focus + .toggle-button,
 .btn-group > .btn:hover,
+.page-authentication .img .btn-group > .toggle-button:hover,
 .btn-group > .btn:focus,
+.page-authentication .img .btn-group > .toggle-button:focus,
 .btn-group > .btn:active,
+.page-authentication .img .btn-group > .toggle-button:active,
 .btn-group > .btn.active,
+.page-authentication .img .btn-group > .active.toggle-button,
 .btn-group-vertical > .btn-check:checked + .btn,
+.page-authentication .img .btn-group-vertical > .btn-check:checked + .toggle-button,
 .btn-group-vertical > .btn-check:focus + .btn,
+.page-authentication .img .btn-group-vertical > .btn-check:focus + .toggle-button,
 .btn-group-vertical > .btn:hover,
+.page-authentication .img .btn-group-vertical > .toggle-button:hover,
 .btn-group-vertical > .btn:focus,
+.page-authentication .img .btn-group-vertical > .toggle-button:focus,
 .btn-group-vertical > .btn:active,
-.btn-group-vertical > .btn.active {
+.page-authentication .img .btn-group-vertical > .toggle-button:active,
+.btn-group-vertical > .btn.active,
+.page-authentication .img .btn-group-vertical > .active.toggle-button {
   z-index: 1;
 }
 
@@ -4191,19 +4205,23 @@ textarea.form-control-lg {
 .btn-group {
   border-radius: 0;
 }
-.btn-group > :not(.btn-check:first-child) + .btn,
+.btn-group > :not(.btn-check:first-child) + .btn, .page-authentication .img .btn-group > :not(.btn-check:first-child) + .toggle-button,
 .btn-group > .btn-group:not(:first-child) {
   margin-left: calc(var(--bs-border-width) * -1);
 }
-.btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle), .page-authentication .img .btn-group > .toggle-button:not(:last-child):not(.dropdown-toggle),
 .btn-group > .btn.dropdown-toggle-split:first-child,
-.btn-group > .btn-group:not(:last-child) > .btn {
+.page-authentication .img .btn-group > .dropdown-toggle-split.toggle-button:first-child,
+.btn-group > .btn-group:not(:last-child) > .btn,
+.page-authentication .img .btn-group > .btn-group:not(:last-child) > .toggle-button {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.btn-group > .btn:nth-child(n+3),
+.btn-group > .btn:nth-child(n+3), .page-authentication .img .btn-group > .toggle-button:nth-child(n+3),
 .btn-group > :not(.btn-check) + .btn,
-.btn-group > .btn-group:not(:first-child) > .btn {
+.page-authentication .img .btn-group > :not(.btn-check) + .toggle-button,
+.btn-group > .btn-group:not(:first-child) > .btn,
+.page-authentication .img .btn-group > .btn-group:not(:first-child) > .toggle-button {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -4219,12 +4237,12 @@ textarea.form-control-lg {
   margin-right: 0;
 }
 
-.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split {
+.btn-sm + .dropdown-toggle-split, .btn-group-sm > .btn + .dropdown-toggle-split, .page-authentication .img .btn-group-sm > .toggle-button + .dropdown-toggle-split {
   padding-right: 0.375rem;
   padding-left: 0.375rem;
 }
 
-.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split {
+.btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split, .page-authentication .img .btn-group-lg > .toggle-button + .dropdown-toggle-split {
   padding-right: 0.75rem;
   padding-left: 0.75rem;
 }
@@ -4234,21 +4252,23 @@ textarea.form-control-lg {
   align-items: flex-start;
   justify-content: center;
 }
-.btn-group-vertical > .btn,
+.btn-group-vertical > .btn, .page-authentication .img .btn-group-vertical > .toggle-button,
 .btn-group-vertical > .btn-group {
   width: 100%;
 }
-.btn-group-vertical > .btn:not(:first-child),
+.btn-group-vertical > .btn:not(:first-child), .page-authentication .img .btn-group-vertical > .toggle-button:not(:first-child),
 .btn-group-vertical > .btn-group:not(:first-child) {
   margin-top: calc(var(--bs-border-width) * -1);
 }
-.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),
-.btn-group-vertical > .btn-group:not(:last-child) > .btn {
+.btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle), .page-authentication .img .btn-group-vertical > .toggle-button:not(:last-child):not(.dropdown-toggle),
+.btn-group-vertical > .btn-group:not(:last-child) > .btn,
+.page-authentication .img .btn-group-vertical > .btn-group:not(:last-child) > .toggle-button {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.btn-group-vertical > .btn ~ .btn,
-.btn-group-vertical > .btn-group:not(:first-child) > .btn {
+.btn-group-vertical > .btn ~ .btn, .page-authentication .img .btn-group-vertical > .toggle-button ~ .btn, .page-authentication .img .btn-group-vertical > .btn ~ .toggle-button, .page-authentication .img .btn-group-vertical > .toggle-button ~ .toggle-button,
+.btn-group-vertical > .btn-group:not(:first-child) > .btn,
+.page-authentication .img .btn-group-vertical > .btn-group:not(:first-child) > .toggle-button {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -5290,7 +5310,7 @@ textarea.form-control-lg {
   display: none;
 }
 
-.btn .badge {
+.btn .badge, .page-authentication .img .toggle-button .badge {
   position: relative;
   top: -1px;
 }
@@ -7242,7 +7262,7 @@ textarea.form-control-lg {
   background-color: currentcolor;
   opacity: 0.5;
 }
-.placeholder.btn::before {
+.placeholder.btn::before, .page-authentication .img .placeholder.toggle-button::before {
   display: inline-block;
   content: "";
 }
@@ -8424,7 +8444,7 @@ textarea.form-control-lg {
   margin-top: 1.5rem !important;
 }
 
-.mt-5 {
+.mt-5, .page-authentication {
   margin-top: 3rem !important;
 }
 
@@ -12543,7 +12563,7 @@ p.error {
   margin-bottom: 10px;
 }
 
-.btn {
+.btn, .page-authentication .img .toggle-button {
   text-decoration: none;
   transition: all 0.2s linear;
   min-width: 140px;
@@ -12552,30 +12572,30 @@ p.error {
   box-shadow: none;
   font-weight: bold;
 }
-.btn:hover {
+.btn:hover, .page-authentication .img .toggle-button:hover {
   border-bottom-left-radius: 5px;
   border-top-right-radius: 5px;
   transition: background 0.4s 0.4s, border-color 0.4s 0s;
 }
-.btn-primary {
+.btn-primary, .page-authentication .img .toggle-button {
   border: 2px black solid;
   color: black;
 }
-.btn-primary:hover {
+.btn-primary:hover, .page-authentication .img .toggle-button:hover {
   background: var(--bs-primary);
   border: 2px var(--bs-primary) solid;
   color: #444349 !important;
 }
-.btn-primary.filled {
+.btn-primary.filled, .page-authentication .img .filled.toggle-button {
   background: var(--bs-primary);
   border: 2px var(--bs-primary) solid;
   color: #444349 !important;
 }
-.btn-primary.btn-white {
+.btn-primary.btn-white, .page-authentication .img .btn-white.toggle-button {
   border: 2px white solid;
   color: white;
 }
-.btn-primary.btn-outline-primary {
+.btn-primary.btn-outline-primary, .page-authentication .img .toggle-button {
   border: 2px var(--bs-primary) solid;
 }
 .btn-secondary {
@@ -12589,7 +12609,7 @@ p.error {
 .btn-secondary.filled {
   background: var(--bs-secondary);
 }
-.btn.active {
+.btn.active, .page-authentication .img .active.toggle-button {
   background-color: var(--bs-secondary, black);
   border-bottom-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -12998,6 +13018,169 @@ section,
   top: 50%;
   right: 0;
   transform: translate(31%, -25%);
+}
+
+.page-authentication {
+  overflow: hidden;
+  position: relative;
+  width: 900px;
+  height: 550px;
+  margin: 0 auto 100px;
+  background: #fff;
+}
+.page-authentication .form {
+  position: relative;
+  width: 640px;
+  height: 100%;
+  transition: transform 1.2s ease-in-out;
+  padding: 50px 30px 0;
+}
+.page-authentication .form form#login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.page-authentication .sub-content {
+  overflow: hidden;
+  position: absolute;
+  left: 640px;
+  top: 0;
+  width: 900px;
+  height: 100%;
+  padding-left: 260px;
+  background: #fff;
+  transition: transform 1.2s ease-in-out;
+}
+.page-authentication.signup-active .sub-content {
+  transform: translate3d(-640px, 0, 0);
+}
+.page-authentication .img {
+  overflow: hidden;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  padding-top: 360px;
+  display: flex;
+  justify-content: center;
+}
+.page-authentication .img:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 900px;
+  height: 100%;
+  background-image: url("/static/img/default-authentication.jpg");
+  background-size: cover;
+  transition: transform 1.2s ease-in-out;
+}
+.page-authentication .img:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+.page-authentication .img .text {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 100%;
+  padding: 0 20px;
+  text-align: center;
+  color: #fff;
+  transition: transform 1.2s ease-in-out;
+}
+.page-authentication .img .text h2, .page-authentication .img .text .h2 {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+.page-authentication .img .text p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.page-authentication .img .text.in {
+  transform: translateX(-520px);
+}
+.page-authentication .img .toggle-button {
+  overflow: hidden;
+  z-index: 2;
+  position: relative;
+  width: 100px;
+  height: 36px;
+  margin: 0 auto;
+  color: #fff;
+}
+.page-authentication .img .toggle-button span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.2s;
+}
+.page-authentication .img .toggle-button span.in {
+  transform: translateY(-72px);
+}
+.page-authentication.signup-active .img:before {
+  transform: translate3d(640px, 0, 0);
+}
+.page-authentication.signup-active .img .text.up {
+  transform: translateX(520px);
+}
+.page-authentication.signup-active .img .text.in {
+  transform: translateX(0);
+}
+.page-authentication.signup-active .img .toggle-button span.up {
+  transform: translateY(72px);
+}
+.page-authentication.signup-active .img .toggle-button span.in {
+  transform: translateY(0);
+}
+.page-authentication label {
+  display: block;
+  width: 260px;
+  margin: 25px auto 0;
+}
+.page-authentication label span {
+  font-size: 12px;
+  color: #cfcfcf;
+  text-transform: uppercase;
+}
+.page-authentication .forgot-pass {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 12px;
+  color: #cfcfcf;
+}
+.page-authentication .submit {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  background: #d4af7a;
+  text-transform: uppercase;
+}
+.page-authentication .sign-in {
+  transition-timing-function: ease-out;
+}
+.page-authentication.signup-active .sign-in {
+  transition-timing-function: ease-in-out;
+  transition-duration: 1.2s;
+  transform: translate3d(640px, 0, 0);
+}
+.page-authentication.signup-active .sign-up {
+  transform: translate3d(0, 0, 0);
+}
+.page-authentication .sign-up {
+  transform: translate3d(-900px, 0, 0);
 }
 
 div.card {

@@ -1,0 +1,154 @@
+{% extends 'layouts/main_layout.html' %}
+{% set bodyClass = "login" %}
+{% set title = "Login" %}
+{% set hero_url = "/static/img/default-hero-authentication.jpg" %}
+
+{% block content %}
+    {% include 'components/blocks/hero/block-hero.html' %}
+
+    <div class="container-xl">
+        <div {% if is_register %} class="page-authentication signup-active" {% else %}
+                                  class="page-authentication" {% endif %}>
+            <div class="form sign-in">
+                <h2>Inloggen,</h2>
+                <form method="POST" id="login-form">
+                    <div class="form-group">
+                        <label for="username">Gebruikersnaam</label>
+                        <input type="text" name="username" id="username" class="form-control"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Wachtwoord</label>
+                        <input type="password" name="password" id="password" class="form-control"
+                               required>
+                    </div>
+                    <div class="form-group form-check mt-4">
+                        <input type="checkbox" class="form-check-input" id="remember_me"
+                               name="remember_me">
+                        <label class="form-check-label mt-0" for="remember_me">Herinner mij</label>
+                    </div>
+                    <div>
+                        <a href="/reset-password">Wachtwoord opnieuw instellen</a>
+                    </div>
+                    <div class="mt-md-3">
+                        <button type="submit" class="btn btn-primary">Inloggen</button>
+                    </div>
+                </form>
+            </div>
+            <div class="sub-content">
+                <div class="img">
+                    <div class="text up">
+                        <h2>Nieuw hier?</h2>
+                        <p>Meld je aan en boek onze accommedaties!</p>
+                    </div>
+                    <div class="text in">
+                        <h2>Heb je al een account?</h2>
+                        <p>Als je al een account hebt, meld je dan gewoon aan!</p>
+                    </div>
+                    <div class="toggle-button">
+                        <span class="up">Aanmelden</span>
+                        <span class="in">Inloggen</span>
+                    </div>
+                </div>
+                <div class="form sign-up">
+                    <h2>Aanmelden,</h2>
+                    <form method="POST" action="/register">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="username">Gebruikersnaam</label>
+                                    <input type="text" name="username" id="username" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="email">E-mail</label>
+                                    <input type="email" name="email" id="email" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="password">Wachtwoord</label>
+                                    <input type="password" name="password" id="password" class="form-control"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="confirm_password">Wachtwoord bevestigen</label>
+                                    <input type="password" name="confirm_password" id="confirm_password"
+                                           class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="city">Stad</label>
+                                    <input type="text" name="city" id="city" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="postcode">Postcode</label>
+                                    <input type="text" name="postcode" id="postcode" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="address">Adres</label>
+                                    <input type="text" name="address" id="address" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="housenumber">Huisnummer</label>
+                                    <input type="text" name="housenumber" id="housenumber" class="form-control"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-md-3 text-center">
+                            <button type="submit" class="btn btn-primary">Aanmelden</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var loginForm = document.querySelector('#login-form');
+            var usernameInput = loginForm.querySelector('#username');
+            var rememberCheckbox = loginForm.querySelector('#remember_me');
+
+            // Set the checkbox state based on what's saved in local storage
+            rememberCheckbox.checked = localStorage.getItem('remember_me') === 'true';
+
+            // Populate the username field if it's saved and the remember me checkbox is checked
+            if (rememberCheckbox.checked && localStorage.getItem('savedUsername')) {
+                usernameInput.value = localStorage.getItem('savedUsername');
+            }
+
+            loginForm.addEventListener('submit', function () {
+                // Save the username in local storage if remember me is checked
+                if (rememberCheckbox.checked) {
+                    localStorage.setItem('savedUsername', usernameInput.value);
+                    localStorage.setItem('remember_me', 'true');
+                } else {
+                    localStorage.removeItem('savedUsername');
+                    localStorage.removeItem('remember_me');
+                }
+            });
+
+            document.querySelector('.toggle-button').addEventListener('click', function () {
+                document.querySelector('.page-authentication').classList.toggle('signup-active');
+            });
+        });
+    </script>
+{% endblock %}
