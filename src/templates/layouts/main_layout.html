@@ -105,13 +105,13 @@
                 </div>
             {% else %}
                 <!-- Display login/register button when not logged in -->
-                <a href="/login" class="btn btn-secondary text-white">Login/Sign-up</a>
+                <a href="/login" class="btn btn-primary btn-outline-primary text-white">Login/Sign-up</a>
             {% endif %}
         </div>
     </div>
 </header>
 
-<main>
+<main id="main" role="main">
     {% block content %}
     {% endblock %}
 </main>

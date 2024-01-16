@@ -9,10 +9,6 @@
     }
   }
 
-  &:not(.full-width) {
-    @extend .container-xl;
-  }
-
   &[id] {
     scroll-margin-top: calc(var(--header-height) / 2 + var(--admin-bar-height));
   }
@@ -28,3 +24,5 @@ section,
 @import "./block-about-us";
 @import "./block-gallery";
 @import "./block-accommodations-slider";
+@import "./block-cta";
+@import "./block-uppsells";
