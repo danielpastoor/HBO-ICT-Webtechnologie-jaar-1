@@ -1,10 +1,11 @@
 {% extends 'layouts/main_layout.html' %}
 {% set bodyClass = "settings" %}
-{% set title = current_user.username ~ " - Settings" %}
+{% set title = current_user.username ~ "'s Instellingen" %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h2 class="h2 mb-4">{{ current_user.username }}'s Instellingen</h2>
+    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
+
+    <div class="container">
 
         <div class="row">
             <div class="col-12">

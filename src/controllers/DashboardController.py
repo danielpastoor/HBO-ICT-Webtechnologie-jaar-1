@@ -34,7 +34,7 @@ class DashboardController(ControllerBase):
             return redirect('/accommodation')  # Redirect to a different page
 
         # Return rendered HTML with bookings data and isAdmin flag
-        return render_template("pages/dashboard/dashboard.html", bookings=bookings, isAdmin=isAdmin)
+        return render_template("pages/admin-dashboard/admin-dashboard-booked.html", bookings=bookings, isAdmin=isAdmin)
 
 
 if __name__ == "__main__":

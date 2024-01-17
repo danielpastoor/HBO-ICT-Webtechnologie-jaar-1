@@ -1,37 +1,25 @@
 {% extends 'layouts/main_layout.html' %}
 {% set bodyClass = "my-bookings" %}
-{% set title = "My Bookings" %}
+{% set title = "Mijn boekingen" %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h2 class="mb-4 text-center">My Bookings</h2>
+    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
 
-        <div class="row">
-            {% for booking in bookings %}
-                <div class="booking-row">
-                    <div class="booking-image">
-                        <picture>
-                            <img src="/static/img/{{ booking.thumbnail_image }}" alt="Thumbnail">
-                        </picture>
-
+    <div class="container">
+        <div class="row row-cols-1">
+            {% set has_bookings = bookings|length %}
+            {% if has_bookings > 0 %}
+                {% for booking in bookings %}
+                    <div class="col mb-4">
+                        {% include 'components/cards/card-booking.html' %}
                     </div>
-
-                    <div class="booking-info">
-                        <p>Start Date: {{ booking.start_date }}</p>
-                        <p>End Date: {{ booking.end_date }}</p>
-                        Accommodation Name: {{ booking.id }}<br>
-                        Booking Date: {{ booking.booking_date }}<br>
-                    </div>
-                    <div class="booking-actions">
-                        <button id="editButton" class="btn btn-primary" onclick="editBooking({{ booking.id }})">Edit
-                        </button>
-                        <button id="removeButton" class="btn btn-primary" onclick="removeBooking({{ booking.id }})">
-                            Remove
-                        </button>
-                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="mb-5">
+                    Geen Boekingen gevonden
                 </div>
-                </div>
-            {% endfor %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 

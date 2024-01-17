@@ -1,14 +1,17 @@
 <div class="col-sm-12 col-md-24">
     <article class="card card-accommodation flex-column flex-md-row align-items-md-stretch">
-        <div><a href="/accommodation/{{ accommodation.id }}">
-            <picture>
-                <img src="/static/img/{{ accommodation.thumbnail_image }}">
-            </picture>
-        </a></div>
+        <div>
+            <a href="/accommodation/{{ accommodation.id }}">
+                <picture>
+                    <img src="/static/img/{{ accommodation.thumbnail_image }}">
+                </picture>
+            </a>
+        </div>
 
         <div class="body">
-            <h5 class="title"><a
-                    href="/accommodation/{{ accommodation.id }}">{{ accommodation.name }}</a></h5>
+            <h5 class="title">
+                <a href="/accommodation/{{ accommodation.id }}">{{ accommodation.name }}
+                </a></h5>
             <div class="d-flex justify-content-start mb-2">
                 <div class="rating">
                     <span class="fas fa-star"></span><span

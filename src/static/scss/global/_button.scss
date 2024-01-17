@@ -19,13 +19,13 @@
     &:hover {
       background: var(--bs-primary);
       border: 2px var(--bs-primary) solid;
-      color: $secondary!important;
+      color: $secondary !important;
     }
 
     &.filled {
       background: var(--bs-primary);
       border: 2px var(--bs-primary) solid;
-      color: $secondary!important;
+      color: $secondary !important;
     }
 
     &.btn-white {
@@ -61,5 +61,20 @@
     background-color: var(--bs-secondary, black);
     border-bottom-left-radius: 5px;
     border-top-right-radius: 5px;
+  }
+
+  &-danger {
+    border: 2px var(--bs-danger) solid;
+    color: black;
+
+    &:hover {
+      background: var(--bs-danger);
+      border: 2px var(--bs-danger) solid;
+    }
+
+    &.filled {
+      background: var(--bs-danger);
+      color: white;
+    }
   }
 }
