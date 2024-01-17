@@ -3,13 +3,20 @@
 {% set title = "Error" %}
 
 {% block content %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card mt-md-5 bg-white rounded border border-gray">
-                    <div class="card-header bg-white">
-                        <h3 class="text-center">Error</h3>
-                    </div>
+    <div class="container mb-5">
+        <div class="block block-error">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-24 col-lg-10">
+                    <h1>Error</h1>
+                    <p class="lead">
+                        Het lijkt er op dat er iets fout is gegaan. Klik op de knop hieronder om naar home te gaan.
+                    </p>
+                    <a class="btn btn-primary" href="/">Terug naar Home</a>
+                </div>
+                <div class="col-24 col-lg-10">
+                    <picture>
+                        <img src="/static/img/404.webp" alt="404">
+                    </picture>
                 </div>
             </div>
         </div>

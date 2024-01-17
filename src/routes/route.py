@@ -1,7 +1,7 @@
 """ In this file are the routes defined
 """
 
-from flask import Flask
+from flask import Flask, render_template
 
 from src.controllers.DashboardController import DashboardController
 from src.controllers.AuthenticationController import LoginPage, RegisterPage, LogoutPage, ResetPasswordController
@@ -68,6 +68,10 @@ def routes(app: Flask):
 
     # AdminDash Controller
     AdminDashboardController.register(app, "/dashboard")
+
+    @app.errorhandler(404)
+    def not_found(e):
+        return render_template("pages/error/error.html")
 
 
 if __name__ == "__main__":
