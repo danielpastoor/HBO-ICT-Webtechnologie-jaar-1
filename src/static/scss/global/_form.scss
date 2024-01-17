@@ -1,6 +1,10 @@
 form {
   .form-group {
-    label {
+    label:not(.form-check-label) {
+      margin: 25px auto 0;
+    }
+
+    &.form-check {
       margin: 25px auto 0;
     }
   }

@@ -12630,7 +12630,10 @@ p.error {
   color: white;
 }
 
-form .form-group label {
+form .form-group label:not(.form-check-label) {
+  margin: 25px auto 0;
+}
+form .form-group.form-check {
   margin: 25px auto 0;
 }
 
