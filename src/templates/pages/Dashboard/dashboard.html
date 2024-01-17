@@ -35,7 +35,7 @@
                 </div>
             {% endfor %}
     </div>
-            <div class="container mt-4">
+    <div class="container mt-4">
         <h2>Create a Booking</h2>
 
         <!-- Booking Form -->
@@ -48,14 +48,12 @@
                             <option value="{{ user.id }}">{{ user.username }}</option>
                         {% endfor %}
                     </select>
-                    <div class="form-group">
-                        <label for="start_date">Start Date:</label>
-                        <input type="date" class="form-control" id="start_date" name="start_date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="end_date">End Date:</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date" required>
-                    </div>
+                    <input type="text" id="bookingdates" class="form-control"
+                           data-booked-dates="{{ booked_dates_str }}"
+                           placeholder="Select week range"
+                           readonly>
+                    <input type="hidden" name="start_date" required>
+                    <input type="hidden" name="end_date" required>
                     <div class="form-group">
                         <label for="accommodation_id">Accommodation:</label>
                         <select class="form-control" id="accommodation_id" name="accommodation_id" required>
@@ -79,6 +77,12 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}=
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="/static/js/rangepicker.js"></script>
+{% endblock %}
+
 
 {% block header %}
     <link rel="stylesheet" href="https://npmcdn.com/flatpickr@4.6.13/dist/themes/airbnb.css">

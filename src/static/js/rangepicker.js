@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if (selectedDates.length > 0) {
-                    document.querySelector("input[name='checkindate']").value = selectedDates[0].toISOString().substring(0, 10);
+                    document.querySelector("input[name='start_date']").value = selectedDates[0].toISOString().substring(0, 10);
 
                     if (selectedDates.length > 1)
-                        document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toISOString().substring(0, 10);
+                        document.querySelector("input[name='end_date']").value = selectedDates[1].toISOString().substring(0, 10);
                 }
             }
         });
@@ -75,10 +75,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                     if (selectedDates.length > 0) {
-                        document.querySelector("input[name='checkindate']").value = selectedDates[0].toISOString().substring(0, 10);
+                        document.querySelector("input[name='start_date']").value = selectedDates[0].toISOString().substring(0, 10);
 
                         if (selectedDates.length > 1)
-                            document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toISOString().substring(0, 10);
+                            document.querySelector("input[name='end_date']").value = selectedDates[1].toISOString().substring(0, 10);
                     }
 
                     var amountField = document.getElementById("amount")
