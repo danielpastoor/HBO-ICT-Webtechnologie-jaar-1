@@ -9,6 +9,7 @@ python3 app.py --profile
 
 from src.main import run
 
+
 def main():
     """
     Here the whole code for the website is ran.

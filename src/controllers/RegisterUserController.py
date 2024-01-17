@@ -20,11 +20,11 @@ class RegisterUserController(ControllerBase):
     """
 
     @login_required
-    def index(self):
-        """ Endpoint for getting the profile page
-        """
+    def get(self):
+        app_context = ApplicationContext()
+        users = app_context.get_all_users()
 
-        return render_template("pages/dashboard/registeruser.html")
+        return render_template("pages/dashboard/registeruser.html", users=users)
 
 
 if __name__ == "__main__":
