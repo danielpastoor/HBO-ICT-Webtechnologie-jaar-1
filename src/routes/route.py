@@ -8,6 +8,7 @@ from src.controllers.AuthenticationController import LoginPage, RegisterPage, Lo
 from src.controllers.BookingController import BookingPage
 from src.controllers.ContactController import ContactPage
 from src.controllers.FAQController import FaqPage
+from src.controllers.GeneralConditionController import GeneralConditionController
 from src.controllers.IndexController import IndexController
 from src.controllers.AccommodationController import AccommodationController
 from src.controllers.MyBookingController import MyBookingController
@@ -68,6 +69,8 @@ def routes(app: Flask):
 
     # AdminDash Controller
     AdminDashboardController.register(app, "/dashboard")
+
+    GeneralConditionController.register(app, "/general-condition")
 
     @app.errorhandler(404)
     def not_found(e):
