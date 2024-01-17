@@ -97,14 +97,14 @@ class BookingPage(ControllerBase):
                     days=7)
                 booking.user_id = user.id
                 booking.SetCreationDate()
-                applicationContext.Add(booking)
+                # applicationContext.Add(booking)
 
             price = accommodation.price * day_difference
 
             return redirect(self.__create_payment_url(price, accommodation_id))
 
     def thankyou(self):
-        return redirect("pages/thank-you.html")
+        return render_template("pages/thank-you.html")
 
     def __create_payment_url(self, amount, id):
         url_payment = f"http://localhost:8081/booking/thankyou"
