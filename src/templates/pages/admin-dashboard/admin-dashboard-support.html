@@ -1,0 +1,39 @@
+{% extends 'layouts/main_layout.html' %}
+{% set isAdmin = true %}
+{% set isDashboard = true %}
+{% set bodyClass = "admin-chat-messages" %}
+{% set title = "Admin Chat Messages" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Chat Messages</h2>
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Message</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in chat_messages %}
+                    <tr>
+                        <td>{{ message.id }}</td>
+                        <td>{{ message.user_id or 'Guest' }}</td>
+                        <td>{{ message.email }}</td>
+                        <td>{{ message.name }}</td>
+                        <td>{{ message.message }}</td>
+                        <td>{{ message.timestamp }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
