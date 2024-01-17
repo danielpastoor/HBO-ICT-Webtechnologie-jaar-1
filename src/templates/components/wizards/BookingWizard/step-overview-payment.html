@@ -1,5 +1,5 @@
 <div class="wizard-step" data-step="2">
-    <h4>Stap 2: Betaling</h4>
+    <h4>Stap 2: Betaling Overzicht</h4>
     <div class="row mb-2">
         <div class="col-12">
             <label class="form-label">Check-in datum:</label>
@@ -9,8 +9,9 @@
             <label class="form-label">Check-uit datum:</label>
             <input type="text" class="form-control" readonly name="checkoutdate"/>
         </div>
-
     </div>
+
+    <h5>Te betalen €<span id="amount"></span></h5>
 
     <button type="button" onclick="prevStep(1)" class="btn btn-secondary">Vorige</button>
     <button type="submit" class="btn btn-success">Betalen met ideal</button>
