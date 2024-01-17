@@ -57,64 +57,25 @@
                         <i class="fas fa-home"></i> Dashboard
                     </a>
 
-                    <!-- Bookings Dropdown -->
-                    <div class="nav-item">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="bookingsDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-book"></i> Bookings
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="bookingsDropdown">
-                            <li>
-                                <a href="/create-booking" class="dropdown-item">
-                                    <i class="fas fa-edit"></i> Create Booking
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/all-bookings" class="dropdown-item">
-                                    <i class="fas fa-list"></i> All Bookings
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <!-- Booking Link -->
+                    <a href="/all-bookings" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                       class="nav-item" {% endif %}>
+                        <i class="fas fa-edit"></i> Bookings
+                    </a>
 
-                    <!-- Users Dropdown -->
-                    <div class="nav-item">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="usersDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-users"></i> Users
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="usersDropdown">
-                            <li>
-                                <a href="/edit-users" class="dropdown-item">
-                                    <i class="fas fa-user-edit"></i> Edit Users
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/submit-new-user" class="dropdown-item">
-                                    <i class="fas fa-user-plus"></i> Add Users
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="nav-item">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="accommodationsDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-bed"></i> Accommodations
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="accommodationsDropdown">
-                            <li>
-                                <a href="/add-accommodation" class="dropdown-item">
-                                    <i class="fas fa-plus"></i> Add Accommodation
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/manage-accommodations" class="dropdown-item">
-                                    <i class="fas fa-tasks"></i> Manage Accommodations
-                                </a>
-                            </li>
-                            <!-- Voeg hier eventuele extra links toe voor accommodatiebeheer -->
-                        </ul>
-                    </div>
+                    <!-- Users Link -->
+                    <a href="/submit-new-user" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                       class="nav-item" {% endif %}>
+                        <i class="fas fa-user-edit"></i> Users
+                    </a>
+
+                                        <!-- Users Link -->
+                    <a href="/manage-accommodations" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                       class="nav-item" {% endif %}>
+                        <i class="fas fa-list"></i> Manage Accomodation
+                    </a>
+
+                    <!-- Support Chat Link -->
                     <a href="/support-chat" {% if bodyClass == "support-chat" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-comments"></i> Support Chat
