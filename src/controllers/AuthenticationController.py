@@ -23,7 +23,7 @@ class LoginPage(ControllerBase):
             # If user is already logged in, redirect to a different page
             return redirect('/')
 
-        return render_template("pages/login.html")
+        return render_template("pages/authentication.html")
 
     def post(self):
         """ Endpoint for handling login POST request """
@@ -48,7 +48,7 @@ class LoginPage(ControllerBase):
         else:
             # Login failed
             flash("Invalid username or password", "error")
-            return render_template("pages/login.html")
+            return render_template("pages/authentication.html")
 
 
 class AuthenticationProcessor:
@@ -142,7 +142,7 @@ class RegisterPage(ControllerBase):
 
     def index(self):
         # # Default to handling GET request
-        return render_template('pages/register.html')
+        return render_template('pages/authentication.html', is_register=True)
 
     def post(self):
         app_context = ApplicationContext()
@@ -159,11 +159,11 @@ class RegisterPage(ControllerBase):
         # Validate and hash the password
         if password != confirm_password:
             flash("Passwords do not match", "error")
-            return render_template('pages/register.html')
+            return render_template('pages/register.html', is_register=True)
 
         if not is_password_complex(password):
             flash("Password is not complex enough", "error")
-            return render_template('pages/register.html')
+            return render_template('pages/register.html', is_register=True)
 
         hashed_password = generate_password_hash(password)
         print(hashed_password)
@@ -180,7 +180,7 @@ class RegisterPage(ControllerBase):
 
         except Exception as e:
             flash("Registration failed: " + str(e), "error")
-            return render_template('pages/register.html')
+            return render_template('pages/register.html', is_register=True)
 
 
 if __name__ == "__main__":

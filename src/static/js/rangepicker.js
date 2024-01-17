@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var disableDates = []
 
             var booked_dates_string = bookingDateElement.getAttribute("data-booked-dates");
+            var amount_per_night = bookingDateElement.getAttribute("data-amount-per-night");
 
             if (booked_dates_string) {
                 var booked_dates = JSON.parse(booked_dates_string)
@@ -78,6 +79,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         if (selectedDates.length > 1)
                             document.querySelector("input[name='checkoutdate']").value = selectedDates[1].toISOString().substring(0, 10);
+                    }
+
+                    var amountField = document.getElementById("amount")
+
+                    if (amountField) {
+                        amountField.innerText = (amount_per_night * diffDays).toString();
                     }
                 }
             });

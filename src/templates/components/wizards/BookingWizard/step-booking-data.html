@@ -1,11 +1,9 @@
 <div class="wizard-step" data-step="1">
-    <h2>Stap 1: Boekingsinformatie</h2>
+    <h4>Stap 1: Boekingsinformatie</h4>
     <div class="mb-3">
         <label for="bookingdates" class="form-label">Check-in datum - Check-uit datum:</label>
-        <input type="text" id="bookingdates" class="form-control"  data-booked-dates="{{ booked_dates_str }}" placeholder="Select week range"
+        <input type="text" id="bookingdates" class="form-control" data-amount-per-night="{{ accommodation.price }}"  data-booked-dates="{{ booked_dates_str }}" placeholder="Select week range"
                readonly>
-        <input type="hidden" name="checkindate" />
-        <input type="hidden" name="checkoutdate" />
     </div>
     <button type="button" onclick="nextStep(1)" class="btn btn-primary">Volgende</button>
 </div>

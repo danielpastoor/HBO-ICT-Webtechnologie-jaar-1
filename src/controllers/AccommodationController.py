@@ -15,7 +15,7 @@ class AccommodationController(ControllerBase):
         _type_: page
     """
 
-    def index(self):
+    def get(self):
         """ Endpoint for getting the index page
         """
         applicationContext = ApplicationContext()

@@ -4,9 +4,10 @@
             <h2 class="title">Onze Accommodaties</h2>
             <div id="carouselAccommodationControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    {% for accommodation in accommodations %}
-                        <div class="carousel-item active">
-                            {% include 'components/cards/card-accommodation-vertical.html' %}
+                    {% for n in range(accommodations| length) %}
+                        {% set accommodation = accommodations[n] %}
+                        <div {% if n == 0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+                            {% include 'components/cards/card-accommodation.html' %}
                         </div>
                     {% endfor %}
                 </div>

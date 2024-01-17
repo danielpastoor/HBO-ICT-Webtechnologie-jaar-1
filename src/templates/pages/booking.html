@@ -1,18 +1,26 @@
 {% extends 'layouts/main_layout.html' %}
 {% set bodyClass = "booking" %}
-{% set title = "Booking" %}
+{% set title = "Maak uw boeking" %}
+{% set disabled_buttons = True %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h2 class="mb-4 text-center">Maak uw boeking</h2>
+    {% include 'components/blocks/hero/block-hero.html' %}
 
-        <!-- Boekingsformulier -->
+    <div class="container mt-5">
         <form id="bookingForm" method="post">
-            <div class="wizard-wrapper">
-                <div class="wizard-header"></div>
-                <div class="wizard-steps">
-                    {% include 'components/wizards/BookingWizard/step-booking-data.html' %}
-                    {% include 'components/wizards/BookingWizard/step-overview-payment.html' %}
+            <div class="row">
+                <div class="col-16">
+                    <div class="wizard-wrapper">
+                        <div class="wizard-header"></div>
+                        <div class="wizard-steps">
+                            {% include 'components/wizards/BookingWizard/step-booking-data.html' %}
+                            {% include 'components/wizards/BookingWizard/step-overview-payment.html' %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    {% include 'components/cards/card-accommodation-vertical.html' %}
+                    {#                    https://codepen.io/tarun-sai/pen/yLNBoed#}
                 </div>
             </div>
         </form>

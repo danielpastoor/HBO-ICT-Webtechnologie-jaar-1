@@ -1,3 +1,5 @@
+{% set disabled_buttons = disabled_buttons|default(False) %}
+
 <article class="card card-accommodation-vertical">
     <div><a href="/accommodation/{{ accommodation.id }}">
         <picture>
@@ -25,9 +27,11 @@
         </div>
         <p class="text">{{ accommodation.description }}</p>
 
-        <div>
-            <a class="btn btn-primary mt-4 me-2" href="/accommodation/{{ accommodation.id }}">Meer Info</a>
-            <a class="btn btn-primary mt-4 filled" href="/booking/book/{{ accommodation.id }}">Boeken</a>
-        </div>
+        {% if not disabled_buttons %}
+            <div>
+                <a class="btn btn-primary mt-4 me-2" href="/accommodation/{{ accommodation.id }}">Meer Info</a>
+                <a class="btn btn-primary mt-4 filled" href="/booking/book/{{ accommodation.id }}">Boeken</a>
+            </div>
+        {% endif %}
     </div>
 </article>
