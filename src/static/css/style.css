@@ -12618,8 +12618,8 @@ p.error {
   border-top-right-radius: 5px;
 }
 
-form.form .input {
-  padding: 10px;
+form .form-group label {
+  margin: 25px auto 0;
 }
 
 header {
@@ -13255,12 +13255,8 @@ section,
 }
 
 div.card {
-  background-color: var(--bs-primary);
   padding: 10px 15px;
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 div.card.seconadary {
   background-color: var(--bs-secondary);
