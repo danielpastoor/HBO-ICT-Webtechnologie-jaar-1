@@ -62,8 +62,8 @@ class BookingPage(ControllerBase):
                 return render_template("pages/error.html"), 500
 
             date_format = "%Y-%m-%d"
-            check_in_date_str = request.form.get('checkindate')
-            check_out_date_str = request.form.get('checkoutdate')
+            check_in_date_str = request.form.get('start_date')
+            check_out_date_str = request.form.get('end_date')
 
             print(check_in_date_str)
 

@@ -21,8 +21,8 @@ class AccommodationController(ControllerBase):
         applicationContext = ApplicationContext()
 
         search = request.args.get("search")
-        check_in_date = request.args.get("checkindate")
-        check_out_date = request.args.get("checkoutdate")
+        check_in_date = request.args.get("start_date")
+        check_out_date = request.args.get("end_date")
         condition = None
         join = None
         column = "*"
