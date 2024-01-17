@@ -24,7 +24,7 @@ class CreateBookingController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/createbooking.html")
+        return render_template("pages/admin-dashboard/admin-dashboard-create-booking.html")
 
 
 if __name__ == "__main__":

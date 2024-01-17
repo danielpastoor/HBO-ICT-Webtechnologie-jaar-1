@@ -24,7 +24,7 @@ class RegisterUserController(ControllerBase):
         app_context = ApplicationContext()
         users = app_context.get_all_users()
 
-        return render_template("pages/dashboard/registeruser.html", users=users)
+        return render_template("pages/admin-dashboard/admin-dashboard-register-user.html", users=users)
 
 
 if __name__ == "__main__":

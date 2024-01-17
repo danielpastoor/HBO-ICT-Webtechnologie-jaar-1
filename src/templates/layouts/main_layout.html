@@ -58,25 +58,28 @@
                     </a>
 
                     <!-- Booking Link -->
-                    <a href="/all-bookings" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                    <a href="/dashboard/all-bookings" {% if bodyClass == "index" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-edit"></i> Bookings
                     </a>
 
                     <!-- Users Link -->
-                    <a href="/submit-new-user" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                    <a href="/dashboard/submit-new-user" {% if bodyClass == "index" %}
+                       class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-user-edit"></i> Users
                     </a>
 
-                                        <!-- Users Link -->
-                    <a href="/manage-accommodations" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                    <!-- Users Link -->
+                    <a href="/dashboard/manage-accommodations" {% if bodyClass == "index" %}
+                       class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-list"></i> Manage Accomodation
                     </a>
 
                     <!-- Support Chat Link -->
-                    <a href="/support-chat" {% if bodyClass == "support-chat" %} class="nav-item active" {% else %}
+                    <a href="/dashboard/support-chat" {% if bodyClass == "support-chat" %}
+                       class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-comments"></i> Support Chat
                     </a>
@@ -87,7 +90,7 @@
                     <i class="fas fa-home"></i> Home
                 </a>
                 {% if current_user.is_authenticated %}
-                    <a href="/my-booking/" {% if bodyClass == "my-bookings" %}
+                    <a href="/dashboard/my-booking/" {% if bodyClass == "my-bookings" %}
                        class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-edit"></i> My Bookings

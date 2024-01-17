@@ -51,7 +51,7 @@ class AccommodationController(ControllerBase):
         data = applicationContext.Get(AccommodationEntity(), column, condition, join)
 
         # return rendered html
-        return render_template("pages/accommodation/accommodationOverview.html", accommodations=data,
+        return render_template("pages/accommodation/accommodation-overview.html", accommodations=data,
                                found_items=len(data))
 
     def accommodation(self, accommodation_id):
@@ -67,7 +67,7 @@ class AccommodationController(ControllerBase):
         accommodations = applicationContext.Get(AccommodationEntity())
 
         # return rendered html
-        return render_template("pages/accommodation/accommodationDetail.html", accommodation=data[0],
+        return render_template("pages/accommodation/accommodation-detail.html", accommodation=data[0],
                                accommodations=accommodations,
                                found_items=len(accommodations))
 

@@ -24,7 +24,7 @@ class SupportUserController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/dashboard/supportcontroller.html")
+        return render_template("pages/admin-dashboard/admin-dashboard-support.html")
 
 
 if __name__ == "__main__":

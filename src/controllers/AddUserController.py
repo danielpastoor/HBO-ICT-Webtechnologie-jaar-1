@@ -22,7 +22,7 @@ class AddUserController(ControllerBase):
         app_context = ApplicationContext()
         users = app_context.get_all_users()
 
-        return render_template("pages/dashboard/adduser.html", users=users)
+        return render_template("pages/admin-dashboard/admin-dashboard-add-user.html", users=users)
 
     def post(self):
         if request.method == 'POST':
@@ -70,7 +70,7 @@ class AddUserController(ControllerBase):
                 flash("Registration failed: " + str(e), "error")
                 return render_template('pages/dashboard/dashboard.html')
 
-        return render_template("pages/dashboard/adduser.html")  # Render the registration form for GET request
+        return render_template("pages/admin-dashboard/admin-dashboard-add-user.html")  # Render the registration form for GET request
 
 
 if __name__ == "__main__":

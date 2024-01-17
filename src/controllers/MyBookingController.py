@@ -28,7 +28,7 @@ class MyBookingController(ControllerBase):
             # Handle case where user_id is not found
 
         # Return rendered HTML with bookings data
-        return render_template("pages/dashboard/booked-trips.html", bookings=bookings, )
+        return render_template("pages/dashboard/dashboard.html", bookings=bookings, )
 
     def post(self):
         if not current_user.is_authenticated:

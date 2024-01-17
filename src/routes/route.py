@@ -37,38 +37,37 @@ def routes(app: Flask):
     ResetPasswordController.register(app, "/reset-password")
 
     # All-Booking
-    DashboardController.register(app, "/all-bookings")
+    DashboardController.register(app, "/dashboard/all-bookings")
 
     # MyBooking's Page
-    MyBookingController.register(app, "/my-booking")
+    MyBookingController.register(app, "/dashboard/my-booking")
 
     # Chat Popup
-    ChatController.register(app, "/save-chat")
+    ChatController.register(app, "/dashboard/save-chat")
 
     # Profile Page
-    ProfileController.register(app, "/settings")
+    ProfileController.register(app, "/dashboard/settings")
 
     # Booking creation Admin page
-    CreateBookingController.register(app, "/create-booking")
+    CreateBookingController.register(app, "/dashboard/create-booking")
 
     # Add User Controller
-    AddUserController.register(app, "/submit-new-user")
+    AddUserController.register(app, "/dashboard/submit-new-user")
 
     # Edit User Controller
-    RegisterUserController.register(app, "/edit-users")
+    RegisterUserController.register(app, "/dashboard/edit-users")
 
     # Add Accommodation Controller
-    AddAccommodationController.register(app, "/add-accommodation")
+    AddAccommodationController.register(app, "/dashboard/add-accommodation")
 
     # Manage Accommodation Controller
-    ManageAccommodationController.register(app, "/manage-accommodations")
+    ManageAccommodationController.register(app, "/dashboard/manage-accommodations")
 
     # Manage Support requests from support button
-    SupportUserController.register(app, "/support-chat")
+    SupportUserController.register(app, "/dashboard/support-chat")
 
     # AdminDash Controller
     AdminDashboardController.register(app, "/dashboard")
-
 
 
 if __name__ == "__main__":

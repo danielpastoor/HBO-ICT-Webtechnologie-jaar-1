@@ -24,7 +24,7 @@ class ManageAccommodationController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/dashboard/manageaccommodation.html")
+        return render_template("pages/admin-dashboard/admin-dashboard-manage-accommodation.html")
 
 
 if __name__ == "__main__":

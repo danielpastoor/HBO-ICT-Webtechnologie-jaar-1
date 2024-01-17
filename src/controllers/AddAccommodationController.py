@@ -24,7 +24,7 @@ class AddAccommodationController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/dashboard/addaccommodation.html")
+        return render_template("pages/admin-dashboard/admin-dashboard-add-accommodation.html")
 
 
 if __name__ == "__main__":
