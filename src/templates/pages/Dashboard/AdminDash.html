@@ -6,43 +6,60 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Dashboard</h2>
+    <h2>Admin Dashboard</h2>
 
     <div class="row">
+        <!-- Accommodation Summary -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Accommodations</h5>
+                    <p>Total Listings: {{ total_accommodations }}</p>
+                    <!-- Other accommodation stats -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Summary -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Bookings</h5>
+                    <p>Total Bookings: {{ total_bookings }}</p>
+                    <!-- Other booking stats -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Messages Summary -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Chat Messages</h5>
+                    <p>Total Messages: {{ total_chat_messages }}</p>
+                    <!-- Other chat message stats -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form Submissions Summary -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Form Submissions</h5>
+                    <p>Total Submissions: {{ total_contact_submissions }}</p>
+                    <!-- Other contact form stats -->
+                </div>
+            </div>
+        </div>
+
         <!-- User Statistics -->
         <div class="col-md-4">
             <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">User Statistics</h5>
                     <p>Total Users: {{ total_users }}</p>
-                    <p>Active Users: {{ active_users }}</p>
                     <!-- More user stats -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Recent Activities -->
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Recent Activities</h5>
-                    <ul>
-                        {% for activity in recent_activities %}
-                        <li>{{ activity.description }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- System Metrics -->
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">System Metrics</h5>
-                    <p>CPU Usage: {{ cpu_usage }}%</p>
-                    <p>Memory Usage: {{ memory_usage }}%</p>
-                    <!-- More system metrics -->
                 </div>
             </div>
         </div>

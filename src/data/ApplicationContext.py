@@ -240,4 +240,94 @@ class ApplicationContext:
             print(f"Fout bij het opslaan van het chatbericht: {e}")
             return False
 
+    def get_dashboard_data(self):
+        """Fetch counts for the admin dashboard from multiple tables."""
+        data = {}
+        cursor = None  # Initialize cursor
 
+        try:
+            self.__connect()
+            cursor = self.__connection.cursor(dictionary=True)
+
+            # Count data in the 'accommodation' table
+            cursor.execute("SELECT COUNT(id) AS count FROM accommodation")
+            data['total_accommodations'] = cursor.fetchone()['count']
+
+            # Count data in the 'booking' table
+            cursor.execute("SELECT COUNT(id) AS count FROM booking")
+            data['total_bookings'] = cursor.fetchone()['count']
+
+            # Count data in 'chat_messages' table
+            cursor.execute("SELECT COUNT(id) AS count FROM chat_messages")
+            data['total_chat_messages'] = cursor.fetchone()['count']
+
+            # Count data in 'contactformulier_inzendingen' table
+            cursor.execute("SELECT COUNT(inzending_id) AS count FROM contactformulier_inzendingen")
+            data['total_contact_submissions'] = cursor.fetchone()['count']
+
+            # Count data in 'users' table
+            cursor.execute("SELECT COUNT(id) AS count FROM users")
+            data['total_users'] = cursor.fetchone()['count']
+
+        except Error as e:
+            print(f"The error '{e}' occurred")
+        finally:
+            if cursor is not None:
+                cursor.close()
+
+        return data
+
+    def get_all_users(self):
+        """Fetch all users from the users table."""
+        users = []
+        try:
+            self.__connect()
+            if self.__connection.is_connected():
+                cursor = self.__connection.cursor(dictionary=True)
+                cursor.execute("SELECT id, username, email, city, postcode, address, housenumber, created_at, "
+                               "credit_card, is_admin FROM users")
+                users = cursor.fetchall()
+                cursor.close()
+            else:
+                print("Failed to connect to the database")
+        except Error as e:
+            print(f"Error fetching users: {e}")
+        finally:
+            if self.__connection and self.__connection.is_connected():
+                self.__connection.close()
+        return users
+
+    def register_user(self, user_data):
+        """
+        Registers a new user in the database.
+
+        :param user_data: Dictionary containing user information.
+        """
+        try:
+            self.__connect()
+            cursor = self.__connection.cursor()
+
+            # Prepare the SQL query
+            query = """
+            INSERT INTO users (username, email, password, city, postcode, address, housenumber, is_admin)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            """
+            # Unpack user data and insert into the database
+            cursor.execute(query, (
+                user_data['username'],
+                user_data['email'],
+                user_data['password'],  # Assuming password is already hashed
+                user_data['city'],
+                user_data['postcode'],
+                user_data['address'],
+                user_data['housenumber'],
+                user_data['is_admin']  # Should be an integer (1 or 0)
+            ))
+
+            self.__connection.commit()
+            cursor.close()
+        except Error as e:
+            print(f"Error registering user: {e}")
+        finally:
+            if self.__connection and self.__connection.is_connected():
+                self.__connection.close()
