@@ -13273,3 +13273,69 @@ div.card .number {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+.booking-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+}
+.booking-image img {
+    width: 100px; /* Adjust as needed */
+    height: auto;
+    margin-right: 20px;
+}
+
+.booking-info {
+  padding: 10px 15px;
+  border: 1px solid rgba(204, 204, 204, 0);
+}
+.booking-actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.booking-row {
+  margin-bottom: 30px;
+}
+
+.booking-image {
+  padding: 10px 15px;
+  border: 1px solid rgba(204, 204, 204, 0);
+}
+
+.booking-actions {
+  padding: 10px 15px;
+  border: 1px solid rgba(204, 204, 204, 0);
+}
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    border: 1px solid #ddd;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+}

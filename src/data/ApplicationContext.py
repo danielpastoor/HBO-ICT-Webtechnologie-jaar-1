@@ -1,3 +1,4 @@
+import datetime
 import os
 from typing import TypeVar
 
@@ -8,6 +9,7 @@ from werkzeug.security import generate_password_hash
 from src.data.ContactFormEntity import ContactFormEntity
 from src.data.UserEntity import UserEntity
 from src.models.BaseModel.TransientObject import TransientObject
+from src.models.ChatMessageEntity import ChatMessageEntity
 
 
 class ApplicationContext:
@@ -37,7 +39,8 @@ class ApplicationContext:
         print("Connection to MySQL DB successful")
         return self.__connection
 
-    def First[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None, join: str = None) -> T | None:
+    def First[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None,
+                                 join: str = None) -> T | None:
         data = self.Get(itemType, column, condition, join)
 
         if data is None or len(data) == 0:
@@ -45,7 +48,8 @@ class ApplicationContext:
 
         return data[0]
 
-    def Get[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None, join: str = None) -> list[T]:
+    def Get[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None, join: str = None) -> list[
+        T]:
         query = f"SELECT {column} FROM {self.__GetTableName(type(itemType))}"
 
         if (join is not None):
@@ -151,7 +155,8 @@ class ApplicationContext:
                     city=user_data['city'],
                     postcode=user_data['postcode'],
                     address=user_data['address'],
-                    housenumber=user_data['housenumber']
+                    housenumber=user_data['housenumber'],
+                    is_admin=user_data['is_admin']  # Added is_admin attribute
                 )
             else:
                 return None
@@ -196,6 +201,43 @@ class ApplicationContext:
             return True
         except Error as e:
             print(f"Error inserting contact form data: {e}")
+            return False
+
+    def get_user_id_by_username(self, username):
+        query = f"SELECT id FROM users WHERE username = '{username}'"
+        cursor = self.__connect().cursor(dictionary=True)
+        try:
+            cursor.execute(query)
+            result = cursor.fetchone()  # Fetches the first row of the result
+            return result['id'] if result else None
+        except Error as e:
+            print(f"Error fetching user id by username: {e}")
+            return None
+        finally:
+            cursor.close()
+
+    def save_chat_message(self, chat_message: ChatMessageEntity):
+        """Slaat een chatbericht op in de database."""
+        insert_query = """
+        INSERT INTO chat_messages (user_id, email, name, message, timestamp) 
+        VALUES (%s, %s, %s, %s, %s)
+        """
+        data = (
+            chat_message.user_id,
+            chat_message.email,
+            chat_message.name,
+            chat_message.message,
+            datetime.datetime.now()
+        )
+
+        try:
+            cursor = self.__connect().cursor()
+            cursor.execute(insert_query, data)
+            self.__connection.commit()
+            cursor.close()
+            return True
+        except Error as e:
+            print(f"Fout bij het opslaan van het chatbericht: {e}")
             return False
 
 

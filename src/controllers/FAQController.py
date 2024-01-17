@@ -7,7 +7,7 @@ from src.controllers.Base.ControllerBase import ControllerBase
 
 
 class FaqPage(ControllerBase):
-    """FaqPage controller for showing the Contact page
+    """FaqPage controller for showing the Faq page
 
     Returns:
         _type_: page
