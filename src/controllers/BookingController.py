@@ -54,9 +54,18 @@ class BookingPage(ControllerBase):
                                    booked_dates_str=json.dumps(booked_dates))
 
         elif request.method == 'POST':
+            accommodation = applicationContext.First(AccommodationEntity(), condition=f"id = {accommodation_id}")
+
+            print(accommodation)
+
+            if accommodation is None:
+                return render_template("pages/error.html"), 500
+
             date_format = "%Y-%m-%d"
             check_in_date_str = request.form.get('checkindate')
             check_out_date_str = request.form.get('checkoutdate')
+
+            print(check_in_date_str)
 
             if not (check_in_date_str and check_out_date_str):
                 return render_template("pages/error.html"), 500
@@ -90,10 +99,20 @@ class BookingPage(ControllerBase):
                 booking.SetCreationDate()
                 applicationContext.Add(booking)
 
-            return redirect(f"/booking/thankyou/{accommodation_id}")
+            price = accommodation.price * day_difference
 
-    def thankyou(self, accommodation_id):
+            return redirect(self.__create_payment_url(price, accommodation_id))
+
+    def thankyou(self):
         return redirect("pages/thank-you.html")
+
+    def __create_payment_url(self, amount, id):
+        url_payment = f"http://localhost:8081/booking/thankyou"
+        url_success = f"http://localhost:8081/booking/thankyou"
+        url_pending = f"http://localhost:8081/booking/thankyou"
+        url_failure = f"http://localhost:8081/booking/thankyou"
+
+        return f'https://www.ideal-checkout.nl/demo/idealcheckout-betaalformulier/idealcheckout/checkout.php?amount={amount}&url_payment={url_payment}&url_success={url_success}&url_pending={url_pending}&url_failure={url_failure}'
 
 
 if __name__ == "__main__":
