@@ -18,9 +18,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # Adjust if necessary
 
+
 @login_manager.user_loader
 def load_user(username):
     return ApplicationContext().get_user_by_username(username)
+
 
 # load config
 init_env()
@@ -30,6 +32,7 @@ if len(argv) > 1 and "--profile" in argv:
     app.wsgi_app = ProfilerMiddleware(app.wsgi_app, profile_dir="cprofiling")
 
 routes(app)
+
 
 def run():
     """

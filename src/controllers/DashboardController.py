@@ -2,8 +2,8 @@
 """
 import flask_login
 # needed imports
-from flask import render_template
-from flask_login import login_required
+from flask import render_template, redirect, flash
+from flask_login import login_required, current_user
 
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
@@ -13,28 +13,28 @@ from src.models.BookingEntity import BookingEntity
 
 
 class DashboardController(ControllerBase):
-    """index controller for showing the home page
-
-    Returns:
-        _type_: page
-    """
 
     @login_required
-    # get
     def index(self):
-        """ Endpoint for getting the index page
-        """
+        applicationContext = ApplicationContext()
 
-        # print(flask_login.current_user)
-        #
-        # applicationContext = ApplicationContext()
-        #
-        # bookings = applicationContext.Get(BookingEntity(), "*", f"id = {flask_login.current_user.id}")
+        # Fetch the current user's details
+        current_username = current_user.get_id()  # Assuming get_id() returns the username
+        current_user_details = applicationContext.get_user_by_username(current_username)
 
-        # return rendered html
-        return render_template("pages/dashboard/dashboard.html", bookings=[])
+        # Set isAdmin based on the user's admin status
+        isAdmin = current_user_details.is_admin if current_user_details else False
 
+        if isAdmin:
+            # Fetch all bookings for admin
+            bookings = applicationContext.Get(BookingEntity(), "*")
+        else:
+            # Redirect non-admin users or show an error message
+            flash("You do not have permission to access this page.", "error")
+            return redirect('/accommodation')  # Redirect to a different page
 
+        # Return rendered HTML with bookings data and isAdmin flag
+        return render_template("pages/dashboard/dashboard.html", bookings=bookings, isAdmin=isAdmin)
 
 
 if __name__ == "__main__":

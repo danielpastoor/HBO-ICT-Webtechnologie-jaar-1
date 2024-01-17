@@ -16,8 +16,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css">
     <link rel="icon" href="/static/img/272863.png" type="image/png">
     {% block header %}
@@ -51,14 +51,73 @@
         <nav class="d-flex flex-wrap align-items-center">
             {% if isDashboard %}
                 {% if isAdmin %}
+                    <!-- Home Link -->
                     <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
-                        <i class="fas fa-home"></i> Homes
+                        <i class="fas fa-home"></i> Home
                     </a>
-                {% else %}
-                    <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+
+                    <!-- Bookings Dropdown -->
+                    <div class="nav-item">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="bookingsDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-book"></i> Bookings
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="bookingsDropdown">
+                            <li>
+                                <a href="/create-booking" class="dropdown-item">
+                                    <i class="fas fa-edit"></i> Create Booking
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/all-bookings" class="dropdown-item">
+                                    <i class="fas fa-list"></i> All Bookings
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Users Dropdown -->
+                    <div class="nav-item">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="usersDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-users"></i> Users
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="usersDropdown">
+                            <li>
+                                <a href="/edit-users" class="dropdown-item">
+                                    <i class="fas fa-user-edit"></i> Edit Users
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/submit-new-user" class="dropdown-item">
+                                    <i class="fas fa-user-plus"></i> Add Users
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-item">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="accommodationsDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bed"></i> Accommodations
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="accommodationsDropdown">
+                            <li>
+                                <a href="/add-accommodation" class="dropdown-item">
+                                    <i class="fas fa-plus"></i> Add Accommodation
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/manage-accommodations" class="dropdown-item">
+                                    <i class="fas fa-tasks"></i> Manage Accommodations
+                                </a>
+                            </li>
+                            <!-- Voeg hier eventuele extra links toe voor accommodatiebeheer -->
+                        </ul>
+                    </div>
+                    <a href="/support-chat" {% if bodyClass == "support-chat" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
-                        <i class="fas fa-home"></i> Homesss
+                        <i class="fas fa-comments"></i> Support Chat
                     </a>
                 {% endif %}
             {% else %}
@@ -66,6 +125,13 @@
                    class="nav-item" {% endif %}>
                     <i class="fas fa-home"></i> Home
                 </a>
+                {% if current_user.is_authenticated %}
+                    <a href="/my-booking/" {% if bodyClass == "my-bookings" %}
+                       class="nav-item active" {% else %}
+                       class="nav-item" {% endif %}>
+                        <i class="fas fa-edit"></i> My Bookings
+                    </a>
+                {% endif %}
                 <a href="/accommodation/" {% if bodyClass == "accommodation" %}
                    class="nav-item active" {% else %}
                    class="nav-item" {% endif %}>
@@ -92,12 +158,14 @@
             {% if current_user.is_authenticated %}
                 <!-- Dropdown Menu for Logged-In Users -->
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user"></i> Profile
+                    <button class="btn btn-secondary dropdown-toggle text-white" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        <i class="fas fa-wrench"></i> Settings
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                        <a class="dropdown-item" href="/profile">Profile</a>
+                        {% if current_user.is_admin %}
+                            <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                        {% endif %}
                         <a class="dropdown-item" href="/settings">Settings</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">Logout</a>
@@ -115,7 +183,33 @@
     {% block content %}
     {% endblock %}
 </main>
+{% if current_user.is_authenticated and not current_user.is_admin %}
+<!-- Chat Icon -->
+<div class="chat-icon" id="chatIcon">
+    <i class="fas fa-comments"></i>
+</div>
 
+<!-- Chat Popup -->
+<div class="chat-popup" id="chatPopup" style="display: none;">
+    <h3>Chat met ons!</h3>
+        <div id="chatCredentials">
+            <div class="form-group">
+                <label for="chatName">Uw naam:</label>
+                <input type="text" class="form-control" id="chatName" placeholder="Vul uw naam in">
+            </div>
+            <div class="form-group">
+                <label for="chatEmail">Uw email:</label>
+                <input type="email" class="form-control" id="chatEmail" placeholder="Vul uw emailadres in">
+            </div>
+        </div>
+    <div class="form-group">
+        <label for="chatMessage">Uw bericht:</label>
+        <textarea class="form-control" id="chatMessage" placeholder="Schrijf uw bericht"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="sendChatMessage()">Verzend Bericht</button>
+    <button type="button" class="btn btn-secondary" onclick="closeChat()">Sluit Chat</button>
+</div>
+{% endif %}
 <!-- Footer -->
 <footer class="mt-4">
     <div class="footer-main">
@@ -156,7 +250,7 @@
                     <h5>Snelle Links</h5>
                     <ul class="nav flex-column quick-links-wrapper mb-4">
                         <li class="nav-item"><a href="/accommodation/"
-                                                     class="nav-link p-0">Accomodaties</a></li>
+                                                class="nav-link p-0">Accomodaties</a></li>
                         <li class="nav-item"><a href="/faqs/" class="nav-link p-0">FAQS</a></li>
                         <li class="nav-item"><a href="/contact/" class="nav-link p-0">Contact</a></li>
                     </ul>
@@ -173,8 +267,65 @@
         </div>
     </div>
 </footer>
+<script type="text/javascript">
+    var loggedInUserId = "{{ current_user.id if current_user.is_authenticated else 'null' | tojson }}";
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    var isChatPopupOpen = false;  // Flag to track chat popup state
+
+    function toggleChatPopup() {
+        var chatPopup = document.getElementById('chatPopup');
+        isChatPopupOpen = !isChatPopupOpen; // Toggle the state
+        chatPopup.style.display = isChatPopupOpen ? 'block' : 'none';
+    }
+
+    function closeChat() {
+        var chatPopup = document.getElementById('chatPopup');
+        isChatPopupOpen = false;  // Set state to closed
+        chatPopup.style.display = 'none';
+    }
+
+    function sendChatMessage() {
+        var emailInput = document.getElementById('chatEmail');
+        var nameInput = document.getElementById('chatName');
+        var messageData = {
+            user_id: loggedInUserId !== 'null' ? parseInt(loggedInUserId) : null,
+            email: emailInput ? emailInput.value : '',
+            name: nameInput ? nameInput.value : '',
+            message: document.getElementById('chatMessage').value
+        };
+
+        fetch('/save-chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(messageData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            document.getElementById('chatMessage').value = '';
+            if (loggedInUserId === 'null') {
+                document.getElementById('chatEmail').value = '';
+                document.getElementById('chatName').value = '';
+            }
+            closeChat();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Attach event listener to chat icon if it exists
+    var chatIcon = document.getElementById('chatIcon');
+    if (chatIcon) {
+        chatIcon.addEventListener('click', toggleChatPopup);
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 
 {% block scripts %}
 {% endblock %}

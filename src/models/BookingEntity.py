@@ -1,6 +1,7 @@
 from datetime import datetime
 from src.models.BaseModel.BaseEntity import BaseEntity
 
+
 class BookingEntity(BaseEntity):
     def __init__(self):
         pass
@@ -41,7 +42,6 @@ class BookingEntity(BaseEntity):
     def user_id(self, value: int) -> None:
         self.SetValue("user_id", value)
 
-
     # User who booked
     @property
     def accommodation_id(self) -> int:
@@ -50,3 +50,5 @@ class BookingEntity(BaseEntity):
     @accommodation_id.setter
     def accommodation_id(self, value: int) -> None:
         self.SetValue("accommodation_id", value)
+
+
