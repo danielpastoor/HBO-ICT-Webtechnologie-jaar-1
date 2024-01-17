@@ -2,6 +2,7 @@
 """
 # needed imports
 from flask import render_template
+from flask.ctx import AppContext
 from flask_login import login_required
 
 # own imports
@@ -18,9 +19,8 @@ class RegisterUserController(ControllerBase):
     Returns:
         _type_: page
     """
-
     @login_required
-    def get(self):
+    def get(self, user_id):
         app_context = ApplicationContext()
         users = app_context.get_all_users()
 
