@@ -2,7 +2,7 @@
 {% set isAdmin = true %}
 {% set isDashboard = true %}
 {% set bodyClass = "admin-chat-messages" %}
-{% set title = "Admin Chat Messages" %}
+{% set title = "Bericht centrum" %}
 
 {% block content %}
 
@@ -15,18 +15,18 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>User ID</th>
-                        <th>Email</th>
-                        <th>Name</th>
-                        <th>Message</th>
-                        <th>Timestamp</th>
+                        <th>Gebruikers ID</th>
+                        <th>E-mail</th>
+                        <th>Naam</th>
+                        <th>Bericht</th>
+                        <th>Tijdstempel</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for message in chat_messages %}
                         <tr>
                             <td>{{ message.id }}</td>
-                            <td>{{ message.user_id or 'Guest' }}</td>
+                            <td>{{ message.user_id or 'Gast' }}</td>
                             <td>{{ message.email }}</td>
                             <td>{{ message.name }}</td>
                             <td>{{ message.message }}</td>
