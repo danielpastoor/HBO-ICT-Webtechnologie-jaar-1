@@ -8,9 +8,8 @@
   font-weight: bold;
 
   &:hover {
-    border-bottom-left-radius: 5px;
-    border-top-right-radius: 5px;
-    transition: background .4s .4s, border-color .4s 0s;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
   }
 
   &-primary {

@@ -23,7 +23,7 @@ class ApplicationContext:
         self.__port = os.environ.get("DATABASE_PORT")
 
     def __connect(self):
-        if self.__connection == None:
+        if self.__connection is None:
             try:
                 self.__connection = mysql.connector.connect(
                     database=self.__database,
@@ -32,11 +32,9 @@ class ApplicationContext:
                     passwd=self.__user_password,
                     port=self.__port
                 )
-                print("Connection to MySQL DB successful")
             except Error as e:
                 print(f"The error '{e}' occurred")
 
-        print("Connection to MySQL DB successful")
         return self.__connection
 
     def First[T:TransientObject](self, itemType: T, column: str = "*", condition: str = None,
