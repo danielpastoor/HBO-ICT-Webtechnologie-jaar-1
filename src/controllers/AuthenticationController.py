@@ -107,7 +107,7 @@ class ResetPasswordController(ControllerBase):
 
         if not is_password_complex(password):
             flash("Password is not complex enough", "error")
-            return render_template('pages/register.html')
+            return render_template('pages/reset-password.html')
 
         user = app_context.get_user_by_username(username)
 

@@ -1,12 +1,10 @@
 {% extends 'layouts/main_layout.html' %}
-{% set isAdmin = true %}
-{% set isDashboard = true %}
-{% set bodyClass = "dashboard" %}
-{% set title = "Dashboard" %}
+{% set bodyClass = "my-bookings" %}
+{% set title = "My Bookings" %}
 
 {% block content %}
     <div class="container mt-5">
-        <h2 class="mb-4 text-center">All Bookings</h2>
+        <h2 class="mb-4 text-center">My Bookings</h2>
 
         <div class="row">
             {% for booking in bookings %}
@@ -35,8 +33,39 @@
                 </div>
             {% endfor %}
     </div>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Extend Your Booking</h2>
+
+    <div class="mb-3">
+        <label for="accommodation" class="form-label">Choose Accommodation:</label>
+        <select id="accommodation" class="form-select">
+            {% for accommodation in accommodations %}
+                <option value="{{ accommodation.id }}">{{ accommodation.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="bookingdates" class="form-label">Check-in Date - Check-out Date:</label>
+        <input type="text" id="bookingdates" class="form-control" data-booked-dates="{{ booked_dates_str }}"
+               placeholder="Select week range" readonly>
+        <input type="hidden" name="checkindate"/>
+        <input type="hidden" name="checkoutdate"/>
+    </div>
+    <div class="mb-3">
+        <button type="button" id="extendBookingButton" class="btn btn-primary">Extend Booking</button>
+    </div>
+</div>
 {% endblock %}
 
 {% block header %}
     <link rel="stylesheet" href="https://npmcdn.com/flatpickr@4.6.13/dist/themes/airbnb.css">
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://unpkg.com/flatpickr@4.6.13/dist/plugins/rangePlugin.js"></script>
+    <script src="/static/js/rangepicker.js"></script>
 {% endblock %}

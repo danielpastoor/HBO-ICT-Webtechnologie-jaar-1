@@ -1,0 +1,42 @@
+{% extends 'layouts/main_layout.html' %}
+{% set isAdmin = true %}
+{% set isDashboard = true %}
+{% set bodyClass = "manage-accommodations" %}
+{% set title = "Manage Accommodations" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Manage Accommodations</h2>
+        
+        <!-- Accommodations List -->
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                            <th>Max Persons</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for accommodation in accommodations %}
+                            <tr>
+                                <td>{{ accommodation.name }}</td>
+                                <td>{{ accommodation.location }}</td>
+                                <td>{{ accommodation.price }}</td>
+                                <td>{{ accommodation.max_persons }}</td>
+                                <td>
+                                    <a href="/edit-accommodation/{{ accommodation.id }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="/delete-accommodation/{{ accommodation.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
