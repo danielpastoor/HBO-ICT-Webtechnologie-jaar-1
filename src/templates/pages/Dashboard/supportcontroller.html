@@ -14,6 +14,7 @@
                     <tr>
                         <th>ID</th>
                         <th>User ID</th>
+                        <th>UserName</th>
                         <th>Email</th>
                         <th>Name</th>
                         <th>Message</th>
@@ -25,6 +26,7 @@
                     <tr>
                         <td>{{ message.id }}</td>
                         <td>{{ message.user_id or 'Guest' }}</td>
+                        <td>{{ message.username or 'Guest' }}</td>
                         <td>{{ message.email }}</td>
                         <td>{{ message.name }}</td>
                         <td>{{ message.message }}</td>

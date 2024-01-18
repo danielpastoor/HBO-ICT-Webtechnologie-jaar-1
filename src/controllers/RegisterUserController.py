@@ -1,7 +1,7 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template
+from flask import render_template, redirect, flash
 from flask.ctx import AppContext
 from flask_login import login_required
 
@@ -14,17 +14,21 @@ from src.models.BookingEntity import BookingEntity
 
 
 class RegisterUserController(ControllerBase):
-    """index controller for showing the home page
 
-    Returns:
-        _type_: page
-    """
     @login_required
-    def get(self, user_id):
+    def get(self, user_id=None):
         app_context = ApplicationContext()
-        users = app_context.get_all_users()
+        users = app_context.get_all_usersnamess()
 
-        return render_template("pages/dashboard/registeruser.html", users=users)
+        user_to_edit = None
+        if user_id:
+            # Fetch user details for editing
+            user_to_edit = app_context.get_user_id_by_username(user_id)
+            if not user_to_edit:
+                flash("User not found.", "error")
+                return redirect('/submit-new-user/')  # Adjust as per your route naming
+
+        return render_template("pages/dashboard/registeruser.html", users=users, user=user_to_edit)
 
 
 if __name__ == "__main__":
