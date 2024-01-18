@@ -32,12 +32,12 @@
             <!-- Booking Form -->
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="/submit-booking">
+                    <form method="POST" action="/dashboard/all-bookings">
                         <div class="form-group">
                             <label for="user_id">Gebruiker:</label>
                             <select id="user_id" class="form-select"
                                     aria-label="User select">
-                                <option selected>Open dit selectiemenu</option>
+                                <option selected>Selecteed gebruiker</option>
                                 {% for user in users %}
                                     <option value="{{ user.id }}">{{ user.username }}</option>
                                 {% endfor %}
@@ -55,8 +55,8 @@
                         </div>
                         <div class="form-group">
                             <label for="accommodation_id">Accommodatie:</label>
-                            <select class="form-control" id="accommodation_id" name="accommodation_id" required>
-                                <!-- Dynamically populate options -->
+                            <select class="form-select" id="accommodation_id" name="accommodation_id" required>
+                                <option selected>Kies accommodatie</option>
                                 {% for accommodation in accommodations %}
                                     <option value="{{ accommodation.id }}">{{ accommodation.name }}</option>
                                 {% endfor %}

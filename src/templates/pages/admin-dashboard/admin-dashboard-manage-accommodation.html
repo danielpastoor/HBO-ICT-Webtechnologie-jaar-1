@@ -48,7 +48,7 @@
             <!-- Add Accommodation Form -->
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="/submit-accommodation" enctype="multipart/form-data">
+                    <form method="POST" action="/add-accommodation" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Naam:</label>
                             <input type="text" class="form-control" id="name" name="name" required>
@@ -65,17 +65,21 @@
                             <label for="price">Prijs (per nacht):</label>
                             <input type="number" class="form-control" id="price" name="price" required>
                         </div>
-                        <div class="form-group">
-                            <label for="image">Hoofd afbeelding accommodatie:</label>
-                            <input type="file" class="form-control" id="image" name="image">
-                        </div>
+
                         <div class="form-group">
                             <label for="max_persons">Maximum aantal personen:</label>
                             <input type="number" class="form-control" id="max_persons" name="max_persons" required>
                         </div>
 
+
                         <div class="form-group">
-                            <label for="images">Afbeeldingen van accommodaties:</label>
+                            <label for="thumbnail_image">Hoofd afbeelding accommodatie:</label>
+                            <input type="file" class="form-control" id="thumbnail_image" name="thumbnail_image">
+                        </div>
+                        s
+
+                        <div class="form-group">
+                            <label for="images">Extra Afbeeldingens:</label>
                             <input type="file" class="form-control" id="images" name="images" multiple>
                             <small class="form-text text-muted">U kunt meerdere afbeeldingen selecteren.</small>
                         </div>
