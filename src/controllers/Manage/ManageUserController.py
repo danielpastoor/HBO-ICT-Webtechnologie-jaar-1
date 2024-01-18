@@ -11,7 +11,7 @@ from src.data.ApplicationContext import ApplicationContext
 
 
 class ManageUserController(ControllerBase):
-    """index controller for showing the home page
+    """general controller for showing the home page
 
     Returns:
         _type_: page
@@ -101,7 +101,7 @@ class ManageUserController(ControllerBase):
             return False
 
     @login_required
-    def register(self, user_id=None):
+    def register_user(self, user_id=None):
         app_context = ApplicationContext()
         users = app_context.get_all_usersnamess()
 

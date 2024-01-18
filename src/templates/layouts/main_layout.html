@@ -52,26 +52,26 @@
             {% if isDashboard %}
                 {% if isAdmin %}
                     <!-- Home Link -->
-                    <a href="/dashboard" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                    <a href="/dashboard" {% if bodyClass == "general" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-home"></i> Dashboard
                     </a>
 
                     <!-- Booking Link -->
-                    <a href="/dashboard/all-bookings" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                    <a href="/dashboard/all-bookings" {% if bodyClass == "general" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-edit"></i> Boekingen
                     </a>
 
                     <!-- Users Link -->
-                    <a href="/dashboard/submit-new-user" {% if bodyClass == "index" %}
+                    <a href="/dashboard/submit-new-user" {% if bodyClass == "general" %}
                        class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-user-edit"></i> Gebruikers
                     </a>
 
                     <!-- Users Link -->
-                    <a href="/dashboard/manage-accommodations" {% if bodyClass == "index" %}
+                    <a href="/dashboard/manage-accommodations" {% if bodyClass == "general" %}
                        class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-list"></i> Accomodatie beheren
@@ -85,7 +85,7 @@
                     </a>
                 {% endif %}
             {% else %}
-                <a href="/" {% if bodyClass == "index" %} class="nav-item active" {% else %}
+                <a href="/" {% if bodyClass == "general" %} class="nav-item active" {% else %}
                    class="nav-item" {% endif %}>
                     <i class="fas fa-home"></i> Home
                 </a>

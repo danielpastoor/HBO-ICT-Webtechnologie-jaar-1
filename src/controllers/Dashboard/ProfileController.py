@@ -1,7 +1,7 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template
+from flask import render_template, request
 from flask_login import login_required
 
 # own imports
@@ -12,8 +12,8 @@ from src.models.BaseModel.TransientObject import TransientObject
 from src.models.BookingEntity import BookingEntity
 
 
-class GeneralConditionController(ControllerBase):
-    """index controller for showing the home page
+class ProfileController(ControllerBase):
+    """general controller for showing the home page
 
     Returns:
         _type_: page
@@ -24,7 +24,7 @@ class GeneralConditionController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/term-and-service/general-conditions.html")
+        return render_template("pages/dashboard/dashboard-profile.html")
 
 
 if __name__ == "__main__":

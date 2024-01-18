@@ -13,7 +13,7 @@ from src.models.BookingEntity import BookingEntity
 
 
 class ManageBookingController(ControllerBase):
-    """index controller for showing the home page
+    """general controller for showing the home page
 
     Returns:
         _type_: page

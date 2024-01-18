@@ -4,22 +4,21 @@
 from flask import Flask, render_template
 
 from src.controllers.Dashboard.DashboardController import DashboardController
-from src.controllers.AuthenticationController import LoginPage, RegisterPage, LogoutPage, ResetPasswordController
-from src.controllers.BookingController import BookingPage
-from src.controllers.ContactController import ContactPage
-from src.controllers.FAQController import FaqPage
-from src.controllers.GeneralConditionController import GeneralConditionController
-from src.controllers.IndexController import IndexController
-from src.controllers.AccommodationController import AccommodationController
+from src.controllers.Authentication.AuthenticationController import LoginPage, RegisterPage, LogoutPage, ResetPasswordController
+from src.controllers.Page.BookingController import BookingPage
+from src.controllers.Page.ContactController import ContactPage
+from src.controllers.Page.FAQController import FaqPage
+from src.controllers.Page.GeneralConditionController import GeneralConditionController
+from src.controllers.Page.IndexController import IndexController
+from src.controllers.Page.AccommodationController import AccommodationController
 from src.controllers.Dashboard.MyBookingController import MyBookingController
-from src.controllers.ChatController import ChatController
-from src.controllers.ProfileController import ProfileController
-from src.controllers.Manage.ManageBookingController import CreateBookingController
-from src.controllers.Manage.ManageUserController import AddUserController, UserRemovalController
-from src.controllers.RegisterUserController import RegisterUserController
+from src.controllers.Page.ChatController import ChatController
+from src.controllers.Manage.ManageBookingController import ManageBookingController
+from src.controllers.Manage.ManageSupportController import ManageSupportController
+from src.controllers.Manage.ManageUserController import ManageUserController
+from src.controllers.Dashboard.ProfileController import ProfileController
 from src.controllers.Manage.ManageAccomodationsController import ManageAccommodationController, AddAccommodationController
-from src.controllers.Manage.ManageSupportController import SupportUserController
-from src.controllers.Manage.AdminDashboardController import AdminDashboardController
+from src.controllers.Manage.ManageDashboardController import AdminDashboardController
 
 
 def routes(app: Flask):
@@ -51,21 +50,21 @@ def routes(app: Flask):
     ProfileController.register(app, "/dashboard/settings")
 
     # Booking creation Admin page
-    CreateBookingController.register(app, "/dashboard/create-booking")
+    ManageBookingController.register(app, "/dashboard/create-booking")
 
     # Add User & Remove Controller
-    AddUserController.register(app, "/dashboard/submit-new-user")
-    UserRemovalController.register(app, "/dashboard/remove-user")
+    ManageUserController.register(app, "/dashboard/submit-new-user")
+    # UserRemovalController.register(app, "/dashboard/remove-user")
 
     # Edit User Controller
-    RegisterUserController.register(app, "/dashboard/edit-users")
+    # RegisterUserController.register(app, "/dashboard/edit-users")
 
     # Manage Accommodation Controller
     ManageAccommodationController.register(app, "/dashboard/manage-accommodations")
     AddAccommodationController.register(app, "/dashboard/add-accommodation")
 
     # Manage Support requests from support button
-    SupportUserController.register(app, "/dashboard/support-chat")
+    ManageSupportController.register(app, "/dashboard/support-chat")
 
     # AdminDash Controller
     AdminDashboardController.register(app, "/dashboard")
