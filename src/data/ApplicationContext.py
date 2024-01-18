@@ -298,8 +298,6 @@ class ApplicationContext:
     def register_user(self, user_data):
         """
         Registers a new user in the database.
-
-        :param user_data: Dictionary containing user information.
         """
         try:
             self.__connect()
@@ -310,6 +308,7 @@ class ApplicationContext:
             INSERT INTO users (username, email, password, city, postcode, address, housenumber, is_admin)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """
+
             # Unpack user data and insert into the database
             cursor.execute(query, (
                 user_data['username'],
@@ -329,3 +328,178 @@ class ApplicationContext:
         finally:
             if self.__connection and self.__connection.is_connected():
                 self.__connection.close()
+
+    def submit_booking(self, booking_data):
+        """Submits a new booking to the database."""
+        cursor = None
+        booking_date = datetime.datetime.now()  # or the appropriate date-time value
+
+        # Add the booking_date
+        booking_data['booking_date'] = booking_date
+        try:
+            self.__connect()
+            cursor = self.__connection.cursor()
+            query = """
+            INSERT INTO booking (user_id, booking_date, start_date, end_date, accommodation_id, num_guests, special_requests)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(query, (
+                booking_data['user_id'],
+                booking_data['booking_date'],
+                booking_data['start_date'],
+                booking_data['end_date'],
+                booking_data['accommodation_id'],
+                booking_data['num_guests'],
+                booking_data['special_requests']
+            ))
+            self.__connection.commit()
+        except Error as e:
+            print(f"Error submitting booking: {e}")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+            if self.__connection.is_connected():
+                self.__connection.close()
+        return True
+
+    def get_all_accommodations(self):
+        """Fetches all accommodation IDs and names."""
+        accommodations = []
+        cursor = None
+        try:
+            connection = self.__connect()  # Get a connection
+            cursor = connection.cursor(dictionary=True)
+            query = "SELECT id, name FROM accommodation"  # Adjust to select id and name
+            cursor.execute(query)
+            accommodations = cursor.fetchall()  # Fetches a list of dictionaries
+        except Error as e:
+            print(f"Error fetching accommodations: {e}")
+        finally:
+            if cursor:
+                cursor.close()
+        return accommodations
+
+    def get_all_usersnamess(self):
+        """Fetches all user IDs and usernames."""
+        users = []
+        cursor = None
+        try:
+            connection = self.__connect()  # Get a connection
+            cursor = connection.cursor(dictionary=True)
+            query = "SELECT id, username FROM users"  # Adjust to select id and username
+            cursor.execute(query)
+            users = cursor.fetchall()  # Fetches a list of dictionaries
+        except Error as e:
+            print(f"Error fetching users: {e}")
+        finally:
+            if cursor:
+                cursor.close()
+        return users
+
+    def delete_user(self, user_id):
+        try:
+            self.__connect()
+            cursor = self.__connection.cursor()
+            query = "DELETE FROM users WHERE id = %s"
+            cursor.execute(query, (user_id,))
+            self.__connection.commit()
+            cursor.close()
+        except Error as e:
+            print(f"Error deleting user: {e}")
+            raise e
+
+    def get_user_by_id(self, user_id):
+        """
+        Fetches a user by their ID from the database.
+        """
+        cursor = None
+        try:
+            self.__connect()
+            cursor = self.__connection.cursor(dictionary=True)
+            query = "SELECT * FROM users WHERE id = %s"
+            cursor.execute(query, (user_id,))
+            user_data = cursor.fetchone()
+            return user_data  # This will be a dictionary with the user's data
+        except Error as e:
+            print(f"Error fetching user by ID: {e}")
+            return None
+        finally:
+            if cursor:
+                cursor.close()
+
+    def get_all_accommodations_manage(self):
+        """
+        Retrieves all accommodations along with their Price and Max Persons from the database.
+        """
+        accommodations = []
+        cursor = None
+        try:
+            self.__connect()
+            cursor = self.__connection.cursor(dictionary=True)
+            query = "SELECT id, name, price, max_persons FROM accommodation"
+            cursor.execute(query)
+            accommodations = cursor.fetchall()
+        except Error as e:
+            print(f"Error fetching accommodations: {e}")
+        finally:
+            if cursor:
+                cursor.close()
+        return accommodations
+
+    def add_accommodation(self, accommodation_data):
+        """
+        Adds a new accommodation record to the database.
+        """
+        cursor = None
+        try:
+            self.__connect()
+            cursor = self.__connection.cursor()
+
+            query = """
+            INSERT INTO accommodation (name, price, description, created_at, max_persons, thumbnail_image, images)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            """
+            cursor.execute(query, (
+                accommodation_data['name'],
+                accommodation_data['price'],
+                accommodation_data['description'],
+                datetime.datetime.now(),  # current timestamp
+                accommodation_data['max_persons'],
+                accommodation_data['thumbnail_image'],
+                accommodation_data['images']  # this is a string representing image filenames
+            ))
+
+            self.__connection.commit()
+            return True
+
+        except Error as e:
+            print(f"Error adding accommodation: {e}")
+            return False
+        finally:
+            if cursor:
+                cursor.close()
+
+    def get_all_chat_messages(self):
+        """
+        Fetches all chat messages with associated user names from the database.
+        """
+        messages = []
+        cursor = None
+        try:
+            connection = self.__connect()
+            cursor = connection.cursor(dictionary=True)
+            # Adjust the SQL query according to your database schema
+            query = """
+                SELECT chat_messages.*, users.username
+                FROM chat_messages
+                LEFT JOIN users ON chat_messages.user_id = users.id
+            """
+            cursor.execute(query)
+            messages = cursor.fetchall()
+        except Error as e:
+            print(f"Error fetching chat messages: {e}")
+        finally:
+            if cursor:
+                cursor.close()
+        return messages
