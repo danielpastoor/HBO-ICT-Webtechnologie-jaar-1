@@ -1,7 +1,7 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template
+from flask import render_template, session
 from flask_login import login_required
 
 # own imports
@@ -13,18 +13,13 @@ from src.models.BookingEntity import BookingEntity
 
 
 class SupportUserController(ControllerBase):
-    """index controller for showing the home page
-
-    Returns:
-        _type_: page
-    """
 
     @login_required
     def index(self):
-        """ Endpoint for getting the profile page
-        """
+        app_context = ApplicationContext()
+        chat_messages = app_context.get_all_chat_messages()  # Method to fetch all chat messages
 
-        return render_template("pages/dashboard/supportcontroller.html")
+        return render_template("pages/dashboard/supportcontroller.html", chat_messages=chat_messages)
 
 
 if __name__ == "__main__":

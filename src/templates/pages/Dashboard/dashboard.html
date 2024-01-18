@@ -41,13 +41,13 @@
         <!-- Booking Form -->
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="/submit-booking">
-                    <select class="form-select" aria-label="User select">
-                        <option selected>Open this select menu</option>
-                        {% for user in users %}
-                            <option value="{{ user.id }}">{{ user.username }}</option>
-                        {% endfor %}
-                    </select>
+                <form method="POST" action="/all-bookings">
+                        <select class="form-select" aria-label="User select">
+                            <option selected>Select User</option>
+                            {% for user in users %}
+                                <option value="{{ user.id }}">{{ user.username }}</option>
+                            {% endfor %}
+                        </select>
                     <input type="text" id="bookingdates" class="form-control"
                            data-booked-dates="{{ booked_dates_str }}"
                            placeholder="Select week range"
@@ -56,11 +56,11 @@
                     <input type="hidden" name="end_date" required>
                     <div class="form-group">
                         <label for="accommodation_id">Accommodation:</label>
-                        <select class="form-control" id="accommodation_id" name="accommodation_id" required>
-                            <!-- Dynamically populate options -->
-                            {% for accommodation in accommodations %}
-                                <option value="{{ accommodation.id }}">{{ accommodation.name }}</option>
-                            {% endfor %}
+                        <select class="form-select" name="accommodation_id">
+                            <option selected>Choose accommodation</option>
+                                {% for accommodation in accommodations %}
+                                    <option value="{{ accommodation.id }}">{{ accommodation.name }}</option>
+                                {% endfor %}
                         </select>
                     </div>
                     <div class="form-group">

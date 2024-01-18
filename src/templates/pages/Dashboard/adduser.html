@@ -27,7 +27,7 @@
                 <td>{{ user.email }}</td>
                 <td>{{ 'Yes' if user.is_admin else 'No' }}</td>
                 <td>
-                    <a href="/edit-users/{{ user.id }}" class="btn btn-sm btn-primary">Edit</a>
+                    <a href="/edit-users/{{ user.username }}" class="btn btn-sm btn-primary">Edit</a>
                     <a href="/remove-user/{{ user.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');">Remove</a>
                 </td>
             </tr>

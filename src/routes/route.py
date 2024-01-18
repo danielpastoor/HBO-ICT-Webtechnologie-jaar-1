@@ -14,10 +14,9 @@ from src.controllers.MyBookingController import MyBookingController
 from src.controllers.ChatController import ChatController
 from src.controllers.ProfileController import ProfileController
 from src.controllers.CreateBookingController import CreateBookingController
-from src.controllers.AddUserController import AddUserController
+from src.controllers.AddUserController import AddUserController, UserRemovalController
 from src.controllers.RegisterUserController import RegisterUserController
-from src.controllers.AddAccommodationController import AddAccommodationController
-from src.controllers.ManageAccomodationsController import ManageAccommodationController
+from src.controllers.ManageAccomodationsController import ManageAccommodationController, AddAccommodationController
 from src.controllers.SupportUserController import SupportUserController
 from src.controllers.AdminDashboardController import AdminDashboardController
 
@@ -51,17 +50,16 @@ def routes(app: Flask):
     # Booking creation Admin page
     CreateBookingController.register(app, "/create-booking")
 
-    # Add User Controller
+    # Add User & Remove Controller
     AddUserController.register(app, "/submit-new-user")
+    UserRemovalController.register(app, "/remove-user")
 
     # Edit User Controller
     RegisterUserController.register(app, "/edit-users")
 
-    # Add Accommodation Controller
-    AddAccommodationController.register(app, "/add-accommodation")
-
     # Manage Accommodation Controller
     ManageAccommodationController.register(app, "/manage-accommodations")
+    AddAccommodationController.register(app, "/add-accommodation")
 
     # Manage Support requests from support button
     SupportUserController.register(app, "/support-chat")
