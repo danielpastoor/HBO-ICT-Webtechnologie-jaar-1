@@ -73,8 +73,8 @@ class ApplicationContext:
 
         return result
 
-    def Add[T](self, data: T):
-        self.__execute_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
+    def Add[T](self, data: T) -> int | None:
+        return  self.__execute_insert_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
 
     def Delete[T](self, itemType: T, Id):
         delete_comment = f"DELETE FROM {self.__GetTableName(type(itemType))} WHERE id = {Id}"
@@ -111,6 +111,18 @@ class ApplicationContext:
             print("Query executed successfully")
         except Error as e:
             print(f"The error '{e}' occurred")
+
+    def __execute_insert_query(self, query) -> int | None:
+        cursor = self.__connect().cursor()
+        try:
+            cursor.execute(query)
+            self.__connect().commit()
+            print("Query executed successfully")
+            return cursor.getlastrowid()
+        except Error as e:
+            print(f"The error '{e}' occurred")
+
+        return None
 
     def ins_query_maker(self, tablename: str, rowdict):
         keys = list(rowdict.keys())

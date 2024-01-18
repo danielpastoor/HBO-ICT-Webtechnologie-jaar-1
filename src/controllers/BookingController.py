@@ -86,7 +86,11 @@ class BookingPage(ControllerBase):
             payment.price = accommodation.price * day_difference
             payment.status = PaymentStatus.PENDING
             payment.SetCreationDate()
-            applicationContext.Add(payment)
+            # Create payment row
+            payment.id = applicationContext.Add(payment)
+
+            if payment.id is None:
+                return render_template("pages/error/error.html"), 500
 
             for booking_number in range(booking_count):
                 if booking_number > 0:
@@ -123,7 +127,7 @@ class BookingPage(ControllerBase):
         payment = applicationContext.First(PaymentEntity(), "*", condition=f"id = {payment_id}")
 
         if payment is None:
-            redirect("/error")
+            return render_template("pages/error/error.html"), 500
 
         applicationContext.Update(PaymentEntity(), {
             "status": payment_status
