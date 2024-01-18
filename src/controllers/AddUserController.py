@@ -68,7 +68,7 @@ class AddUserController(ControllerBase):
 
             except Exception as e:
                 flash("Registration failed: " + str(e), "error")
-                return render_template('pages/dashboard/../templates/pages/dashboard.html')
+                return render_template('pages/admin-dashboard/admin-dashboard-add-user.html')
 
         return render_template("pages/admin-dashboard/admin-dashboard-add-user.html")  # Render the registration form for GET request
 

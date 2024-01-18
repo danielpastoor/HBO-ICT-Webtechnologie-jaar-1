@@ -17,7 +17,7 @@ class ManageAccommodationController(ControllerBase):
         app_context = ApplicationContext()
         accommodations = app_context.get_all_accommodations_manage()
 
-        return render_template("pages/dashboard/manageaccommodation.html", accommodations=accommodations)
+        return render_template("pages/admin-dashboard/admin-dashboard-manage-accommodation.html", accommodations=accommodations)
 
 
 class AddAccommodationController(ControllerBase):
