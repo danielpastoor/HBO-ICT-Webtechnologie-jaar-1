@@ -25,7 +25,7 @@ class AddAccommodationController(ControllerBase):
     @login_required
     def get(self):
         """ Render the form for adding new accommodation. """
-        return render_template("pages/dashboard/addaccommodation.html")
+        return render_template("pages/admin-dashboard/admin-dashboard-manage-accommodation.html")
 
     @login_required
     def post(self):

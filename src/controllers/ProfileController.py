@@ -24,7 +24,7 @@ class ProfileController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/profile.html")
+        return render_template("pages/dashboard/dashboard-profile.html")
 
 
 if __name__ == "__main__":

@@ -23,7 +23,7 @@ class LoginPage(ControllerBase):
             # If user is already logged in, redirect to a different page
             return redirect('/')
 
-        return render_template("pages/authentication.html")
+        return render_template("pages/authentication/authentication.html")
 
     def post(self):
         """ Endpoint for handling login POST request """
@@ -48,7 +48,7 @@ class LoginPage(ControllerBase):
         else:
             # Login failed
             flash("Invalid username or password", "error")
-            return render_template("pages/authentication.html")
+            return render_template("pages/authentication/authentication.html")
 
 
 class AuthenticationProcessor:
@@ -90,7 +90,7 @@ class ResetPasswordController(ControllerBase):
 
     def get(self):
         """ Render the reset password page """
-        return render_template('pages/reset-password.html')
+        return render_template('pages/authentication/reset-password.html')
 
     def post(self):
         """ Handle the reset password POST request """
@@ -103,27 +103,27 @@ class ResetPasswordController(ControllerBase):
         # Validate and hash the password
         if password != confirm_password:
             flash("Passwords do not match", "error")
-            return render_template('pages/reset-password.html')
+            return render_template('pages/authentication/reset-password.html')
 
         if not is_password_complex(password):
             flash("Password is not complex enough", "error")
-            return render_template('pages/reset-password.html')
+            return render_template('pages/authentication/reset-password.html')
 
         user = app_context.get_user_by_username(username)
 
         if user is None:
             flash("User not found", "error")
-            return render_template('pages/reset-password.html')
+            return render_template('pages/authentication/reset-password.html')
 
         # Update the user's password
         success = app_context.update_user_password(username, password)
 
         if success:
             flash("Password reset successful", "success")
-            return redirect("/login")
+            return redirect("/authentication/login")
         else:
             flash("Password reset failed", "error")
-            return render_template('pages/reset-password.html')
+            return render_template('pages/authentication/reset-password.html')
 
 
 class LogoutPage(ControllerBase):
@@ -134,7 +134,7 @@ class LogoutPage(ControllerBase):
         logout_user()
         flash("You have been logged out.", "info")
         # Create a response
-        response = make_response(redirect('/login'))
+        response = make_response(redirect('/authentication/login'))
         return response  # Redirect to the index page or your chosen login page
 
 
@@ -142,7 +142,7 @@ class RegisterPage(ControllerBase):
 
     def index(self):
         # # Default to handling GET request
-        return render_template('pages/authentication.html', is_register=True)
+        return render_template('pages/authentication/authentication.html', is_register=True)
 
     def post(self):
         app_context = ApplicationContext()
@@ -159,11 +159,11 @@ class RegisterPage(ControllerBase):
         # Validate and hash the password
         if password != confirm_password:
             flash("Passwords do not match", "error")
-            return render_template('pages/register.html', is_register=True)
+            return render_template('pages/authentication/authentication.html', is_register=True)
 
         if not is_password_complex(password):
             flash("Password is not complex enough", "error")
-            return render_template('pages/register.html', is_register=True)
+            return render_template('pages/authentication/authentication.html', is_register=True)
 
         hashed_password = generate_password_hash(password)
         print(hashed_password)
@@ -176,11 +176,11 @@ class RegisterPage(ControllerBase):
         try:
             app_context.Add(new_user)
             flash("Registration successful!", "success")
-            return redirect('/login')
+            return redirect('/authentication/login')
 
         except Exception as e:
             flash("Registration failed: " + str(e), "error")
-            return render_template('pages/register.html', is_register=True)
+            return render_template('pages/authentication/authentication.html', is_register=True)
 
 
 if __name__ == "__main__":

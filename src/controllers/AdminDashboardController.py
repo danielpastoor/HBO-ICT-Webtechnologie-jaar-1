@@ -16,7 +16,7 @@ class AdminDashboardController(ControllerBase):
         app_context = ApplicationContext()
         dashboard_data = app_context.get_dashboard_data()
 
-        return render_template("pages/dashboard/AdminDash.html",
+        return render_template("pages/admin-dashboard/admin-dashboard.html",
                                **dashboard_data)
 
 

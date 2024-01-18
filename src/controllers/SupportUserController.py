@@ -19,7 +19,7 @@ class SupportUserController(ControllerBase):
         app_context = ApplicationContext()
         chat_messages = app_context.get_all_chat_messages()  # Method to fetch all chat messages
 
-        return render_template("pages/dashboard/supportcontroller.html", chat_messages=chat_messages)
+        return render_template("pages/admin-dashboard/admin-dashboard-support.html", chat_messages=chat_messages)
 
 
 if __name__ == "__main__":

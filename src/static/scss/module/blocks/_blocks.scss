@@ -1,7 +1,7 @@
 .block {
   padding: var(--block-spacing) 0;
 
-  &:not(.block-hero):not(.block-hero-home) {
+  &:not(.block-hero):not(.block-hero-home):not(.block-hero-dashboard) {
     margin-top: 6.25rem !important;
 
     &.small-top {
@@ -21,6 +21,7 @@ section,
 
 @import "./block-hero";
 @import "./block-hero-home";
+@import "./block-hero-dashboard";
 @import "./block-about-us";
 @import "./block-gallery";
 @import "./block-accommodations-slider";

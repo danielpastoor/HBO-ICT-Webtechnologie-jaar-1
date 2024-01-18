@@ -1,0 +1,43 @@
+{% extends 'layouts/main_layout.html' %}
+{% set isAdmin = true %}
+{% set isDashboard = true %}
+{% set bodyClass = "admin-chat-messages" %}
+{% set title = "Bericht centrum" %}
+
+{% block content %}
+
+    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
+
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Gebruikers ID</th>
+                        <th>UserName</th>
+                        <th>E-mail</th>
+                        <th>Naam</th>
+                        <th>Bericht</th>
+                        <th>Tijdstempel</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for message in chat_messages %}
+                        <tr>
+                            <td>{{ message.id }}</td>
+                            <td>{{ message.user_id or 'Gast' }}</td>
+                            <td>{{ message.username or 'Guest' }}</td>
+                            <td>{{ message.email }}</td>
+                            <td>{{ message.name }}</td>
+                            <td>{{ message.message }}</td>
+                            <td>{{ message.timestamp }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

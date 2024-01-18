@@ -1,25 +1,26 @@
 {% extends 'layouts/main_layout.html' %}
 {% set bodyClass = "settings" %}
-{% set title = current_user.username ~ " - Settings" %}
+{% set title = current_user.username ~ "'s Instellingen" %}
 
 {% block content %}
-    <div class="container mt-4">
-        <h2>{{ current_user.username }}'s Settings</h2>
+    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
+
+    <div class="container">
 
         <div class="row">
             <div class="col-12">
                 <!-- User Details Update Form -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">Update Your Details</h5>
+                        <h5 class="card-title">Uw gegevens bijwerken</h5>
                         <form method="POST" action="/update-details">
                             <div class="form-group">
-                                <label for="email">Email:</label>
+                                <label for="email">E-mail:</label>
                                 <input type="email" class="form-control" id="email" name="email"
                                        value="{{ current_user.email }}">
                             </div>
                             <div class="form-group">
-                                <label for="city">City:</label>
+                                <label for="city">Stad:</label>
                                 <input type="text" class="form-control" id="city" name="city"
                                        value="{{ current_user.city }}">
                             </div>
@@ -29,16 +30,16 @@
                                        value="{{ current_user.postcode }}">
                             </div>
                             <div class="form-group">
-                                <label for="address">Address:</label>
+                                <label for="address">Adres:</label>
                                 <input type="text" class="form-control" id="address" name="address"
                                        value="{{ current_user.address }}">
                             </div>
                             <div class="form-group">
-                                <label for="housenumber">House Number:</label>
+                                <label for="housenumber">Huisnummer:</label>
                                 <input type="text" class="form-control" id="housenumber" name="housenumber"
                                        value="{{ current_user.housenumber }}">
                             </div>
-                            <button type="submit" class="btn btn-primary">Update Details</button>
+                            <button type="submit" class="btn btn-primary mt-4">Details bijwerken</button>
                         </form>
                     </div>
 
@@ -48,23 +49,23 @@
                 <!-- Password Change Form -->
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Change Password</h5>
-                        <form method="POST" action="/reset-password">
+                        <h5 class="card-title">Wachtwoord wijzigen</h5>
+                        <form method="POST" action="/authentication/reset-password">
                             <div class="form-group">
-                                <label for="current_password">Current Password:</label>
+                                <label for="current_password">Huidig wachtwoord:</label>
                                 <input type="password" class="form-control" id="current_password"
                                        name="current_password">
                             </div>
                             <div class="form-group">
-                                <label for="new_password">New Password:</label>
+                                <label for="new_password">Nieuw wachtwoord:</label>
                                 <input type="password" class="form-control" id="new_password" name="new_password">
                             </div>
                             <div class="form-group">
-                                <label for="confirm_new_password">Confirm New Password:</label>
+                                <label for="confirm_new_password">Nieuw wachtwoord bevestigen:</label>
                                 <input type="password" class="form-control" id="confirm_new_password"
                                        name="confirm_new_password">
                             </div>
-                            <button type="submit" class="btn btn-primary">Change Password</button>
+                            <button type="submit" class="btn btn-primary mt-4">Wachtwoord wijzigen</button>
                         </form>
                     </div>
 

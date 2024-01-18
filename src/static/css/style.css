@@ -8440,7 +8440,7 @@ textarea.form-control-lg {
   margin-top: 1rem !important;
 }
 
-.mt-4 {
+.mt-4, .block-hero-dashboard {
   margin-top: 1.5rem !important;
 }
 
@@ -12617,9 +12617,24 @@ p.error {
   border-bottom-left-radius: 5px;
   border-top-right-radius: 5px;
 }
+.btn-danger {
+  border: 2px var(--bs-danger) solid;
+  color: black;
+}
+.btn-danger:hover {
+  background: var(--bs-danger);
+  border: 2px var(--bs-danger) solid;
+}
+.btn-danger.filled {
+  background: var(--bs-danger);
+  color: white;
+}
 
-form.form .input {
-  padding: 10px;
+form .form-group label:not(.form-check-label) {
+  margin: 25px auto 0;
+}
+form .form-group.form-check {
+  margin: 25px auto 0;
 }
 
 header {
@@ -12801,10 +12816,10 @@ footer .copy-right {
 .block {
   padding: var(--block-spacing) 0;
 }
-.block:not(.block-hero):not(.block-hero-home) {
+.block:not(.block-hero):not(.block-hero-home):not(.block-hero-dashboard) {
   margin-top: 6.25rem !important;
 }
-.block:not(.block-hero):not(.block-hero-home).small-top {
+.block:not(.block-hero):not(.block-hero-home):not(.block-hero-dashboard).small-top {
   margin-top: 2rem !important;
 }
 .block[id] {
@@ -13221,46 +13236,9 @@ section,
   transform: translate3d(-900px, 0, 0);
 }
 
-.page-dashboard .booking-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-}
-.page-dashboard .booking-image img {
-  width: 100px; /* Adjust as needed */
-  height: auto;
-  margin-right: 20px;
-}
-.page-dashboard .booking-info {
-  padding: 10px 15px;
-  border: 1px solid rgba(204, 204, 204, 0);
-}
-.page-dashboard .booking-actions {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-}
-.page-dashboard .booking-row {
-  margin-bottom: 30px;
-}
-.page-dashboard .booking-image {
-  padding: 10px 15px;
-  border: 1px solid rgba(204, 204, 204, 0);
-}
-.page-dashboard .booking-actions {
-  padding: 10px 15px;
-  border: 1px solid rgba(204, 204, 204, 0);
-}
-
 div.card {
-  background-color: var(--bs-primary);
   padding: 10px 15px;
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 div.card.seconadary {
   background-color: var(--bs-secondary);
@@ -13536,6 +13514,23 @@ div.card .number {
   font-weight: bold;
   color: black;
   font-size: 20px;
+}
+
+.card-booking picture {
+  max-width: 350px;
+  max-height: 250px;
+  width: 500px;
+  display: block;
+  height: 366px;
+}
+.card-booking img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-booking .body {
+  position: relative;
+  padding: 30px 90px 30px 45px;
 }
 
 /*# sourceMappingURL=style.css.map */

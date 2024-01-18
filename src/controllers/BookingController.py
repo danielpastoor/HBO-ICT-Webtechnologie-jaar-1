@@ -29,7 +29,7 @@ class BookingPage(ControllerBase):
         """
 
         if not current_user.is_authenticated:
-            return redirect(f"/login")
+            return redirect("/authentication/login")
 
         applicationContext = ApplicationContext()
 
@@ -37,7 +37,7 @@ class BookingPage(ControllerBase):
             data = applicationContext.Get(AccommodationEntity(), condition=f"id = {accommodation_id}")
 
             if len(data) != 1:
-                return render_template("pages/error.html"), 500
+                return render_template("pages/error/error.html"), 500
 
             booked = applicationContext.Get(BookingEntity(), condition=f"accommodation_id = {accommodation_id}")
 
@@ -59,7 +59,7 @@ class BookingPage(ControllerBase):
             print(accommodation)
 
             if accommodation is None:
-                return render_template("pages/error.html"), 500
+                return render_template("pages/error/error.html"), 500
 
             date_format = "%Y-%m-%d"
             check_in_date_str = request.form.get('start_date')
@@ -68,12 +68,12 @@ class BookingPage(ControllerBase):
             print(check_in_date_str)
 
             if not (check_in_date_str and check_out_date_str):
-                return render_template("pages/error.html"), 500
+                return render_template("pages/error/error.html"), 500
 
             user = applicationContext.First(UsersEntity(), condition=f"email = '{flask_login.current_user.email}'")
 
             if user is None:
-                return render_template("pages/error.html"), 500
+                return render_template("pages/error/error.html"), 500
 
             check_in_date = datetime.strptime(check_in_date_str, date_format)
             check_out_date = datetime.strptime(check_out_date_str, date_format)

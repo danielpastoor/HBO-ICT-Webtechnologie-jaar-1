@@ -12,7 +12,7 @@ from src.models.BaseModel.TransientObject import TransientObject
 from src.models.BookingEntity import BookingEntity
 
 
-class CreateBookingController(ControllerBase):
+class GeneralConditionController(ControllerBase):
     """index controller for showing the home page
 
     Returns:
@@ -24,7 +24,7 @@ class CreateBookingController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/admin-dashboard/admin-dashboard-create-booking.html")
+        return render_template("pages/term-and-service/general-conditions.html")
 
 
 if __name__ == "__main__":

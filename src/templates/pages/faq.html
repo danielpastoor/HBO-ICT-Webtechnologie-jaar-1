@@ -1,10 +1,11 @@
 {% extends 'layouts/main_layout.html' %}
 {% set bodyClass = "faqs" %}
-{% set title = "Camping FAQs" %}
+{% set title = "Frequently Asked Questions" %}
 
 {% block content %}
+    {% include 'components/blocks/hero/block-hero.html' %}
+
     <div class="container mt-5">
-        <h2 class="mb-4">Frequently Asked Questions</h2>
         <div class="accordion" id="faqAccordion">
 
             <!-- Vraag 1 -->

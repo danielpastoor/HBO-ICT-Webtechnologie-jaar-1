@@ -1,10 +1,6 @@
 div.card {
-    background-color: var(--bs-primary);
     padding: 10px 15px;
     border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
     &.seconadary {
         background-color: var(--bs-secondary);
@@ -38,3 +34,4 @@ div.card {
 @import "./card-accommodation";
 @import "./card-accommodation-detail";
 @import "./card-accommodation-vertical";
+@import "./card-booking";

@@ -13,6 +13,7 @@ from src.models.BookingEntity import BookingEntity
 
 
 class DashboardController(ControllerBase):
+
     @login_required
     def get(self):
         applicationContext = ApplicationContext()
@@ -36,7 +37,7 @@ class DashboardController(ControllerBase):
             return redirect('/accommodation')  # Redirect to a different page
 
         # Render the dashboard template
-        return render_template("pages/dashboard/dashboard.html", bookings=bookings, isAdmin=isAdmin,
+        return render_template("pages/admin-dashboard/admin-dashboard-booked.html", bookings=bookings, isAdmin=isAdmin,
                                accommodations=accommodations, users=users)
 
     @login_required
@@ -59,7 +60,7 @@ class DashboardController(ControllerBase):
             flash("Failed to submit booking.", "error")
 
         # Redirect back to the dashboard or appropriate page after handling POST
-        return redirect('/all-bookings')  # or the URL of your choice
+        return redirect('/dashboard//all-bookings')  # or the URL of your choice
 
 
 if __name__ == "__main__":
