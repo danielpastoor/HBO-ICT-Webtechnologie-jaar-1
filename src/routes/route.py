@@ -31,10 +31,12 @@ def routes(app: Flask):
     BookingPage.register(app, "/booking")
     AccommodationController.register(app, "/accommodation")
     FaqPage.register(app, "/faqs")
-    LoginPage.register(app, "/login")
-    RegisterPage.register(app, "/register")
-    LogoutPage.register(app, "/logout")
-    ResetPasswordController.register(app, "/reset-password")
+
+    # authentication
+    LoginPage.register(app, "/authentication/login")
+    RegisterPage.register(app, "/authentication/register")
+    LogoutPage.register(app, "/authentication/logout")
+    ResetPasswordController.register(app, "/authentication/reset-password")
 
     # All-Booking
     DashboardController.register(app, "/dashboard/all-bookings")
@@ -52,15 +54,15 @@ def routes(app: Flask):
     CreateBookingController.register(app, "/dashboard/create-booking")
 
     # Add User & Remove Controller
-    AddUserController.register(app, "/submit-new-user")
-    UserRemovalController.register(app, "/remove-user")
+    AddUserController.register(app, "/dashboard/submit-new-user")
+    UserRemovalController.register(app, "/dashboard/remove-user")
 
     # Edit User Controller
     RegisterUserController.register(app, "/dashboard/edit-users")
 
     # Manage Accommodation Controller
-    ManageAccommodationController.register(app, "/manage-accommodations")
-    AddAccommodationController.register(app, "/add-accommodation")
+    ManageAccommodationController.register(app, "/dashboard/manage-accommodations")
+    AddAccommodationController.register(app, "/dashboard/add-accommodation")
 
     # Manage Support requests from support button
     SupportUserController.register(app, "/dashboard/support-chat")

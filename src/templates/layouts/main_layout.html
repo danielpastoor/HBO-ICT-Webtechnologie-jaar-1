@@ -132,12 +132,12 @@
                         {% endif %}
                         <a class="dropdown-item" href="/dashboard/settings">Instellingen</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/logout">Uitloggen</a>
+                        <a class="dropdown-item" href="/authentication/logout">Uitloggen</a>
                     </div>
                 </div>
             {% else %}
                 <!-- Display login/register button when not logged in -->
-                <a href="/login" class="btn btn-primary btn-outline-primary text-white">Inloggen/Aanmelden</a>
+                <a href="/authentication/login" class="btn btn-primary btn-outline-primary text-white">Inloggen/Aanmelden</a>
             {% endif %}
         </div>
     </div>
@@ -259,7 +259,7 @@
             message: document.getElementById('chatMessage').value
         };
 
-        fetch('/save-chat', {
+        fetch('/dashboard/save-chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

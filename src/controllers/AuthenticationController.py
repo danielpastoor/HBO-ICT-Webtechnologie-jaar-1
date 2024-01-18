@@ -120,7 +120,7 @@ class ResetPasswordController(ControllerBase):
 
         if success:
             flash("Password reset successful", "success")
-            return redirect("/login")
+            return redirect("/authentication/login")
         else:
             flash("Password reset failed", "error")
             return render_template('pages/authentication/reset-password.html')
@@ -134,7 +134,7 @@ class LogoutPage(ControllerBase):
         logout_user()
         flash("You have been logged out.", "info")
         # Create a response
-        response = make_response(redirect('/login'))
+        response = make_response(redirect('/authentication/login'))
         return response  # Redirect to the index page or your chosen login page
 
 
@@ -176,7 +176,7 @@ class RegisterPage(ControllerBase):
         try:
             app_context.Add(new_user)
             flash("Registration successful!", "success")
-            return redirect('/login')
+            return redirect('/authentication/login')
 
         except Exception as e:
             flash("Registration failed: " + str(e), "error")

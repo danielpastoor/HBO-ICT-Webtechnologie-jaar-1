@@ -26,7 +26,7 @@ class RegisterUserController(ControllerBase):
             user_to_edit = app_context.get_user_id_by_username(user_id)
             if not user_to_edit:
                 flash("User not found.", "error")
-                return redirect('/submit-new-user/')  # Adjust as per your route naming
+                return redirect('/dashboard/submit-new-user/')  # Adjust as per your route naming
 
         return render_template("pages/admin-dashboard/admin-dashboard-register-user.html", users=users, user=user_to_edit)
 

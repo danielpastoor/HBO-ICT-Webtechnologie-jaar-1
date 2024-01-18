@@ -60,7 +60,7 @@ class DashboardController(ControllerBase):
             flash("Failed to submit booking.", "error")
 
         # Redirect back to the dashboard or appropriate page after handling POST
-        return redirect('/all-bookings')  # or the URL of your choice
+        return redirect('/dashboard//all-bookings')  # or the URL of your choice
 
 
 if __name__ == "__main__":

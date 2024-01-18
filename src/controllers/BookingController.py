@@ -29,7 +29,7 @@ class BookingPage(ControllerBase):
         """
 
         if not current_user.is_authenticated:
-            return redirect(f"/login")
+            return redirect("/authentication/login")
 
         applicationContext = ApplicationContext()
 

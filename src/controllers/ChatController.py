@@ -11,7 +11,7 @@ from src.models.ChatMessageEntity import ChatMessageEntity
 
 
 class ChatController(ControllerBase):
-    route_base = "/save-chat"
+    route_base = "/dashboard/save-chat"
 
     def __init__(self):
         self.app_context = ApplicationContext()

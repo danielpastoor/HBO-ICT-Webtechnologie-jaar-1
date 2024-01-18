@@ -30,8 +30,8 @@
                         <td>{{ user.email }}</td>
                         <td>{{ 'Ja' if user.is_admin else 'Nee' }}</td>
                         <td>
-                            <a href="/edit-users/{{ user.username }}" class="btn btn-primary">Bewerken</a>
-                            <a href="/remove-user/{{ user.id }}" class="btn btn-danger filled"
+                            <a href="/dashboard/edit-users/{{ user.username }}" class="btn btn-primary">Bewerken</a>
+                            <a href="/dashboard/remove-user/{{ user.id }}" class="btn btn-danger filled"
                                onclick="return confirm('Weet je het zeker?');">Verwijderen</a>
                         </td>
                     </tr>
@@ -46,7 +46,7 @@
             <!-- Registration Form -->
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="/submit-new-user">
+                    <form method="POST" action="/dashboard/submit-new-user">
                         <!-- Username Field -->
                         <div class="form-group">
                             <label for="username">Gebruikersnaam:</label>

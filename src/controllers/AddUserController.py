@@ -40,7 +40,7 @@ class AddUserController(ControllerBase):
             # Validate data (e.g., check if passwords match)
             if password != confirm_password:
                 flash("Passwords do not match.", "error")
-                return redirect('/submit-new-user')
+                return redirect('/dashboard/submit-new-user')
 
             # Hash the password
             hashed_password = generate_password_hash(password)
@@ -64,7 +64,7 @@ class AddUserController(ControllerBase):
             try:
                 app_context.register_user(user_data)
                 flash("Registration successful!", "success")
-                return redirect('/submit-new-user')
+                return redirect('/dashboard/submit-new-user')
 
             except Exception as e:
                 flash("Registration failed: " + str(e), "error")
@@ -85,14 +85,14 @@ class UserRemovalController(ControllerBase):
     def get(self, user_id):
         if not current_user.is_admin:
             flash("You do not have permission to perform this action.", "error")
-            return redirect('/submit-new-user')  # Redirect to a safe page
+            return redirect('/dashboard/submit-new-user')  # Redirect to a safe page
 
         if self.delete_user(user_id):
             flash("User successfully removed.", "success")
         else:
             flash("Failed to remove user.", "error")
 
-        return redirect('/submit-new-user')  # Redirect to the users list page
+        return redirect('/dashboard/submit-new-user')  # Redirect to the users list page
 
     def delete_user(self, user_id):
         """
