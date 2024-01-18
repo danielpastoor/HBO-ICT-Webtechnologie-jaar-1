@@ -1,0 +1,69 @@
+{% extends 'layouts/main_layout.html' %}
+{% set isAdmin = true %}
+{% set isDashboard = true %}
+{% set bodyClass = "manage" %}
+{% set title = "Beheerdersdashboard" %}
+
+{% block content %}
+    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
+
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+            <!-- Accommodation Summary -->
+            <div class="col">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Accommodaties</h5>
+                        <p>Totaal aantal accommodaties: {{ total_accommodations }}</p>
+                        <!-- Other accommodation stats -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booking Summary -->
+            <div class="col">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Boekingen</h5>
+                        <p>Totaal aantal boekingen: {{ total_bookings }}</p>
+                        <!-- Other booking stats -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages Summary -->
+            <div class="col">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Chatberichten</h5>
+                        <p>Totaal aantal berichten: {{ total_chat_messages }}</p>
+                        <!-- Other chat message stats -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form Submissions Summary -->
+            <div class="col">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Contactformulier Inzendingen</h5>
+                        <p>Totaal aantal aanvragen: {{ total_contact_submissions }}</p>
+                        <!-- Other contact form stats -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Statistics -->
+            <div class="col">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Gebruikersstatistieken</h5>
+                        <p>TTotaal aantal gebruikers: {{ total_users }}</p>
+                        <!-- More user stats -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

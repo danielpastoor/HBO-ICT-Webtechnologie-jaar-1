@@ -8,6 +8,15 @@ class BookingEntity(BaseEntity):
 
     # Booking date
     @property
+    def payment_id(self) -> int:
+        return self.GetValue("payment_id")
+
+    @payment_id.setter
+    def payment_id(self, value: int) -> None:
+        self.SetValue("payment_id", value)
+
+    # Booking date
+    @property
     def booking_date(self) -> datetime:
         return self.GetValue("booking_date")
 
@@ -50,5 +59,3 @@ class BookingEntity(BaseEntity):
     @accommodation_id.setter
     def accommodation_id(self, value: int) -> None:
         self.SetValue("accommodation_id", value)
-
-

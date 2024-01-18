@@ -11,7 +11,7 @@
                                   class="page-authentication" {% endif %}>
             <div class="form sign-in">
                 <h2>Inloggen,</h2>
-                <form method="POST" id="login-form">
+                <form method="POST" id="login-form" action="/authentication/login/">
                     <div class="form-group">
                         <label for="username">Gebruikersnaam</label>
                         <input type="text" name="username" id="username" class="form-control"
@@ -28,7 +28,7 @@
                         <label class="form-check-label mt-0" for="remember_me">Herinner mij</label>
                     </div>
                     <div>
-                        <a href="/authentication/reset-password">Wachtwoord opnieuw instellen</a>
+                        <a href="/authentication/resetpassword">Wachtwoord opnieuw instellen</a>
                     </div>
                     <div class="mt-md-3">
                         <button type="submit" class="btn btn-primary">Inloggen</button>

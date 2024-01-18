@@ -13,7 +13,7 @@ class ControllerBase:
     route_base = None
 
     @classmethod
-    def register(cls, app: Flask, route_base=None):
+    def registerRoutes(cls, app: Flask, route_base=None):
         """ register function to register the function in with the routing
         :parameter cls: current controller
         :parameter app: is the current flask application
