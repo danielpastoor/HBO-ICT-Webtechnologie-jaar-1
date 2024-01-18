@@ -31,8 +31,8 @@
                                 <td>{{ accommodation.price }}</td>
                                 <td>{{ accommodation.max_persons }}</td>
                                 <td>
-                                    <a href="/edit-accommodation/{{ accommodation.id }}" class="btn btn-primary">Bewerken</a>
-                                    <a href="/delete-accommodation/{{ accommodation.id }}" class="btn btn-danger filled"
+                                    <a href="/manage/accommodations/edit/{{ accommodation.id }}" class="btn btn-primary">Bewerken</a>
+                                    <a href="/manage/accommodations/delete/{{ accommodation.id }}" class="btn btn-danger filled"
                                        onclick="return confirm('Weet je het zeker?');">Verwijderen</a>
                                 </td>
                             </tr>

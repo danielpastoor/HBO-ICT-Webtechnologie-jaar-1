@@ -30,8 +30,8 @@
                         <td>{{ user.email }}</td>
                         <td>{{ 'Ja' if user.is_admin else 'Nee' }}</td>
                         <td>
-                            <a href="/dashboard/edit-users/{{ user.username }}" class="btn btn-primary">Bewerken</a>
-                            <a href="/dashboard/remove-user/{{ user.id }}" class="btn btn-danger filled"
+                            <a href="/manage/users/edit/{{ user.username }}" class="btn btn-primary">Bewerken</a>
+                            <a href="/manage/users/delete/{{ user.id }}" class="btn btn-danger filled"
                                onclick="return confirm('Weet je het zeker?');">Verwijderen</a>
                         </td>
                     </tr>

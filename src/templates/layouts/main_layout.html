@@ -52,33 +52,33 @@
             {% if isDashboard %}
                 {% if isAdmin %}
                     <!-- Home Link -->
-                    <a href="/dashboard" {% if bodyClass == "general" %} class="nav-item active" {% else %}
+                    <a href="/manage" {% if bodyClass == "general" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-home"></i> Dashboard
                     </a>
 
                     <!-- Booking Link -->
-                    <a href="/dashboard/all-bookings" {% if bodyClass == "general" %} class="nav-item active" {% else %}
+                    <a href="/manage/bookings" {% if bodyClass == "general" %} class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-edit"></i> Boekingen
                     </a>
 
                     <!-- Users Link -->
-                    <a href="/dashboard/submit-new-user" {% if bodyClass == "general" %}
+                    <a href="/manage/users" {% if bodyClass == "general" %}
                        class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-user-edit"></i> Gebruikers
                     </a>
 
                     <!-- Users Link -->
-                    <a href="/dashboard/manage-accommodations" {% if bodyClass == "general" %}
+                    <a href="/manage/accommodations" {% if bodyClass == "general" %}
                        class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-list"></i> Accomodatie beheren
                     </a>
 
                     <!-- Support Chat Link -->
-                    <a href="/dashboard/support-chat" {% if bodyClass == "support-chat" %}
+                    <a href="/manage/support-chat" {% if bodyClass == "support-chat" %}
                        class="nav-item active" {% else %}
                        class="nav-item" {% endif %}>
                         <i class="fas fa-comments"></i> Ondersteuning chat
@@ -137,7 +137,7 @@
                 </div>
             {% else %}
                 <!-- Display login/register button when not logged in -->
-                <a href="/authentication/login" class="btn btn-primary btn-outline-primary text-white">Inloggen/Aanmelden</a>
+                <a href="/authentication" class="btn btn-primary btn-outline-primary text-white">Inloggen/Aanmelden</a>
             {% endif %}
         </div>
     </div>
@@ -213,7 +213,7 @@
                 <div class="col">
                     <h5>Snelle Links</h5>
                     <ul class="nav flex-column quick-links-wrapper mb-4">
-                        <li class="nav-item"><a href="/accommodation/"
+                        <li class="nav-item"><a href="/accommodation"
                                                 class="nav-link p-0">Accommodaties</a></li>
                         <li class="nav-item"><a href="/faqs/" class="nav-link p-0">FAQS</a></li>
                         <li class="nav-item"><a href="/contact/" class="nav-link p-0">Contact</a></li>

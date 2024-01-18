@@ -28,7 +28,7 @@ class ManageUserController(ControllerBase):
         app_context = ApplicationContext()
         users = app_context.get_all_users()
 
-        return render_template("pages/admin-dashboard/admin-dashboard-add-user.html", users=users)
+        return render_template("pages/manage/manage-user.html", users=users)
 
     @login_required
     def post(self):
@@ -46,7 +46,7 @@ class ManageUserController(ControllerBase):
         # Validate data (e.g., check if passwords match)
         if password != confirm_password:
             flash("Passwords do not match.", "error")
-            return redirect('/dashboard/submit-new-user')
+            return redirect('/manage/users')
 
         # Hash the password
         hashed_password = generate_password_hash(password)
@@ -70,24 +70,24 @@ class ManageUserController(ControllerBase):
         try:
             app_context.register_user(user_data)
             flash("Registration successful!", "success")
-            return redirect('/dashboard/submit-new-user')
+            return redirect('/manage/users')
 
         except Exception as e:
             flash("Registration failed: " + str(e), "error")
-            return render_template('pages/admin-dashboard/admin-dashboard-add-user.html')
+            return render_template('pages/manage/manage-user.html')
 
     @login_required
     def delete_user(self, user_id):
         if not current_user.is_admin:
             flash("You do not have permission to perform this action.", "error")
-            return redirect('/dashboard/submit-new-user')  # Redirect to a safe page
+            return redirect('/manage/users')  # Redirect to a safe page
 
         if self.__delete_user(user_id):
             flash("User successfully removed.", "success")
         else:
             flash("Failed to remove user.", "error")
 
-        return redirect('/dashboard/submit-new-user')  # Redirect to the users list page
+        return redirect('/manage/users')  # Redirect to the users list page
 
     def __delete_user(self, user_id):
         """
@@ -111,9 +111,9 @@ class ManageUserController(ControllerBase):
             user_to_edit = app_context.get_user_id_by_username(user_id)
             if not user_to_edit:
                 flash("User not found.", "error")
-                return redirect('/dashboard/submit-new-user/')  # Adjust as per your route naming
+                return redirect('/manage/users')  # Adjust as per your route naming
 
-        return render_template("pages/admin-dashboard/admin-dashboard-register-user.html", users=users,
+        return render_template("pages/manage/manage-add-user.html", users=users,
                                user=user_to_edit)
 
 

@@ -19,7 +19,7 @@ class ContactPage(ControllerBase):
 
     def index(self):
         """ Render the contact page """
-        return render_template('pages/contact/../../templates/pages/general/contact.html')
+        return render_template('pages/general/contact.html')
 
     def __is_valid_name(self, name):
         """Validate the name. It should contain only letters and some special characters like spaces or hyphens."""
@@ -43,18 +43,18 @@ class ContactPage(ControllerBase):
         if not self.__is_valid_name(name):
             # Handle invalid name
             flash("Invalid name provided.", "error")
-            return render_template('pages/contact/../../templates/pages/general/contact.html')
+            return render_template('pages/general/contact.html')
 
         if not self.__is_valid_email(email):
             # Handle invalid email
             flash("Invalid email address.", "error")
-            return render_template('pages/contact/../../templates/pages/general/contact.html')
+            return render_template('pages/general/contact.html')
 
         # Check if the message or email is spam
         if self.spam_filter.is_spam(message, email):
             # Handle spam (log it, redirect, flash message, etc.)
             flash('Your message looks like spam. Please modify and try again.', 'error')
-            return render_template('pages/contact/../../templates/pages/general/contact.html')
+            return render_template('pages/general/contact.html')
 
         # Create ContactFormEntity
         contact_form_entity = ContactFormEntity(name, email, message, sent_on)

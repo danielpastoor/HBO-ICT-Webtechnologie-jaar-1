@@ -3,8 +3,7 @@
 
 from flask import Flask, render_template
 
-from src.controllers.Dashboard.DashboardController import DashboardController
-from src.controllers.Authentication.AuthenticationController import LoginPage, RegisterPage, LogoutPage, ResetPasswordController
+from src.controllers.Authentication.AuthenticationController import AuthenticationController
 from src.controllers.Page.BookingController import BookingPage
 from src.controllers.Page.ContactController import ContactPage
 from src.controllers.Page.FAQController import FaqPage
@@ -17,7 +16,7 @@ from src.controllers.Manage.ManageBookingController import ManageBookingControll
 from src.controllers.Manage.ManageSupportController import ManageSupportController
 from src.controllers.Manage.ManageUserController import ManageUserController
 from src.controllers.Dashboard.ProfileController import ProfileController
-from src.controllers.Manage.ManageAccomodationsController import ManageAccommodationController, AddAccommodationController
+from src.controllers.Manage.ManageAccomodationsController import ManageAccommodationController
 from src.controllers.Manage.ManageDashboardController import AdminDashboardController
 
 
@@ -25,51 +24,41 @@ def routes(app: Flask):
     """Routes function so we can define the routes here
     """
     # Add controllers
-    IndexController.register(app, "/")
-    ContactPage.register(app, "/contact")
-    BookingPage.register(app, "/booking")
-    AccommodationController.register(app, "/accommodation")
-    FaqPage.register(app, "/faqs")
+    IndexController.registerRoutes(app, "/")
+    ContactPage.registerRoutes(app, "/contact")
+    BookingPage.registerRoutes(app, "/booking")
+    AccommodationController.registerRoutes(app, "/accommodation")
+    FaqPage.registerRoutes(app, "/faqs")
+    GeneralConditionController.registerRoutes(app, "/general-condition")
 
     # authentication
-    LoginPage.register(app, "/authentication/login")
-    RegisterPage.register(app, "/authentication/register")
-    LogoutPage.register(app, "/authentication/logout")
-    ResetPasswordController.register(app, "/authentication/reset-password")
-
-    # All-Booking
-    DashboardController.register(app, "/dashboard/all-bookings")
-
-    # MyBooking's Page
-    MyBookingController.register(app, "/dashboard/my-booking")
-
-    # Chat Popup
-    ChatController.register(app, "/dashboard/save-chat")
+    AuthenticationController.registerRoutes(app, "/authentication")
 
     # Profile Page
-    ProfileController.register(app, "/dashboard/settings")
+    ProfileController.registerRoutes(app, "/dashboard/settings")
 
-    # Booking creation Admin page
-    ManageBookingController.register(app, "/dashboard/create-booking")
+    # MyBooking's Page
+    MyBookingController.registerRoutes(app, "/dashboard/my-booking")
+
+    # Chat Popup
+    ChatController.registerRoutes(app, "/dashboard/save-chat")
+
+    # --- Mange
+
+    # All-Booking
+    ManageBookingController.registerRoutes(app, "/manage/bookings")
 
     # Add User & Remove Controller
-    ManageUserController.register(app, "/dashboard/submit-new-user")
-    # UserRemovalController.register(app, "/dashboard/remove-user")
-
-    # Edit User Controller
-    # RegisterUserController.register(app, "/dashboard/edit-users")
+    ManageUserController.registerRoutes(app, "/manage/users")
 
     # Manage Accommodation Controller
-    ManageAccommodationController.register(app, "/dashboard/manage-accommodations")
-    AddAccommodationController.register(app, "/dashboard/add-accommodation")
+    ManageAccommodationController.registerRoutes(app, "/manage/accommodations")
 
     # Manage Support requests from support button
-    ManageSupportController.register(app, "/dashboard/support-chat")
+    ManageSupportController.registerRoutes(app, "/manage/support-chat")
 
     # AdminDash Controller
-    AdminDashboardController.register(app, "/dashboard")
-
-    GeneralConditionController.register(app, "/general-condition")
+    AdminDashboardController.registerRoutes(app, "/manage")
 
     @app.errorhandler(404)
     def not_found(e):

@@ -52,7 +52,7 @@ class BookingPage(ControllerBase):
                 })
 
             # return rendered html
-            return render_template("pages/general/booking/../../templates/pages/general/booking.html", accommodation=data[0],
+            return render_template("pages/general/booking.html", accommodation=data[0],
                                    booked_dates_str=json.dumps(booked_dates))
 
         elif request.method == 'POST':

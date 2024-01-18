@@ -24,7 +24,7 @@ class GeneralConditionController(ControllerBase):
         """ Endpoint for getting the profile page
         """
 
-        return render_template("pages/term-and-service/../../templates/pages/general/general-conditions.html")
+        return render_template("pages/general/general-conditions.html")
 
 
 if __name__ == "__main__":

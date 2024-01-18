@@ -1,7 +1,7 @@
 """In deze file worden de scripts gerund"""
 import os
 from sys import argv
-from flask import Flask
+from flask import Flask, url_for
 from datetime import timedelta
 from flask_login import LoginManager
 from werkzeug.middleware.profiler import ProfilerMiddleware
@@ -40,7 +40,6 @@ def run():
     functions. When this function is ran, the website
     will show up.
     """
-
     app.run(debug=True, port=8081)
     app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=14)
 
