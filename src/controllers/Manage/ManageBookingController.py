@@ -12,7 +12,7 @@ from src.models.BaseModel.TransientObject import TransientObject
 from src.models.BookingEntity import BookingEntity
 
 
-class CreateBookingController(ControllerBase):
+class ManageBookingController(ControllerBase):
     """index controller for showing the home page
 
     Returns:

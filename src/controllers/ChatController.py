@@ -6,10 +6,6 @@ from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
 from src.models.ChatMessageEntity import ChatMessageEntity
 
-
-# from src.models.ChatMessageEntity import ChatMessageEntity
-
-
 class ChatController(ControllerBase):
     route_base = "/dashboard/save-chat"
 

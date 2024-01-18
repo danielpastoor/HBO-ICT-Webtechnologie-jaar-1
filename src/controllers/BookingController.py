@@ -13,6 +13,8 @@ from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
 from src.data.ApplicationContext import ApplicationContext
 from src.models.AccommodationEntity import AccommodationEntity
 from src.models.BookingEntity import BookingEntity
+from src.models.Enums.PaymentStatus import PaymentStatus
+from src.models.PaymentEntity import PaymentEntity
 from src.models.UsersEntity import UsersEntity
 
 
@@ -56,16 +58,12 @@ class BookingPage(ControllerBase):
         elif request.method == 'POST':
             accommodation = applicationContext.First(AccommodationEntity(), condition=f"id = {accommodation_id}")
 
-            print(accommodation)
-
             if accommodation is None:
                 return render_template("pages/error/error.html"), 500
 
             date_format = "%Y-%m-%d"
             check_in_date_str = request.form.get('start_date')
             check_out_date_str = request.form.get('end_date')
-
-            print(check_in_date_str)
 
             if not (check_in_date_str and check_out_date_str):
                 return render_template("pages/error/error.html"), 500
@@ -84,6 +82,12 @@ class BookingPage(ControllerBase):
 
             last_start_date = check_in_date
 
+            payment = PaymentEntity()
+            payment.price = accommodation.price * day_difference
+            payment.status = PaymentStatus.PENDING
+            payment.SetCreationDate()
+            applicationContext.Add(payment)
+
             for booking_number in range(booking_count):
                 if booking_number > 0:
                     last_start_date = last_start_date + timedelta(
@@ -96,23 +100,36 @@ class BookingPage(ControllerBase):
                 booking.end_date = check_out_date if booking_number == booking_count - 1 else booking.start_date + timedelta(
                     days=7)
                 booking.user_id = user.id
+                booking.payment_id = payment.id
                 booking.SetCreationDate()
-                # applicationContext.Add(booking)
+                applicationContext.Add(booking)
 
-            price = accommodation.price * day_difference
-
-            return redirect(self.__create_payment_url(price, accommodation_id))
+            return redirect(self.__create_payment_url(payment.price, payment.id))
 
     def thankyou(self):
         return render_template("pages/thank-you.html")
 
     def __create_payment_url(self, amount, id):
-        url_payment = f"http://localhost:8081/booking/thankyou"
-        url_success = f"http://localhost:8081/booking/thankyou"
-        url_pending = f"http://localhost:8081/booking/thankyou"
-        url_failure = f"http://localhost:8081/booking/thankyou"
+        url_payment = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.COMPLETED}"
+        url_success = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.COMPLETED}"
+        url_pending = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.PENDING}"
+        url_failure = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.ERROR}"
 
         return f'https://www.ideal-checkout.nl/demo/idealcheckout-betaalformulier/idealcheckout/checkout.php?amount={amount}&url_payment={url_payment}&url_success={url_success}&url_pending={url_pending}&url_failure={url_failure}'
+
+    def payment(self, payment_id, payment_status):
+        applicationContext = ApplicationContext()
+
+        payment = applicationContext.First(PaymentEntity(), "*", condition=f"id = {payment_id}")
+
+        if payment is None:
+            redirect("/error")
+
+        applicationContext.Update(PaymentEntity(), {
+            "status": payment_status
+        }, payment.id)
+
+        return redirect("/booking/thankyou")
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template
 
-from src.controllers.DashboardController import DashboardController
+from src.controllers.Dashboard.DashboardController import DashboardController
 from src.controllers.AuthenticationController import LoginPage, RegisterPage, LogoutPage, ResetPasswordController
 from src.controllers.BookingController import BookingPage
 from src.controllers.ContactController import ContactPage
@@ -11,15 +11,15 @@ from src.controllers.FAQController import FaqPage
 from src.controllers.GeneralConditionController import GeneralConditionController
 from src.controllers.IndexController import IndexController
 from src.controllers.AccommodationController import AccommodationController
-from src.controllers.MyBookingController import MyBookingController
+from src.controllers.Dashboard.MyBookingController import MyBookingController
 from src.controllers.ChatController import ChatController
 from src.controllers.ProfileController import ProfileController
-from src.controllers.CreateBookingController import CreateBookingController
-from src.controllers.AddUserController import AddUserController, UserRemovalController
+from src.controllers.Manage.ManageBookingController import CreateBookingController
+from src.controllers.Manage.ManageUserController import AddUserController, UserRemovalController
 from src.controllers.RegisterUserController import RegisterUserController
-from src.controllers.ManageAccomodationsController import ManageAccommodationController, AddAccommodationController
-from src.controllers.SupportUserController import SupportUserController
-from src.controllers.AdminDashboardController import AdminDashboardController
+from src.controllers.Manage.ManageAccomodationsController import ManageAccommodationController, AddAccommodationController
+from src.controllers.Manage.ManageSupportController import SupportUserController
+from src.controllers.Manage.AdminDashboardController import AdminDashboardController
 
 
 def routes(app: Flask):

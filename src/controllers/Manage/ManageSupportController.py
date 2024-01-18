@@ -12,7 +12,7 @@ from src.models.BaseModel.TransientObject import TransientObject
 from src.models.BookingEntity import BookingEntity
 
 
-class SupportUserController(ControllerBase):
+class ManageSupportController(ControllerBase):
 
     @login_required
     def index(self):
