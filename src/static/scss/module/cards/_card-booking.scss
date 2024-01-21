@@ -1,7 +1,7 @@
 .card-booking {
   picture {
-    max-width: 350px;
-    max-height: 250px;
+    max-width: 250px;
+    max-height: 200px;
     width: 500px;
     display: block;
     height: 366px;
@@ -15,6 +15,11 @@
 
   .body {
     position: relative;
-    padding: 30px 90px 30px 45px;
+    padding: 30px 0 30px 30px;
+
+    .button-group {
+      display: flex !important;
+      flex-direction: column;
+    }
   }
 }
