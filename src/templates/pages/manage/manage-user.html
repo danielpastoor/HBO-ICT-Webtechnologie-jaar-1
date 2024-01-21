@@ -1,12 +1,10 @@
-{% extends 'layouts/main_layout.html' %}
+{% extends 'layouts/manage_layout.html' %}
 {% set isAdmin = true %}
 {% set isDashboard = true %}
 {% set bodyClass = "add-user" %}
 {% set title = "Gebruikers Instellingen" %}
 
 {% block content %}
-    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
-
     <div class="container">
         <div>
             <h4 class="h4 mb-4">Alle gebruikers</h4>
@@ -46,51 +44,76 @@
             <!-- Registration Form -->
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="/dashboard/submit-new-user">
-                        <!-- Username Field -->
-                        <div class="form-group">
-                            <label for="username">Gebruikersnaam:</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
-                        </div>
+                    <form method="POST" action="/manage/submit-new-user">
+                        <div class="row">
+                            <div class="col-24">
+                                <!-- Username Field -->
+                                <div class="form-group">
+                                    <label for="username">Gebruikersnaam:</label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                            </div>
 
-                        <!-- Email Field -->
-                        <div class="form-group">
-                            <label for="email">E-mail:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
+                            <div class="col-24">
+                                <!-- Email Field -->
+                                <div class="form-group">
+                                    <label for="email">E-mail:</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
 
-                        <!-- Password Field -->
-                        <div class="form-group">
-                            <label for="password">Wachtwoord:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
+                            <div class="col-24">
+                                <!-- Password Field -->
+                                <div class="form-group">
+                                    <label for="password">Wachtwoord:</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                            </div>
 
-                        <!-- Confirm Password Field -->
-                        <div class="form-group">
-                            <label for="confirm_password">Wachtwoord bevestigen:</label>
-                            <input type="password" class="form-control" id="confirm_password" name="confirm_password"
-                                   required>
-                        </div>
+                            <div class="col-24">
+                                <!-- Confirm Password Field -->
+                                <div class="form-group">
+                                    <label for="confirm_password">Wachtwoord bevestigen:</label>
+                                    <input type="password" class="form-control" id="confirm_password"
+                                           name="confirm_password"
+                                           required>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="city">Stad:</label>
-                            <input type="text" class="form-control" id="city" name="city">
-                        </div>
-                        <div class="form-group">
-                            <label for="postcode">Postcode:</label>
-                            <input type="text" class="form-control" id="postcode" name="postcode">
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Adres:</label>
-                            <input type="text" class="form-control" id="address" name="address">
-                        </div>
-                        <div class="form-group">
-                            <label for="housenumber">Huis nummer:</label>
-                            <input type="text" class="form-control" id="housenumber" name="housenumber">
-                        </div>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin">
-                            <label class="form-check-label" for="is_admin">Is Beheerder</label>
+                            <div class="col-24">
+                                <hr/>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="city">Stad:</label>
+                                    <input type="text" class="form-control" id="city" name="city">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="postcode">Postcode:</label>
+                                    <input type="text" class="form-control" id="postcode" name="postcode">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="address">Adres:</label>
+                                    <input type="text" class="form-control" id="address" name="address">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="housenumber">Huis nummer:</label>
+                                    <input type="text" class="form-control" id="housenumber" name="housenumber">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group form-check">
+                                    <input type="checkbox" class="form-check-input" id="is_admin" name="is_admin">
+                                    <label class="form-check-label" for="is_admin">Is Beheerder</label>
+                                </div>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-4">Gebruiker toevoegen</button>

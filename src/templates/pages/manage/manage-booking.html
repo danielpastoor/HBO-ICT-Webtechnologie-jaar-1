@@ -1,12 +1,10 @@
-{% extends 'layouts/main_layout.html' %}
+{% extends 'layouts/manage_layout.html' %}
 {% set isAdmin = true %}
 {% set isDashboard = true %}
 {% set bodyClass = "all-bookings" %}
 {% set title = "Booking Instellingen" %}
 
 {% block content %}
-    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
-
     <div class="container">
         <div>
             <h4 class="h4 mb-4">Alle boekingen</h4>
@@ -33,44 +31,61 @@
             <div class="card">
                 <div class="card-body">
                     <form method="POST" action="/manage/bookings/">
-                        <div class="form-group">
-                            <label for="user_id">Gebruiker:</label>
-                            <select id="user_id" class="form-select"
-                                    aria-label="User select">
-                                <option selected>Selecteed gebruiker</option>
-                                {% for user in users %}
-                                    <option value="{{ user.id }}">{{ user.username }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="accommodation_id">Accommodatie:</label>
+                                    <select class="form-select" id="accommodation_id" name="accommodation_id" required>
+                                        <option selected>Kies accommodatie</option>
+                                        {% for accommodation in accommodations %}
+                                            <option value="{{ accommodation.id }}">{{ accommodation.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="user_id">Gebruiker:</label>
+                                    <select id="user_id" class="form-select"
+                                            aria-label="User select">
+                                        <option selected>Selecteed gebruiker</option>
+                                        {% for user in users %}
+                                            <option value="{{ user.id }}">{{ user.username }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-24">
+                                <div class="form-group">
+                                    <label for="bookingdates">Check-in datum - Check-uit datum:</label>
+                                    <input type="text" id="bookingdates"
+                                           class="form-control"
+                                           data-booked-dates="{{ booked_dates_str }}"
+                                           placeholder="Selecteer week/weken"
+                                           readonly>
+                                    <input type="hidden" name="start_date" required>
+                                    <input type="hidden" name="end_date" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="numGuests">Aantal gasten:</label>
+                                    <input type="number" class="form-control" id="numGuests" name="numGuests" min="1"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="specialRequests">Speciale verzoeken:</label>
+                                    <textarea class="form-control" id="specialRequests"
+                                              name="specialRequests"></textarea>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <label for="current_password">Check-in datum - Check-uit datum:</label>
-                            <input type="text" id="bookingdates"
-                                   class="form-control"
-                                   data-booked-dates="{{ booked_dates_str }}"
-                                   placeholder="Selecteer week/weken"
-                                   readonly>
-                            <input type="hidden" name="start_date" required>
-                            <input type="hidden" name="end_date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="accommodation_id">Accommodatie:</label>
-                            <select class="form-select" id="accommodation_id" name="accommodation_id" required>
-                                <option selected>Kies accommodatie</option>
-                                {% for accommodation in accommodations %}
-                                    <option value="{{ accommodation.id }}">{{ accommodation.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="numGuests">Aantal gasten:</label>
-                            <input type="number" class="form-control" id="numGuests" name="numGuests" min="1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="specialRequests">Speciale verzoeken:</label>
-                            <textarea class="form-control" id="specialRequests" name="specialRequests"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-4">Boeking indienen</button>
+
+                        <button type="submit" class="btn btn-success mt-4">Boeking indienen</button>
                     </form>
                 </div>
             </div>

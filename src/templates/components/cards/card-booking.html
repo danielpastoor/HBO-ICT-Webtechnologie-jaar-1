@@ -5,13 +5,15 @@
         </picture>
     </div>
 
-    <div class="body">
+    <div class="body d-flex justify-content-between w-100">
+       <div>
         <p>Check in datum: {{ booking.start_date }}</p>
         <p>Check uit datum: {{ booking.end_date }}</p>
         <p>Accommodatie naam: {{ booking.id }}</p>
         <p>Booking datum: {{ booking.booking_date }}</p>
-
-        <div>
+</div>
+        <div>verzoek: {{ booking.special_request }}</div>
+        <div class="button-group">
             <button id="editButton" class="btn btn-primary mt-4 me-2" onclick="editBooking({{ booking.id }})">Bewerken
             </button>
             <button id="removeButton" class="btn btn-danger mt-4 filled" onclick="removeBooking({{ booking.id }})">

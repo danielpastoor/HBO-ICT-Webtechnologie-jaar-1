@@ -1,12 +1,10 @@
-{% extends 'layouts/main_layout.html' %}
+{% extends 'layouts/manage_layout.html' %}
 {% set isAdmin = true %}
 {% set isDashboard = true %}
 {% set bodyClass = "manage-accommodations" %}
 {% set title = "Accommodatie Instellingen" %}
 
 {% block content %}
-    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
-
     <div class="container">
         <div>
             <h4 class="h4 mb-4">Alle accommodaties</h4>
@@ -31,8 +29,10 @@
                                 <td>{{ accommodation.price }}</td>
                                 <td>{{ accommodation.max_persons }}</td>
                                 <td>
-                                    <a href="/manage/accommodations/edit/{{ accommodation.id }}" class="btn btn-primary">Bewerken</a>
-                                    <a href="/manage/accommodations/delete/{{ accommodation.id }}" class="btn btn-danger filled"
+                                    <a href="/manage/accommodations/edit/{{ accommodation.id }}"
+                                       class="btn btn-primary">Bewerken</a>
+                                    <a href="/manage/accommodations/delete/{{ accommodation.id }}"
+                                       class="btn btn-danger filled"
                                        onclick="return confirm('Weet je het zeker?');">Verwijderen</a>
                                 </td>
                             </tr>
@@ -48,40 +48,57 @@
             <!-- Add Accommodation Form -->
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="/dashboard/add-accommodation" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="name">Naam:</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Beschrijving:</label>
-                            <textarea class="form-control" id="description" name="description" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Locatie:</label>
-                            <input type="text" class="form-control" id="location" name="location" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="price">Prijs (per nacht):</label>
-                            <input type="number" class="form-control" id="price" name="price" required>
-                        </div>
+                    <form method="POST" action="/manage/add-accommodation" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name">Naam:</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="max_persons">Maximum aantal personen:</label>
-                            <input type="number" class="form-control" id="max_persons" name="max_persons" required>
-                        </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="location">Locatie:</label>
+                                    <input type="text" class="form-control" id="location" name="location" required>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="price">Prijs (per nacht):</label>
+                                    <input type="number" class="form-control" id="price" name="price" required>
+                                </div>
+                            </div>
 
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="max_persons">Maximum aantal personen:</label>
+                                    <input type="number" class="form-control" id="max_persons" name="max_persons"
+                                           required>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="thumbnail_image">Hoofd afbeelding accommodatie:</label>
-                            <input type="file" class="form-control" id="thumbnail_image" name="thumbnail_image">
-                        </div>
-                        s
+                            <div class="col-24">
+                                <div class="form-group">
+                                    <label for="description">Beschrijving:</label>
+                                    <textarea class="form-control" id="description" name="description"
+                                              required></textarea>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="images">Extra Afbeeldingens:</label>
-                            <input type="file" class="form-control" id="images" name="images" multiple>
-                            <small class="form-text text-muted">U kunt meerdere afbeeldingen selecteren.</small>
+                            <div class="col-24">
+                                <div class="form-group">
+                                    <label for="thumbnail_image">Hoofd afbeelding accommodatie:</label>
+                                    <input type="file" class="form-control" id="thumbnail_image" name="thumbnail_image">
+                                </div>
+                            </div>
+                            <div class="col-24">
+                                <div class="form-group">
+                                    <label for="images">Extra Afbeeldingens:</label>
+                                    <input type="file" class="form-control" id="images" name="images" multiple>
+                                    <small class="form-text text-muted">U kunt meerdere afbeeldingen selecteren.</small>
+                                </div>
+                            </div>
                         </div>
                         <!-- Add more fields as needed -->
                         <button type="submit" class="btn btn-primary mt-4">Accommodatie toevoegen</button>
