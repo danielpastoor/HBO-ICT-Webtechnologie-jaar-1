@@ -1,24 +1,48 @@
 .block-about-us {
-  picture {
-    position: relative;
-    max-width: 500px;
-    max-height: 350px;
-    width: 500px;
-    display: block;
-    height: 366px;
-    z-index: 10;
+  .image-wrapper {
+    picture {
+      position: relative;
+      max-width: 500px;
+      max-height: 350px;
+      width: 500px;
+      display: block;
+      height: 366px;
+      z-index: 10;
 
-    &:before {
-      display: inline-block;
-      position: absolute;
-      content: '';
-      top: -20px;
-      right: 20px;
-      bottom: 20px;
-      left: -20px;
-      border: 2px solid #444349;
-      transition: all .3s ease;
-      z-index: 0;
+      &:before {
+        display: inline-block;
+        position: absolute;
+        content: '';
+        top: -20px;
+        right: 20px;
+        bottom: 20px;
+        left: -20px;
+        border: 2px solid #444349;
+        transition: all .3s ease;
+        z-index: 0;
+      }
+
+      img {
+        transition: all .3s ease;
+      }
+    }
+
+    &:hover {
+      picture {
+        img {
+          top: -20px;
+          right: 20px;
+          bottom: 20px;
+          left: -20px;
+        }
+
+        &:before {
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
+      }
     }
   }
 
@@ -42,17 +66,17 @@
     position: relative;
     justify-content: space-between;
 
-      &:after {
-          content: '';
-          position: absolute;
-          bottom: -4px;
-          left: 0;
-          height: 3px;
-          width: 100%;
-          background: grey;
-          transition: .22s ease;
-        z-index: 10;
-        }
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: grey;
+      transition: .22s ease;
+      z-index: 10;
+    }
 
     .nav-item {
       float: none;

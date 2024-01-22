@@ -3,9 +3,9 @@
 {% set title = "Mijn boekingen" %}
 
 {% block content %}
-    {% include 'components/blocks/hero/block-hero-dashboard.html' %}
+    {% include 'components/blocks/hero/block-hero.html' %}
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row row-cols-1">
             {% set has_bookings = bookings|length %}
             {% if has_bookings > 0 %}

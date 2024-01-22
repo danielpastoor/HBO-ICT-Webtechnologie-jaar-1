@@ -1,0 +1,19 @@
+header.manage {
+  .nav-item {
+    margin-bottom: 1rem;
+    border-radius: 6px;
+
+    .nav-link {
+      background: transparent;
+      border-radius: 6px;
+      font-size: 20px;
+    }
+
+    &.active, &:hover {
+      .nav-link {
+        color: black !important;
+        background: var(--bs-primary);
+      }
+    }
+  }
+}

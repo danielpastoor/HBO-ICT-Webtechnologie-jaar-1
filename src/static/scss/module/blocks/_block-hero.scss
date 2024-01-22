@@ -4,6 +4,10 @@
   z-index: 1;
   padding: 80px 0 !important;
   text-align: center;
+  height: calc(100dvh / 2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #cccccc;
 
   .hero-title {
@@ -22,6 +26,17 @@
     background-position: 50% 50%;
     background-size: cover;
     z-index: -1;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background: black;
+      opacity: 0.4;
+    }
   }
 }
 

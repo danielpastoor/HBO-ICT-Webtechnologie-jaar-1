@@ -25,123 +25,8 @@
 </head>
 
 <body class="{{ bodyClass }}">
-<header>
-    <div class="nav-aside-wrapper d-flex flex-wrap align-items-center justify-content-between">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none header-logo">
-            <img src="/static/img/272863.png" alt="logo">
-            Block en Huisjes
-        </a>
 
-        <div class="information-wrapper d-flex">
-            <div class="open-times d-flex">
-                <i class="far fa-clock"></i>
-                <span>9:00</span>
-                -
-                <span>17:00</span>
-            </div>
-            <div class="d-flex">
-                <i class="fas fa-phone-alt"></i>
-                <a class="link-phone" href="tel:+1 323-913-4688">+1 323-913-4688</a>
-            </div>
-        </div>
-        <a class="btn btn-primary" href="/accommodation">BOEK NU</a>
-    </div>
-
-    <div class="nav-wrapper d-flex flex-wrap align-items-center justify-content-between bs-secondary">
-        <nav class="d-flex flex-wrap align-items-center">
-            {% if isDashboard %}
-                {% if isAdmin %}
-                    <!-- Home Link -->
-                    <a href="/manage" {% if bodyClass == "general" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-home"></i> Dashboard
-                    </a>
-
-                    <!-- Booking Link -->
-                    <a href="/manage/bookings" {% if bodyClass == "general" %} class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-edit"></i> Boekingen
-                    </a>
-
-                    <!-- Users Link -->
-                    <a href="/manage/users" {% if bodyClass == "general" %}
-                       class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-user-edit"></i> Gebruikers
-                    </a>
-
-                    <!-- Users Link -->
-                    <a href="/manage/accommodations" {% if bodyClass == "general" %}
-                       class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-list"></i> Accomodatie beheren
-                    </a>
-
-                    <!-- Support Chat Link -->
-                    <a href="/manage/support-chat" {% if bodyClass == "support-chat" %}
-                       class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-comments"></i> Ondersteuning chat
-                    </a>
-                {% endif %}
-            {% else %}
-                <a href="/" {% if bodyClass == "general" %} class="nav-item active" {% else %}
-                   class="nav-item" {% endif %}>
-                    <i class="fas fa-home"></i> Home
-                </a>
-                {% if current_user.is_authenticated %}
-                    <a href="/dashboard/my-booking/" {% if bodyClass == "my-bookings" %}
-                       class="nav-item active" {% else %}
-                       class="nav-item" {% endif %}>
-                        <i class="fas fa-edit"></i> Mijn boekingen
-                    </a>
-                {% endif %}
-                <a href="/accommodation/" {% if bodyClass == "accommodation" %}
-                   class="nav-item active" {% else %}
-                   class="nav-item" {% endif %}>
-                    <i class="fas fa-tags"></i> Accommodatie
-                </a>
-                <a href="/faqs/" {% if bodyClass == "faqs" %} class="nav-item active" {% else %}
-                   class="nav-item" {% endif %}>
-                    <i class="fas fa-question-circle"></i> FAQs
-                </a>
-                <a href="/contact/" {% if bodyClass == "contact" %} class="nav-item active" {% else %}
-                   class="nav-item" {% endif %}>
-                    <i class="fas fa-envelope"></i> Contact
-                </a>
-            {% endif %}
-
-        </nav>
-
-        <div class="d-flex align-items-center">
-            <form class="form-inline my-2 my-lg-0 search-bar" action="/accommodation">
-                <input type="search" name="search" class="form-control form-control-dark" placeholder="Zoeken..."
-                       aria-label="Search">
-            </form>
-
-            {% if current_user.is_authenticated %}
-                <!-- Dropdown Menu for Logged-In Users -->
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle text-white" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        <i class="fas fa-wrench"></i> Instellingen
-                    </button>
-                    <div class="dropdown-menu">
-                        {% if current_user.is_admin %}
-                            <a class="dropdown-item" href="/manage">Dashboard</a>
-                        {% endif %}
-                        <a class="dropdown-item" href="/dashboard/settings">Instellingen</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/authentication/logout">Uitloggen</a>
-                    </div>
-                </div>
-            {% else %}
-                <!-- Display login/register button when not logged in -->
-                <a href="/authentication" class="btn btn-primary btn-outline-primary text-white">Inloggen/Aanmelden</a>
-            {% endif %}
-        </div>
-    </div>
-</header>
+{% include 'components/header.html' %}
 
 <main id="main" role="main">
     {% block content %}
@@ -176,62 +61,9 @@
         </div>
     </div>
 {% endif %}
-<!-- Footer -->
-<footer class="mt-4">
-    <div class="footer-main">
-        <div class="container-xl">
-            <div class="row row-cols-3 py-5">
-                <div class="col">
-                    <h5>Contact Ons</h5>
-                    <ul class="nav flex-column contact-wrapper">
-                        <li class="nav-item mb-2">
-                            <div class="d-flex">
-                                <i class="fas fa-phone-alt"></i>
-                                <a class="link-phone" href="tel:+1 323-913-4688">+1 323-913-4688</a>
-                            </div>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <div class="d-flex">
-                                <i class="fas fa-envelope"></i>
-                                <a class="link-phone" href="mailto:example@example.nl">example@example.nl</a>
-                            </div>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <div class="d-flex">
-                                <i class="fas fa-paper-plane"></i>
-                                <a class="link-phone" href="mailto:example@example.nl">25671 ZK Berenburg 15
-                                    Groningen</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
 
-                <div class="col">
+{% include 'components/footer.html' %}
 
-                </div>
-
-                <div class="col">
-                    <h5>Snelle Links</h5>
-                    <ul class="nav flex-column quick-links-wrapper mb-4">
-                        <li class="nav-item"><a href="/accommodation"
-                                                class="nav-link p-0">Accommodaties</a></li>
-                        <li class="nav-item"><a href="/faqs/" class="nav-link p-0">FAQS</a></li>
-                        <li class="nav-item"><a href="/contact/" class="nav-link p-0">Contact</a></li>
-                    </ul>
-
-                    <a class="btn btn-primary btn-white" href="/accommodation">BOEK NU</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="copy-right py-4">
-        <div class="container-xl">
-            <span class="ms-2">© 2024 HBO ICT | Nigel & Daniel</span>
-            <a href="/general-condition">Algemene voorwaarden</a>
-        </div>
-    </div>
-</footer>
 <script type="text/javascript">
     var loggedInUserId = "{{ current_user.id if current_user.is_authenticated else 'null' | tojson }}";
 
@@ -291,6 +123,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.12.0/headroom.min.js"></script>
+
+<script>
+    var myHeader = document.querySelector("header");
+    var headroom = new Headroom(myHeader, {
+        offset: 100,
+    });
+    headroom.init();
+</script>
 
 {% block scripts %}
 {% endblock %}
