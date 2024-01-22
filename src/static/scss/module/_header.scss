@@ -1,18 +1,16 @@
-header {
-  position: relative;
+header.page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 777;
+  padding-bottom: .875rem;
+  transition: .3s ease-out background-color, .3s ease-out transform;
 
   .nav-aside-wrapper {
-    padding: 10px calc(1.5rem * 0.5);
-
-    .header-logo {
-      font-family: "Teko", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-      font-size: 35px;
-      color: black;
-
-      img {
-        margin-right: 10px;
-      }
-    }
+    display: none;
+    padding: 10px;
+    background: white;
 
     .information-wrapper {
       .fas, .far {
@@ -53,44 +51,69 @@ header {
     }
   }
 
+  &.headroom--not-top {
+    .nav-aside-wrapper {
+      display: flex;
+    }
+  }
+
   .nav-wrapper {
     padding: 0 calc(1.5rem * 0.5);
-    background: $secondary;
+    background: transparent;
+    transition: .3s ease-out background-color, .3s ease-out transform;
 
-    nav {
-      .nav-item {
-        position: relative;
-        padding: 23px 20px 16px;
-        font-size: 18px;
-        letter-spacing: .05em;
-        text-transform: uppercase;
-        line-height: 1.2;
-        font-weight: 500;
-        transition: .25s;
-        z-index: 1;
+    .nav-item {
+      position: relative;
+      padding: 23px 20px 16px;
+      font-size: 18px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      line-height: 1.2;
+      font-weight: 500;
+      transition: .25s;
+      z-index: 1;
 
+      &:before {
+        height: 100%;
+        transform: translate3d(0, 0, 0);
+        transition-delay: 0s, .2s;
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: transparent;
+        border-top: 3px solid #ffce40;
+        transition: all 0.35s cubic-bezier(0.05, 0.29, 0.11, 1.54), height 0.3s ease;
+        visibility: hidden;
+        opacity: 0;
+        z-index: -1;
+      }
+
+      &.active, &:hover {
         &:before {
-          height: 100%;
-          transform: translate3d(0, 0, 0);
-          transition-delay: 0s, .2s;
-          position: absolute;
-          content: '';
-          top: 0;
-          left: 0;
-          width: 100%;
-          background: #4b5055;
-          border-top: 3px solid #ffce40;
-          transition: all 0.35s cubic-bezier(0.05, 0.29, 0.11, 1.54), height 0.3s ease;
-          visibility: hidden;
-          opacity: 0;
-          z-index: -1;
+          opacity: 1;
+          visibility: visible;
         }
+      }
+    }
 
-        &.active, &:hover {
-          &:before {
-            opacity: 1;
-            visibility: visible;
-          }
+    input:not([type="check"]) {
+      border-bottom-color: white!important;
+
+      &::placeholder {
+        color: white;
+      }
+    }
+  }
+
+  &.headroom--not-top {
+    .nav-wrapper {
+      background: $secondary;
+
+      .nav-item {
+        &:before {
+          background: #4b5055;
         }
       }
     }

@@ -1,11 +1,28 @@
 form {
   .form-group {
     label:not(.form-check-label) {
-      margin: 25px auto 0;
+      margin: 25px 0 0;
     }
 
     &.form-check {
-      margin: 25px auto 0;
+      margin: 25px 0 0;
     }
   }
+}
+
+input:not([type="checkbox"]):not([type="radio"]), textarea, .form-control {
+  border: none !important;
+  background: none !important;
+  position: relative !important;
+  border-bottom: 2px solid black !important;
+
+  &:focus-visible, &:focus {
+    outline: none;
+    box-shadow: none !important;
+  }
+}
+
+input:focus-visible, input:focus {
+  outline: none;
+  box-shadow: none !important;
 }

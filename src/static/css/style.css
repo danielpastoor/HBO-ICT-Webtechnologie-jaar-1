@@ -12570,6 +12570,7 @@ p.error {
   padding: 0.375rem 10px 0.375rem;
   background: none;
   box-shadow: none;
+  min-width: 140px;
   font-weight: bold;
 }
 .btn:hover, .page-authentication .img .toggle-button:hover {
@@ -12631,27 +12632,43 @@ p.error {
 }
 
 form .form-group label:not(.form-check-label) {
-  margin: 25px auto 0;
+  margin: 25px 0 0;
 }
 form .form-group.form-check {
-  margin: 25px auto 0;
+  margin: 25px 0 0;
 }
 
-header {
-  position: relative;
+input:not([type=checkbox]):not([type=radio]), textarea, .form-control {
+  border: none !important;
+  background: none !important;
+  position: relative !important;
+  border-bottom: 2px solid black !important;
 }
-header .nav-aside-wrapper {
-  padding: 10px 0.75rem;
+input:not([type=checkbox]):not([type=radio]):focus-visible, input:not([type=checkbox]):not([type=radio]):focus, textarea:focus-visible, textarea:focus, .form-control:focus-visible, .form-control:focus {
+  outline: none;
+  box-shadow: none !important;
 }
-header .nav-aside-wrapper .header-logo {
-  font-family: "Teko", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-  font-size: 35px;
-  color: black;
+
+input:focus-visible, input:focus {
+  outline: none;
+  box-shadow: none !important;
 }
-header .nav-aside-wrapper .header-logo img {
-  margin-right: 10px;
+
+header.page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 777;
+  padding-bottom: 0.875rem;
+  transition: 0.3s ease-out background-color, 0.3s ease-out transform;
 }
-header .nav-aside-wrapper .information-wrapper .fas, header .nav-aside-wrapper .information-wrapper .far {
+header.page .nav-aside-wrapper {
+  display: none;
+  padding: 10px;
+  background: white;
+}
+header.page .nav-aside-wrapper .information-wrapper .fas, header.page .nav-aside-wrapper .information-wrapper .far {
   vertical-align: middle;
   text-align: center;
   font-size: 24px;
@@ -12659,7 +12676,7 @@ header .nav-aside-wrapper .information-wrapper .fas, header .nav-aside-wrapper .
   color: #ffdb73;
   margin-right: 10px;
 }
-header .nav-aside-wrapper .information-wrapper span, header .nav-aside-wrapper .information-wrapper a {
+header.page .nav-aside-wrapper .information-wrapper span, header.page .nav-aside-wrapper .information-wrapper a {
   margin-top: 2px;
   font-size: 24px;
   line-height: 1;
@@ -12668,11 +12685,11 @@ header .nav-aside-wrapper .information-wrapper span, header .nav-aside-wrapper .
   color: black;
   font-family: "Teko", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
-header .nav-aside-wrapper .information-wrapper .open-times {
+header.page .nav-aside-wrapper .information-wrapper .open-times {
   margin-right: 20px;
   position: relative;
 }
-header .nav-aside-wrapper .information-wrapper .open-times:after {
+header.page .nav-aside-wrapper .information-wrapper .open-times:after {
   height: 100%;
   width: 1px;
   background: black;
@@ -12683,11 +12700,15 @@ header .nav-aside-wrapper .information-wrapper .open-times:after {
   right: -10px;
   transform: translateX(-50%);
 }
-header .nav-wrapper {
-  padding: 0 0.75rem;
-  background: #444349;
+header.page.headroom--not-top .nav-aside-wrapper {
+  display: flex;
 }
-header .nav-wrapper nav .nav-item {
+header.page .nav-wrapper {
+  padding: 0 0.75rem;
+  background: transparent;
+  transition: 0.3s ease-out background-color, 0.3s ease-out transform;
+}
+header.page .nav-wrapper .nav-item {
   position: relative;
   padding: 23px 20px 16px;
   font-size: 18px;
@@ -12698,7 +12719,7 @@ header .nav-wrapper nav .nav-item {
   transition: 0.25s;
   z-index: 1;
 }
-header .nav-wrapper nav .nav-item:before {
+header.page .nav-wrapper .nav-item:before {
   height: 100%;
   transform: translate3d(0, 0, 0);
   transition-delay: 0s, 0.2s;
@@ -12707,16 +12728,42 @@ header .nav-wrapper nav .nav-item:before {
   top: 0;
   left: 0;
   width: 100%;
-  background: #4b5055;
+  background: transparent;
   border-top: 3px solid #ffce40;
   transition: all 0.35s cubic-bezier(0.05, 0.29, 0.11, 1.54), height 0.3s ease;
   visibility: hidden;
   opacity: 0;
   z-index: -1;
 }
-header .nav-wrapper nav .nav-item.active:before, header .nav-wrapper nav .nav-item:hover:before {
+header.page .nav-wrapper .nav-item.active:before, header.page .nav-wrapper .nav-item:hover:before {
   opacity: 1;
   visibility: visible;
+}
+header.page .nav-wrapper input:not([type=check]) {
+  border-bottom-color: white !important;
+}
+header.page .nav-wrapper input:not([type=check])::placeholder {
+  color: white;
+}
+header.page.headroom--not-top .nav-wrapper {
+  background: #444349;
+}
+header.page.headroom--not-top .nav-wrapper .nav-item:before {
+  background: #4b5055;
+}
+
+header.manage .nav-item {
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+header.manage .nav-item .nav-link {
+  background: transparent;
+  border-radius: 6px;
+  font-size: 20px;
+}
+header.manage .nav-item.active .nav-link, header.manage .nav-item:hover .nav-link {
+  color: black !important;
+  background: var(--bs-primary);
 }
 
 footer {
@@ -12837,6 +12884,10 @@ section,
   z-index: 1;
   padding: 80px 0 !important;
   text-align: center;
+  height: 50dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #cccccc;
 }
 .block-hero .hero-title {
@@ -12855,12 +12906,22 @@ section,
   background-size: cover;
   z-index: -1;
 }
+.block-hero .thumbnail:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: black;
+  opacity: 0.4;
+}
 
 .block-hero-home {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  height: 629px;
+  height: 100dvh;
   text-align: center;
   background-color: #cccccc;
   display: flex;
@@ -12896,7 +12957,7 @@ section,
   bottom: 0;
   right: 0;
   background: black;
-  opacity: 0.2;
+  opacity: 0.4;
 }
 
 .block-about-us picture {
