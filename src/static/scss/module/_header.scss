@@ -51,6 +51,12 @@ header.page {
     }
   }
 
+  &.headroom--top {
+    .btn-secondary {
+      border-color: white!important;
+    }
+  }
+
   &.headroom--not-top {
     .nav-aside-wrapper {
       display: flex;

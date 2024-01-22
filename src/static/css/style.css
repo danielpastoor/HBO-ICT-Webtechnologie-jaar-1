@@ -12700,6 +12700,9 @@ header.page .nav-aside-wrapper .information-wrapper .open-times:after {
   right: -10px;
   transform: translateX(-50%);
 }
+header.page.headroom--top .btn-secondary {
+  border-color: white !important;
+}
 header.page.headroom--not-top .nav-aside-wrapper {
   display: flex;
 }
@@ -12960,7 +12963,7 @@ section,
   opacity: 0.4;
 }
 
-.block-about-us picture {
+.block-about-us .image-wrapper picture {
   position: relative;
   max-width: 500px;
   max-height: 350px;
@@ -12969,7 +12972,7 @@ section,
   height: 366px;
   z-index: 10;
 }
-.block-about-us picture:before {
+.block-about-us .image-wrapper picture:before {
   display: inline-block;
   position: absolute;
   content: "";
@@ -12980,6 +12983,21 @@ section,
   border: 2px solid #444349;
   transition: all 0.3s ease;
   z-index: 0;
+}
+.block-about-us .image-wrapper picture img {
+  transition: all 0.3s ease;
+}
+.block-about-us .image-wrapper:hover picture img {
+  top: -20px;
+  right: 20px;
+  bottom: 20px;
+  left: -20px;
+}
+.block-about-us .image-wrapper:hover picture:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .block-about-us img {
   width: 100%;
@@ -13047,6 +13065,11 @@ section,
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.block-gallery img:hover {
+  transform: scale(1.05);
 }
 
 .block-accommodations-slider .carousel-button {
@@ -13324,6 +13347,9 @@ div.card .number {
   font-size: 80px;
 }
 
+.card-accommodation {
+  overflow: hidden;
+}
 .card-accommodation picture {
   max-width: 500px;
   max-height: 350px;
@@ -13334,7 +13360,11 @@ div.card .number {
 .card-accommodation img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.card-accommodation img:hover {
+  transform: scale(1.05);
 }
 .card-accommodation .body {
   position: relative;
@@ -13403,6 +13433,9 @@ div.card .number {
   color: #9b9b9b;
 }
 
+.card-accommodation-detail {
+  overflow: hidden;
+}
 .card-accommodation-detail picture {
   max-width: 500px;
   max-height: 350px;
@@ -13413,7 +13446,11 @@ div.card .number {
 .card-accommodation-detail img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.card-accommodation-detail img:hover {
+  transform: scale(1.05);
 }
 .card-accommodation-detail .body {
   position: relative;
@@ -13497,6 +13534,7 @@ div.card .number {
 .card-accommodation-vertical {
   position: relative;
   max-width: 500px;
+  overflow: hidden;
 }
 .card-accommodation-vertical picture {
   max-width: 500px;
@@ -13508,7 +13546,11 @@ div.card .number {
 .card-accommodation-vertical img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.card-accommodation-vertical img:hover {
+  transform: scale(1.05);
 }
 .card-accommodation-vertical .body {
   position: relative;
