@@ -51,7 +51,7 @@ class BookingEntity(BaseEntity):
     def user_id(self, value: int) -> None:
         self.SetValue("user_id", value)
 
-    # User who booked
+    # accommodation
     @property
     def accommodation_id(self) -> int:
         return self.GetValue("accommodation_id")
@@ -59,3 +59,14 @@ class BookingEntity(BaseEntity):
     @accommodation_id.setter
     def accommodation_id(self, value: int) -> None:
         self.SetValue("accommodation_id", value)
+
+    # accommodation
+    @property
+    def special_requests(self) -> str:
+        return self.GetValue("special_requests")
+
+    @special_requests.setter
+    def special_requests(self, value: str) -> None:
+        self.SetValue("special_requests", value)
+
+

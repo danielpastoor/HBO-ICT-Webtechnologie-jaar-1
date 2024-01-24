@@ -1,0 +1,45 @@
+{% extends 'layouts/manage_layout.html' %}
+{% set isAdmin = true %}
+{% set isDashboard = true %}
+{% set bodyClass = "edit-booking" %}
+{% set title = "Booking Bewerken" %}
+
+{% block content %}
+    <div class="container">
+
+        <!-- Booking Form -->
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="/manage/bookings/edit/{{ booking.id }}">
+                    <div class="form-group">
+                        <label for="start_date">Start Datum:</label>
+                        <input type="date" class="form-control" id="start_date" name="start_date"
+                               value="{{ booking.start_date }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end_date">Eind Datum:</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date"
+                               value="{{ booking.end_date }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="accommodation_id">Accommodatie:</label>
+                        <select class="form-control" id="accommodation_id" name="accommodation_id" required>
+                            <!-- Dynamically populate options -->
+                            {% for accommodation in accommodations %}
+                                <option {% if booking.accommodation_id == accommodation.id %} selected {% endif %}
+                                                                                              value="{{ accommodation.id }}">{{ accommodation.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialRequests">Special Requests:</label>
+                        <textarea class="form-control" id="specialRequests" name="specialRequests">{{ booking.special_requests  if booking.special_requests is not none }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4">Booking Bewerken</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

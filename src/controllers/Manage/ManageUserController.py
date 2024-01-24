@@ -50,7 +50,7 @@ class ManageUserController(ControllerBase):
 
         # Hash the password
         hashed_password = generate_password_hash(password)
-        print("Is Admin:", is_admin)
+
         # Create a user dictionary
         user_data = {
             "username": username,
@@ -79,7 +79,7 @@ class ManageUserController(ControllerBase):
     @login_required
     def delete_user(self, user_id):
         if not current_user.is_admin:
-            flash("You do not have permission to perform this action.", "error")
+            flash("Je hebt hier niet genoeg rechten voor.", "error")
             return redirect('/manage/users')  # Redirect to a safe page
 
         if self.__delete_user(user_id):
@@ -102,19 +102,16 @@ class ManageUserController(ControllerBase):
 
 
     @login_required
-    def edit(self, user_id=None):
+    def edit(self, user_id):
         app_context = ApplicationContext()
-        users = app_context.get_all_usersnamess()
 
-        user_to_edit = None
-        if user_id:
-            # Fetch user details for editing
-            user_to_edit = app_context.get_user_id_by_username(user_id)
-            if not user_to_edit:
-                flash("User not found.", "error")
-                return redirect('/manage/users')  # Adjust as per your route naming
+        # Fetch user details for editing
+        user_to_edit = app_context.get_user_id_by_username(user_id)
+        if not user_to_edit:
+            flash("User not found.", "error")
+            return redirect('/manage/users')  # Adjust as per your route naming
 
-        return render_template("pages/manage/manage-add-user.html", users=users,
+        return render_template("pages/manage/manage-edit-user.html",
                                user=user_to_edit)
 
 

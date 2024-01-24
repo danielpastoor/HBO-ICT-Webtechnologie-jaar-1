@@ -1,3 +1,5 @@
+{% set enable_buttons = enable_buttons|default(false) %}
+
 <div class="card card-booking flex-column flex-md-row align-items-md-stretch">
     <div>
         <picture>
@@ -6,19 +8,22 @@
     </div>
 
     <div class="body d-flex justify-content-between w-100">
-       <div>
-        <p>Check in datum: {{ booking.start_date }}</p>
-        <p>Check uit datum: {{ booking.end_date }}</p>
-        <p>Accommodatie naam: {{ booking.id }}</p>
-        <p>Booking datum: {{ booking.booking_date }}</p>
-</div>
-        <div>verzoek: {{ booking.special_request }}</div>
-        <div class="button-group">
-            <button id="editButton" class="btn btn-primary mt-4 me-2" onclick="editBooking({{ booking.id }})">Bewerken
-            </button>
-            <button id="removeButton" class="btn btn-danger mt-4 filled" onclick="removeBooking({{ booking.id }})">
-                Verwijderen
-            </button>
+        <div>
+            <p>Check in datum: {{ booking.start_date }}</p>
+            <p>Check uit datum: {{ booking.end_date }}</p>
+            <p>Accommodatie naam: {{ booking.id }}</p>
+            <p>Booking datum: {{ booking.booking_date }}</p>
         </div>
+        <div>verzoek: {{ booking.special_requests if booking.special_requests is not none }}</div>
+        {% if enable_buttons %}
+            <div class="button-group">
+                <a class="btn btn-primary mt-4 me-2" href="/manage/bookings/edit/{{ booking.id }}">
+                    Bewerken
+                </a>
+                <a class="btn btn-danger mt-4 filled" href="/manage/bookings/delete_booking/({{ booking.id }})">
+                    Verwijderen
+                </a>
+            </div>
+        {% endif %}
     </div>
 </div>

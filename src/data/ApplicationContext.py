@@ -55,6 +55,8 @@ class ApplicationContext:
         if condition is not None:
             query += f" WHERE {condition}"
 
+        print(query)
+
         cursor = self.__connect().cursor(dictionary=True)
 
         result: list[T] = list[T]()
@@ -324,8 +326,8 @@ class ApplicationContext:
             self.__connect()
             cursor = self.__connection.cursor()
             query = """
-            INSERT INTO booking (user_id, booking_date, start_date, end_date, accommodation_id, num_guests, special_requests)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO booking (user_id, booking_date, start_date, end_date, accommodation_id, special_requests)
+            VALUES (%s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (
                 booking_data['user_id'],
@@ -333,7 +335,6 @@ class ApplicationContext:
                 booking_data['start_date'],
                 booking_data['end_date'],
                 booking_data['accommodation_id'],
-                booking_data['num_guests'],
                 booking_data['special_requests']
             ))
             self.__connection.commit()
