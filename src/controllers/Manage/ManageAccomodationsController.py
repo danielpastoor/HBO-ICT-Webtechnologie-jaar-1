@@ -12,17 +12,19 @@ from src.models.AccommodationEntity import AccommodationEntity
 
 
 class ManageAccommodationController(ControllerBase):
+
+    def __init__(self):
+        self.app_context = ApplicationContext()
+
     @login_required
     def index(self):
-        app_context = ApplicationContext()
-        accommodations = app_context.get_all_accommodations_manage()
+        accommodations = self.app_context.get_all_accommodations_manage()
 
         return render_template("pages/manage/manage-accommodation.html", accommodations=accommodations)
 
     @login_required
     def post(self):
         """ Handle the form submission for adding new accommodation. """
-        app_context = ApplicationContext()
 
         # Extract form data
         name = request.form['name']
@@ -55,7 +57,7 @@ class ManageAccommodationController(ControllerBase):
         }
 
         # Add accommodation to the database
-        if app_context.add_accommodation(accommodation_data):
+        if self.app_context.add_accommodation(accommodation_data):
             flash("Accommodation added successfully.", "success")
         else:
             flash("Failed to add accommodation.", "error")
@@ -69,9 +71,9 @@ class ManageAccommodationController(ControllerBase):
             return redirect('/manage/accommodations')  # Redirect to a safe page
 
         if self.__delete_accommodation(id):
-            flash("User successfully removed.", "success")
+            flash("Accommodatie is verwijderd.", "success")
         else:
-            flash("Failed to remove user.", "error")
+            flash("Accommodatie verwijderen faalt.", "error")
 
         return redirect('/manage/accommodations')  # Redirect to the users list page
 
@@ -79,28 +81,50 @@ class ManageAccommodationController(ControllerBase):
         """
         Delete an accommodation from the database.
         """
-        app_context = ApplicationContext()
-
         try:
-            app_context.Delete(AccommodationEntity(), id)
+            self.app_context.Delete(AccommodationEntity(), id)
             return True
         except Exception as e:
             print(f"Error removing accommodation: {e}")
             return False
 
+    @RouteMethods(["GET", "POST"])
     @login_required
     def edit(self, id):
-        app_context = ApplicationContext()
+        if request.method == "GET":
+            # Fetch user details for editing
+            accommodation_to_edit = self.app_context.First(AccommodationEntity(), condition=f"id = {id}")
 
-        # Fetch user details for editing
-        accommodation_to_edit = app_context.First(AccommodationEntity(), id)
+            if not accommodation_to_edit:
+                flash("Accommodation not found.", "error")
+                return redirect('/manage/accommodations')  # Adjust as per your route naming
 
-        if not accommodation_to_edit:
-            flash("Accommodation not found.", "error")
-            return redirect('/manage/accommodations')  # Adjust as per your route naming
+            return render_template("pages/manage/manage-edit-accommodation.html",
+                                   accommodation=accommodation_to_edit)
 
-        return render_template("pages/manage/manage-edit-accommodation.html",
-                               accommodation=accommodation_to_edit)
+        elif request.method == "POST":
+            # Extract form data
+            name = request.form['name']
+            description = request.form['description']
+            location = request.form['location']
+            price = request.form['price']
+            max_persons = request.form['max_persons']
+
+            # Create accommodation data dictionary
+            accommodation_data = {
+                "name": name,
+                "description": description,
+                "location": location,
+                "price": price,
+                "max_persons": max_persons,
+            }
+
+            # Add accommodation to the database
+            self.app_context.Update(AccommodationEntity(), accommodation_data, id)
+
+            flash("Accommodatie is geupdate.", "success")
+
+            return redirect('/manage/accommodations')  # Redirect to the users list page
 
 
 if __name__ == "__main__":

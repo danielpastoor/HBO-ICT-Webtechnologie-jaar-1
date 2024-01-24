@@ -44,6 +44,15 @@ class AccommodationEntity(BaseEntity):
 
     # accommodation description
     @property
+    def location(self) -> str:
+        return self.GetValue("location")
+
+    @location.setter
+    def location(self, value: str) -> None:
+        self.SetValue("location", value)
+
+    # accommodation description
+    @property
     def thumbnail_image(self) -> str:
         return self.GetValue("thumbnail_image", "/static/img/default-accomodation.jpg")
 
