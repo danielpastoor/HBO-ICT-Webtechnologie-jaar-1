@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from src.models.BaseModel.TransientObject import TransientObject
 
 
-class UserEntity(UserMixin, TransientObject):
+class UserClaimsPrincipal(UserMixin, TransientObject):
     __tablename__ = 'users'
 
     def __init__(self, username, email, password, city, postcode, address, housenumber, is_admin=False):

@@ -6,7 +6,7 @@ import mysql.connector
 from mysql.connector import Error
 from werkzeug.security import generate_password_hash
 
-from src.data.UserEntity import UserEntity
+from src.data.UserClaimsPrincipal import UserClaimsPrincipal
 from src.models.BaseModel.TransientObject import TransientObject
 from src.models.ContactMessageEntity import ContactMessageEntity
 
@@ -158,8 +158,8 @@ class ApplicationContext:
             user_data = cursor.fetchone()  # Fetching the user data as a dictionary
 
             if user_data:
-                # Create and return a UserEntity object
-                return UserEntity(
+                # Create and return a UserClaimsPrincipal object
+                return UserClaimsPrincipal(
                     username=user_data['username'],
                     email=user_data['email'],
                     password=user_data['password'],

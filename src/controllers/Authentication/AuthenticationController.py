@@ -9,7 +9,7 @@ import logging
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase, is_password_complex, RouteMethods
 from src.data.ApplicationContext import ApplicationContext
-from src.data.UserEntity import UserEntity
+from src.data.UserClaimsPrincipal import UserClaimsPrincipal
 
 
 class AuthenticationController(ControllerBase):
@@ -129,7 +129,7 @@ class AuthenticationController(ControllerBase):
             hashed_password = generate_password_hash(password)
 
             # Create a new user entity with the hashed password
-            new_user = UserEntity(username, email, hashed_password, city, postcode, address, housenumber)
+            new_user = UserClaimsPrincipal(username, email, hashed_password, city, postcode, address, housenumber)
 
             # Attempt to add the new user to the database
             try:
