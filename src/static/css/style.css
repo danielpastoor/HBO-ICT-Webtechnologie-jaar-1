@@ -12567,6 +12567,21 @@ img {
   border-radius: 16px;
 }
 
+.flatpickr-calendar {
+  width: 100% !important;
+}
+.flatpickr-calendar .flatpickr-rContainer {
+  width: 100%;
+}
+.flatpickr-calendar .flatpickr-days {
+  width: 100% !important;
+}
+.flatpickr-calendar .flatpickr-days .dayContainer {
+  width: 50% !important;
+  min-width: 50% !important;
+  max-width: 50% !important;
+}
+
 .btn, .page-authentication .img .toggle-button {
   border-radius: 16px;
   text-decoration: none;
@@ -12749,7 +12764,7 @@ header.page .nav-wrapper .nav-item.active:before, header.page .nav-wrapper .nav-
 header.page .nav-wrapper input:not([type=check]) {
   border-bottom-color: white !important;
 }
-header.page .nav-wrapper input:not([type=check])::placeholder {
+header.page .nav-wrapper input:not([type=check])::placeholder, header.page .nav-wrapper input:not([type=check]):focus {
   color: white;
 }
 header.page.headroom--not-top .nav-wrapper {
@@ -13164,6 +13179,10 @@ section,
 }
 .block-chat-wrapper .chat-popup.active {
   transform: translateX(0);
+}
+
+.block-faq button {
+  font-size: 20px;
 }
 
 .page-authentication {

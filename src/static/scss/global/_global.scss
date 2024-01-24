@@ -167,4 +167,22 @@ img {
   border-radius: 16px;
 }
 
+.flatpickr-calendar {
+  width: 100% !important;
+
+  .flatpickr-rContainer {
+    width: 100%;
+  }
+
+  .flatpickr-days {
+    width: 100% !important;
+
+    .dayContainer {
+      width: 50% !important;
+      min-width: 50% !important;
+      max-width: 50% !important;
+    }
+  }
+}
+
 // global end

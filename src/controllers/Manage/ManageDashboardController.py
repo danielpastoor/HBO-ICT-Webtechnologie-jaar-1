@@ -1,7 +1,7 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template
+from flask import render_template, flash
 from flask_login import login_required
 
 # own imports

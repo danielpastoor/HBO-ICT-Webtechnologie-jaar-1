@@ -94,6 +94,31 @@
                 </div>
             </nav>
             <div class="container-fluid">
+                {% with errors = get_flashed_messages(category_filter=["error"]) %}
+                    {% if errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <ul>
+                                {%- for msg in errors %}
+                                    <li>{{ msg }}</li>
+                                {% endfor -%}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% with errors = get_flashed_messages(category_filter=["warning"]) %}
+                    {% if errors %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <ul>
+                                {%- for msg in errors %}
+                                    <li>{{ msg }}</li>
+                                {% endfor -%}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {% endwith %}
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
