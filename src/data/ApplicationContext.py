@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash
 
 from src.data.UserEntity import UserEntity
 from src.models.BaseModel.TransientObject import TransientObject
-from src.models.ContactMessageEntity import  ContactMessageEntity
+from src.models.ContactMessageEntity import ContactMessageEntity
 
 
 class ApplicationContext:
@@ -75,7 +75,7 @@ class ApplicationContext:
         return result
 
     def Add[T](self, data: T) -> int | None:
-        return  self.__execute_insert_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
+        return self.__execute_insert_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
 
     def Delete[T](self, itemType: T, Id):
         delete_comment = f"DELETE FROM {self.__GetTableName(type(itemType))} WHERE id = {Id}"
