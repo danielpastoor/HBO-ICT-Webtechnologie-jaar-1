@@ -29,7 +29,7 @@
                         <td>{{ 'Ja' if user.is_admin else 'Nee' }}</td>
                         <td>
                             <a href="/manage/users/edit/{{ user.username }}" class="btn btn-primary">Bewerken</a>
-                            <a href="/manage/users/delete/{{ user.id }}" class="btn btn-danger filled"
+                            <a href="/manage/users/delete_user/{{ user.id }}" class="btn btn-danger filled"
                                onclick="return confirm('Weet je het zeker?');">Verwijderen</a>
                         </td>
                     </tr>
@@ -44,7 +44,7 @@
             <!-- Registration Form -->
             <div class="card">
                 <div class="card-body">
-                    <form method="POST" action="/manage/submit-new-user">
+                    <form method="POST" action="/manage/users">
                         <div class="row">
                             <div class="col-24">
                                 <!-- Username Field -->

@@ -449,7 +449,7 @@ class ApplicationContext:
         try:
             self.__connect()
             cursor = self.__connection.cursor(dictionary=True)
-            query = "SELECT id, name, price, max_persons FROM accommodation"
+            query = "SELECT id, name, price, max_persons, location FROM accommodation"
             cursor.execute(query)
             accommodations = cursor.fetchall()
         except Error as e:

@@ -12563,8 +12563,12 @@ p.error {
   margin-bottom: 10px;
 }
 
+img {
+  border-radius: 16px;
+}
+
 .btn, .page-authentication .img .toggle-button {
-  border-radius: 6px;
+  border-radius: 16px;
   text-decoration: none;
   transition: all 0.2s linear;
   padding: 0.375rem 10px 0.375rem;
@@ -12757,11 +12761,11 @@ header.page.headroom--not-top .nav-wrapper .nav-item:before {
 
 header.manage .nav-item {
   margin-bottom: 1rem;
-  border-radius: 6px;
+  border-radius: 16px;
 }
 header.manage .nav-item .nav-link {
   background: transparent;
-  border-radius: 6px;
+  border-radius: 16px;
   font-size: 20px;
 }
 header.manage .nav-item.active .nav-link, header.manage .nav-item:hover .nav-link {
@@ -12896,6 +12900,10 @@ section,
 .block-hero .hero-title {
   color: white;
 }
+.block-hero .hero-subtitle {
+  color: white;
+  font-size: 20px;
+}
 .block-hero .thumbnail {
   position: absolute;
   left: 0;
@@ -12981,6 +12989,7 @@ section,
   bottom: 20px;
   left: -20px;
   border: 2px solid #444349;
+  border-radius: 15px;
   transition: all 0.3s ease;
   z-index: 0;
 }
@@ -13320,31 +13329,22 @@ section,
   transform: translate3d(-900px, 0, 0);
 }
 
-div.card {
-  padding: 10px 15px;
-  border-radius: 10px;
+div.card, article.card {
+  border-radius: 16px;
 }
-div.card.seconadary {
+div.card.seconadary, article.card.seconadary {
   background-color: var(--bs-secondary);
   color: white;
 }
-div.card.seconadary .number {
+div.card.seconadary .number, article.card.seconadary .number {
   color: var(--bs-tertiary);
 }
-div.card.tertiary {
+div.card.tertiary, article.card.tertiary {
   background-color: var(--bs-tertiary);
   color: white;
 }
-div.card.tertiary .number {
+div.card.tertiary .number, article.card.tertiary .number {
   color: var(--bs-secondary);
-}
-div.card .text {
-  font-size: 20px;
-  max-width: 50%;
-  font-weight: bolder;
-}
-div.card .number {
-  font-size: 80px;
 }
 
 .card-accommodation {
@@ -13369,6 +13369,7 @@ div.card .number {
 .card-accommodation .body {
   position: relative;
   padding: 30px 90px 30px 45px;
+  width: 100%;
 }
 .card-accommodation .body .title {
   font-size: 24px;
@@ -13455,6 +13456,7 @@ div.card .number {
 .card-accommodation-detail .body {
   position: relative;
   padding: 30px 90px 30px 45px;
+  width: 100%;
 }
 .card-accommodation-detail .body .title {
   font-size: 24px;
@@ -13634,6 +13636,7 @@ div.card .number {
 .card-booking .body {
   position: relative;
   padding: 30px 0 30px 30px;
+  width: 100%;
 }
 .card-booking .body .button-group {
   display: flex !important;
