@@ -1,10 +1,14 @@
 {% set title = title|default("") %}
+{% set subtitle = subtitle|default(false) %}
 {% set hero_url = hero_url|default("/static/img/default-hero.jpg") %}
 
 <section class="block block-hero full-width">
     <div class="block-hero-full-width">
         <div class="container">
             <h1 class="hero-title">{{ title }}</h1>
+            {% if subtitle %}
+                <p class="hero-subtitle">{{ subtitle }}</p>
+            {% endif %}
         </div>
         <div class="thumbnail" style="background-image: url({{ hero_url }});"></div>
     </div>

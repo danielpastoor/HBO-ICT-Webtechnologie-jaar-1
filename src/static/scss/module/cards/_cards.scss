@@ -1,6 +1,5 @@
-div.card {
-    padding: 10px 15px;
-    border-radius: 10px;
+div.card, article.card {
+    border-radius: 16px;
 
     &.seconadary {
         background-color: var(--bs-secondary);
@@ -18,16 +17,6 @@ div.card {
         .number {
             color: var(--bs-secondary);
         }
-    }
-
-    .text {
-        font-size: 20px;
-        max-width: 50%;
-        font-weight: bolder;
-    }
-
-    .number {
-        font-size: 80px;
     }
 }
 

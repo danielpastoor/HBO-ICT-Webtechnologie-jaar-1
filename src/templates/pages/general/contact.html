@@ -1,12 +1,11 @@
 {% extends 'layouts/main_layout.html' %}
 {% set bodyClass = "contact" %}
 {% set title = "Contact ons!" %}
+{% set subtitle = "Als je vragen hebt, neem dan gerust contact met ons op." %}
 
 {% block content %}
     {% include 'components/blocks/hero/block-hero.html' %}
     <div class="container mt-5">
-        <p>Als je vragen hebt, neem dan gerust contact met ons op.</p>
-
         <form id="contactForm" method="post">
             <div class="mb-3">
                 <label for="name" class="form-label">Naam</label>

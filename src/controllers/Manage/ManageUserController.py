@@ -77,7 +77,7 @@ class ManageUserController(ControllerBase):
             return render_template('pages/manage/manage-user.html')
 
     @login_required
-    def delete(self, user_id):
+    def delete_user(self, user_id):
         if not current_user.is_admin:
             flash("You do not have permission to perform this action.", "error")
             return redirect('/manage/users')  # Redirect to a safe page
