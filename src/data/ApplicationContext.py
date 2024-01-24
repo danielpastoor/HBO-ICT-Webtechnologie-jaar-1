@@ -1,5 +1,6 @@
 import datetime
 import os
+from enum import Enum
 from typing import TypeVar
 
 import mysql.connector
@@ -116,10 +117,11 @@ class ApplicationContext:
     def __execute_insert_query(self, query) -> int | None:
         cursor = self.__connect().cursor()
         try:
+            print(query)
             cursor.execute(query)
             self.__connect().commit()
             print("Query executed successfully")
-            return cursor.getlastrowid()
+            return cursor.lastrowid
         except Error as e:
             print(f"The error '{e}' occurred")
 
@@ -134,11 +136,14 @@ class ApplicationContext:
                 sql += '\'' + str(rowdict[keys[i]]) + '\''
             elif type(rowdict[keys[i]]).__name__ == 'NoneType':
                 sql += ' NULL'
+            elif issubclass(type(rowdict[keys[i]]), Enum):
+                sql += str(rowdict[keys[i]].value)
             else:
                 sql += str(rowdict[keys[i]])
 
             if i < dictsize - 1:
                 sql += ', '
+
         return "insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")"
 
     def __GetTableName(self, type) -> str:

@@ -64,6 +64,7 @@ class BookingPage(ControllerBase):
             date_format = "%Y-%m-%d"
             check_in_date_str = request.form.get('start_date')
             check_out_date_str = request.form.get('end_date')
+            specialRequests = request.form.get('specialRequests')
 
             if not (check_in_date_str and check_out_date_str):
                 return render_template("pages/error/error.html"), 500
@@ -106,6 +107,7 @@ class BookingPage(ControllerBase):
                 booking.user_id = user.id
                 booking.payment_id = payment.id
                 booking.SetCreationDate()
+                booking.special_requests = specialRequests
                 applicationContext.Add(booking)
 
             return redirect(self.__create_payment_url(payment.price, payment.id))
@@ -114,15 +116,17 @@ class BookingPage(ControllerBase):
         return render_template("pages/general/thank-you.html")
 
     def __create_payment_url(self, amount, id):
-        url_payment = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.COMPLETED}"
-        url_success = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.COMPLETED}"
-        url_pending = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.PENDING}"
-        url_failure = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.ERROR}"
+        url_payment = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.COMPLETED.value}"
+        url_success = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.COMPLETED.value}"
+        url_pending = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.PENDING.value}"
+        url_failure = f"http://localhost:8081/booking/payment/{id}/{PaymentStatus.ERROR.value}"
 
         return f'https://www.ideal-checkout.nl/demo/idealcheckout-betaalformulier/idealcheckout/checkout.php?amount={amount}&url_payment={url_payment}&url_success={url_success}&url_pending={url_pending}&url_failure={url_failure}'
 
     def payment(self, payment_id, payment_status):
         applicationContext = ApplicationContext()
+        print(payment_id)
+        print(payment_status)
 
         payment = applicationContext.First(PaymentEntity(), "*", condition=f"id = {payment_id}")
 
