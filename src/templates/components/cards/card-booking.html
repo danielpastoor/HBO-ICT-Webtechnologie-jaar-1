@@ -3,7 +3,7 @@
 <div class="card card-booking flex-column flex-md-row align-items-md-stretch">
     <div>
         <picture>
-            <img src="/static/img/{{ booking.thumbnail_image }}">
+            <img src="/static/img/{{ booking.GetCurrent()["thumbnail_image"] }}">
         </picture>
     </div>
 
@@ -11,7 +11,7 @@
         <div>
             <p>Check in datum: {{ booking.start_date }}</p>
             <p>Check uit datum: {{ booking.end_date }}</p>
-            <p>Accommodatie naam: {{ booking.id }}</p>
+            <p>Accommodatie naam: {{ booking.GetCurrent()["name"] }}</p>
             <p>Booking datum: {{ booking.booking_date }}</p>
         </div>
         <div>verzoek: {{ booking.special_requests if booking.special_requests is not none }}</div>

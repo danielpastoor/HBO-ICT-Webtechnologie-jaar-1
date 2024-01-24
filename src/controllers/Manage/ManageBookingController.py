@@ -31,7 +31,11 @@ class ManageBookingController(ControllerBase):
 
         if isAdmin:
             # Fetch all bookings for admin
-            bookings = self.app_context.Get(BookingEntity(), "*")
+            join_clause = "LEFT JOIN accommodation ON booking.accommodation_id = accommodation.id"
+            bookings = self.app_context.Get(BookingEntity(),
+                                              "booking.*, accommodation.name, "
+                                              "accommodation.thumbnail_image",
+                                              join=join_clause)
         else:
             # Redirect non-admin users or show an error message
             flash("Je hebt hier niet genoeg rechten voor..", "error")
