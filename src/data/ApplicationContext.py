@@ -269,7 +269,7 @@ class ApplicationContext:
             if self.__connection.is_connected():
                 cursor = self.__connection.cursor(dictionary=True)
                 cursor.execute("SELECT id, username, email, city, postcode, address, housenumber, created_at, "
-                               "credit_card, is_admin FROM users")
+                               "is_admin FROM users")
                 users = cursor.fetchall()
                 cursor.close()
             else:
