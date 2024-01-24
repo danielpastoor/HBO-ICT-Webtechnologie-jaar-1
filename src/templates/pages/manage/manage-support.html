@@ -21,11 +21,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for message in chat_messages %}
+                    {% for message in contact_messages %}
                         <tr>
                             <td>{{ message.id }}</td>
                             <td>{{ message.user_id or 'Gast' }}</td>
-                            <td>{{ message.username or 'Guest' }}</td>
+                            <td>{{ message.username or 'Gast' }}</td>
                             <td>{{ message.email }}</td>
                             <td>{{ message.name }}</td>
                             <td>{{ message.message }}</td>

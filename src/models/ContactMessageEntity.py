@@ -3,15 +3,15 @@ from datetime import datetime
 from src.models.BaseModel.TransientObject import TransientObject
 
 
-class ChatMessageEntity(TransientObject):
-    __tablename__ = 'chat_messages'
+class ContactMessageEntity(TransientObject):
+    __tablename__ = 'contact_messages'
 
-    def __init__(self, user_id=None, email=None, name=None, message=None, timestamp=None):
+    def __init__(self, user_id=None, email=None, name=None, message=None, sent_on=None):
         self.user_id = user_id
         self.email = email
         self.name = name
         self.message = message
-        self.timestamp = timestamp if timestamp else datetime.now()
+        self.sent_on = sent_on if sent_on else datetime.now()
 
     def GetCurrent(self):
         """Return the current state as a dictionary."""
@@ -20,8 +20,8 @@ class ChatMessageEntity(TransientObject):
             'email': self.email,
             'name': self.name,
             'message': self.message,
-            'timestamp': self.timestamp
+            'sent_on': self.sent_on
         }
 
     def __repr__(self):
-        return f"<ChatMessageEntity(user_id={self.user_id}, email='{self.email}', name='{self.name}', message='{self.message}', timestamp={self.timestamp})>"
+        return f"<ContactMessageEntity(user_id={self.user_id}, email='{self.email}', name='{self.name}', message='{self.message}', sent_on={self.sent_on})>"

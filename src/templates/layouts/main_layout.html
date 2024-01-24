@@ -74,6 +74,7 @@
     {% block content %}
     {% endblock %}
 </main>
+
 {% if current_user.is_authenticated and not current_user.is_admin %}
     <div class="block-chat-wrapper">
         <!-- Chat Icon -->
@@ -98,8 +99,8 @@
                 <label for="chatMessage">Uw bericht:</label>
                 <textarea class="form-control" id="chatMessage" placeholder="Schrijf uw bericht"></textarea>
             </div>
-            <button type="button" class="btn btn-primary" onclick="sendChatMessage()">Verzend Bericht</button>
-            <button type="button" class="btn btn-secondary" onclick="closeChat()">Sluit Chat</button>
+            <button type="button" class="btn btn-primary mt-3" onclick="sendChatMessage()">Verzend Bericht</button>
+            <button type="button" class="btn btn-secondary mt-3" onclick="closeChat()">Sluit Chat</button>
         </div>
     </div>
 {% endif %}
@@ -120,7 +121,7 @@
     function closeChat() {
         var chatPopup = document.getElementById('chatPopup');
         isChatPopupOpen = false;  // Set state to closed
-        chatPopup.style.display = 'none';
+        chatPopup.classList.toggle('active');
     }
 
     function sendChatMessage() {

@@ -8,8 +8,8 @@ from flask import render_template, request, flash, redirect
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
-from src.data.ContactFormEntity import ContactFormEntity
 from src.data.SpamFilter import SpamFilter
+from src.models.ContactMessageEntity import ContactMessageEntity
 
 
 class ContactPage(ControllerBase):
@@ -57,10 +57,10 @@ class ContactPage(ControllerBase):
             return render_template('pages/general/contact.html')
 
         # Create ContactFormEntity
-        contact_form_entity = ContactFormEntity(name, email, message, sent_on)
+        contact_form = ContactMessageEntity(0, email, name, message, sent_on)
 
         # Submit to database
-        success = self.app_context.submit_contact_form(contact_form_entity)
+        success = self.app_context.save_contact_message(contact_form)
 
         if success:
             flash("Your message has been sent successfully!", "success")

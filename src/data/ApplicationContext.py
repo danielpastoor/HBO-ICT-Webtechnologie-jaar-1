@@ -6,10 +6,9 @@ import mysql.connector
 from mysql.connector import Error
 from werkzeug.security import generate_password_hash
 
-from src.data.ContactFormEntity import ContactFormEntity
 from src.data.UserEntity import UserEntity
 from src.models.BaseModel.TransientObject import TransientObject
-from src.models.ChatMessageEntity import ChatMessageEntity
+from src.models.ContactMessageEntity import  ContactMessageEntity
 
 
 class ApplicationContext:
@@ -190,29 +189,6 @@ class ApplicationContext:
             print(f"Error updating user password: {e}")
             return False
 
-    def submit_contact_form(self, contact_form_entity: ContactFormEntity):
-        """Inserts contact form data into the database."""
-        insert_query = """
-        INSERT INTO contactformulier_inzendingen (name, email, message, sent_on) 
-        VALUES (%s, %s, %s, %s)
-        """
-        data = (
-            contact_form_entity.name,
-            contact_form_entity.email,
-            contact_form_entity.message,
-            contact_form_entity.sent_on
-        )
-
-        try:
-            cursor = self.__connect().cursor()
-            cursor.execute(insert_query, data)
-            self.__connection.commit()
-            cursor.close()
-            return True
-        except Error as e:
-            print(f"Error inserting contact form data: {e}")
-            return False
-
     def get_user_id_by_username(self, username):
         query = f"SELECT id FROM users WHERE username = '{username}'"
         cursor = self.__connect().cursor(dictionary=True)
@@ -226,18 +202,18 @@ class ApplicationContext:
         finally:
             cursor.close()
 
-    def save_chat_message(self, chat_message: ChatMessageEntity):
+    def save_contact_message(self, contact_message: ContactMessageEntity):
         """Slaat een chatbericht op in de database."""
         insert_query = """
-        INSERT INTO chat_messages (user_id, email, name, message, timestamp) 
+        INSERT INTO contact_messages (user_id, email, name, message, sent_on) 
         VALUES (%s, %s, %s, %s, %s)
         """
         data = (
-            chat_message.user_id,
-            chat_message.email,
-            chat_message.name,
-            chat_message.message,
-            datetime.datetime.now()
+            contact_message.user_id,
+            contact_message.email,
+            contact_message.name,
+            contact_message.message,
+            contact_message.sent_on
         )
 
         try:
@@ -267,13 +243,9 @@ class ApplicationContext:
             cursor.execute("SELECT COUNT(id) AS count FROM booking")
             data['total_bookings'] = cursor.fetchone()['count']
 
-            # Count data in 'chat_messages' table
-            cursor.execute("SELECT COUNT(id) AS count FROM chat_messages")
-            data['total_chat_messages'] = cursor.fetchone()['count']
-
-            # Count data in 'contactformulier_inzendingen' table
-            cursor.execute("SELECT COUNT(inzending_id) AS count FROM contactformulier_inzendingen")
-            data['total_contact_submissions'] = cursor.fetchone()['count']
+            # Count data in 'contact_messages' table
+            cursor.execute("SELECT COUNT(inzending_id) AS count FROM contact_messages")
+            data['total_contact_messages'] = cursor.fetchone()['count']
 
             # Count data in 'users' table
             cursor.execute("SELECT COUNT(id) AS count FROM users")
@@ -492,7 +464,7 @@ class ApplicationContext:
             if cursor:
                 cursor.close()
 
-    def get_all_chat_messages(self):
+    def get_all_contact_messages(self):
         """
         Fetches all chat messages with associated user names from the database.
         """
@@ -503,9 +475,8 @@ class ApplicationContext:
             cursor = connection.cursor(dictionary=True)
             # Adjust the SQL query according to your database schema
             query = """
-                SELECT chat_messages.*, users.username
-                FROM chat_messages
-                LEFT JOIN users ON chat_messages.user_id = users.id
+                SELECT *
+                FROM contact_messages
             """
             cursor.execute(query)
             messages = cursor.fetchall()
