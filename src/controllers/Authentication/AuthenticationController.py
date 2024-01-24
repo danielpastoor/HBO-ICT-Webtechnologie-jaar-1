@@ -127,11 +127,9 @@ class AuthenticationController(ControllerBase):
                 return render_template('pages/authentication/authentication.html', is_register=True)
 
             hashed_password = generate_password_hash(password)
-            print(hashed_password)
 
             # Create a new user entity with the hashed password
             new_user = UserEntity(username, email, hashed_password, city, postcode, address, housenumber)
-            print(new_user)
 
             # Attempt to add the new user to the database
             try:
