@@ -4,7 +4,8 @@ from flask_login import current_user
 
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
-from src.models.ChatMessageEntity import ChatMessageEntity
+from src.models.ContactMessageEntity import ContactMessageEntity
+
 
 class ChatController(ControllerBase):
     route_base = "/dashboard/save-chat"
@@ -27,11 +28,11 @@ class ChatController(ControllerBase):
         message = data.get('message')
         timestamp = datetime.datetime.now()
 
-        # Maak ChatMessageEntity object
-        chat_message = ChatMessageEntity(user_id, email, name, message, timestamp)
+        # Maak ContactMessageEntity object
+        chat_message = ContactMessageEntity(user_id, email, name, message, timestamp)
 
         # Sla het bericht op in de database
-        success = self.app_context.save_chat_message(chat_message)
+        success = self.app_context.save_contact_message(chat_message)
 
         if success:
             return jsonify({"message": "Chatbericht opgeslagen"}), 200

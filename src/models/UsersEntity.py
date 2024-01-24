@@ -68,12 +68,3 @@ class UsersEntity(BaseEntity):
     @housenumber.setter
     def housenumber(self, value: str) -> None:
         self.SetValue("housenumber", value)
-
-    # Betaling Status
-    # @property
-    # def betaling_status(self) -> str:
-    #     return self.GetValue("credit_card")
-    #
-    # @credit_card.setter
-    # def credit_card(self, value: str) -> None:
-    #     self.SetValue("credit_card", value)

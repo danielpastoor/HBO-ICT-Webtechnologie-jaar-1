@@ -2,7 +2,7 @@
 {% set isAdmin = true %}
 {% set isDashboard = true %}
 {% set bodyClass = "register" %}
-{% set title = "Register" %}
+{% set title = "Gebruiker bewerken" %}
 
 {% block content %}
     <div class="container">
@@ -10,14 +10,14 @@
         <!-- Registration Form -->
         <div class="card">
             <div class="card-body">
-                <form method="POST" action="/manage/users/">
+                <form method="POST" action="/manage/users/edit/{{ user.get_id() }}">
                     <div class="row">
                         <div class="col-24">
                             <!-- Username Field -->
                             <div class="form-group">
                                 <label for="username">Username:</label>
                                 <input type="text" class="form-control" id="username" name="username"
-                                       value="{{ user.username if user else '' }}" required>
+                                       value="{{ user.username if user.username is not none }}" required>
                             </div>
                         </div>
 
@@ -25,7 +25,8 @@
                             <!-- Email Field -->
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <input type="email" class="form-control" id="email" name="email"
+                                       value="{{ user.email if user.email is not none }}" required>
                             </div>
                         </div>
 
@@ -33,7 +34,7 @@
                             <!-- Password Field -->
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                <input type="password" class="form-control" id="password" name="password">
                             </div>
                         </div>
 
@@ -42,8 +43,7 @@
                             <div class="form-group">
                                 <label for="confirm_password">Confirm Password:</label>
                                 <input type="password" class="form-control" id="confirm_password"
-                                       name="confirm_password"
-                                       required>
+                                       name="confirm_password">
                             </div>
                         </div>
 
@@ -54,25 +54,29 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="city">City:</label>
-                                <input type="text" class="form-control" id="city" name="city">
+                                <input type="text" class="form-control" id="city" name="city"
+                                       value="{{ user.city if user.city is not none }}">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="postcode">Postcode:</label>
-                                <input type="text" class="form-control" id="postcode" name="postcode">
+                                <input type="text" class="form-control" id="postcode" name="postcode"
+                                       value="{{ user.postcode if user.postcode is not none }}">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="address">Address:</label>
-                                <input type="text" class="form-control" id="address" name="address">
+                                <input type="text" class="form-control" id="address" name="address"
+                                       value="{{ user.address if user.address is not none }}">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="housenumber">House Number:</label>
-                                <input type="text" class="form-control" id="housenumber" name="housenumber">
+                                <input type="text" class="form-control" id="housenumber" name="housenumber"
+                                       value="{{ user.housenumber if user.housenumber is not none }}">
                             </div>
                         </div>
                         <div class="col-24">
@@ -84,7 +88,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary mt-4">Gebruiker bewerken</button>
                 </form>
             </div>
         </div>

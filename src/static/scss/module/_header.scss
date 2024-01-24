@@ -107,7 +107,7 @@ header.page {
     input:not([type="check"]) {
       border-bottom-color: white!important;
 
-      &::placeholder {
+      &::placeholder, &:focus {
         color: white;
       }
     }

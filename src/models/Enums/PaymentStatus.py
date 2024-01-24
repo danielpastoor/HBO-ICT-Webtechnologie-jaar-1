@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class PaymentStatus(Enum):
-    PENDING = "PENDING"
-    PROCESSING = "PROCESSING"
-    COMPLETED = "COMPLETED"
-    CANCELLED = "",
-    ERROR = "ERROR"
+    PENDING = 1
+    PROCESSING = 2
+    COMPLETED = 3
+    CANCELLED = 4
+    ERROR = 5

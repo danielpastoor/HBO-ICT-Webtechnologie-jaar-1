@@ -1,0 +1,63 @@
+{% extends 'layouts/manage_layout.html' %}
+{% set isAdmin = true %}
+{% set isDashboard = true %}
+{% set bodyClass = "edit-accommodation" %}
+{% set title = "Accommodatie bewerken" %}
+
+{% block content %}
+    <div class="container">
+
+        <!-- Add Accommodation Form -->
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="/manage/accommodations/edit/{{ accommodation.id }}"
+                      enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="name">Naam:</label>
+                                <input type="text" class="form-control" id="name" name="name" required
+                                       value="{{ accommodation.name if accommodation.name is not none }}">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="location">Locatie:</label>
+                                <input type="text" class="form-control" id="location" name="location"
+                                       value="{{ accommodation.location if accommodation.location is not none }}"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="price">Prijs (per nacht):</label>
+                                <input type="number" class="form-control" id="price" name="price"
+                                       value="{{ accommodation.price if accommodation.price is not none }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="max_persons">Maximum aantal personen:</label>
+                                <input type="number" class="form-control" id="max_persons" name="max_persons"
+                                       value="{{ accommodation.max_persons if accommodation.max_persons is not none }}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="col-24">
+                            <div class="form-group">
+                                <label for="description">Beschrijving:</label>
+                                <textarea class="form-control" id="description" name="description"
+                                          required>{{ accommodation.description if accommodation.description is not none }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more fields as needed -->
+                    <button type="submit" class="btn btn-primary mt-4">Accommodatie bewerken</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

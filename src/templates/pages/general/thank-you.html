@@ -1,8 +1,10 @@
 {% extends 'layouts/main_layout.html' %}
-{% set bodyClass = "register" %}
-{% set title = "Register" %}
+{% set bodyClass = "bedankt" %}
+{% set title = "Bedankt" %}
 
 {% block content %}
+    {% include 'components/blocks/hero/block-hero.html' %}
+
     <div class="container mb-5">
         <div class="block block-error">
             <div class="row align-items-center justify-content-center">
@@ -11,7 +13,7 @@
                     <p class="lead">
                         Bedankt voor uw reservering van onze accommodatie.
                     </p>
-                    <a class="btn btn-primary" href="/src/static">Terug naar Home</a>
+                    <a class="btn btn-primary" href="/">Terug naar Home</a>
                 </div>
                 <div class="col-24 col-lg-10">
 

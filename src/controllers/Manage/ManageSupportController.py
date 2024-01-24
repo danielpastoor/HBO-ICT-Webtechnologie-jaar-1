@@ -17,9 +17,9 @@ class ManageSupportController(ControllerBase):
     @login_required
     def index(self):
         app_context = ApplicationContext()
-        chat_messages = app_context.get_all_chat_messages()  # Method to fetch all chat messages
+        contact_messages = app_context.get_all_contact_messages()  # Method to fetch all chat messages
 
-        return render_template("pages/manage/manage-support.html", chat_messages=chat_messages)
+        return render_template("pages/manage/manage-support.html", contact_messages=contact_messages)
 
 
 if __name__ == "__main__":

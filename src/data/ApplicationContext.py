@@ -1,15 +1,15 @@
 import datetime
 import os
+from enum import Enum
 from typing import TypeVar
 
 import mysql.connector
 from mysql.connector import Error
 from werkzeug.security import generate_password_hash
 
-from src.data.ContactFormEntity import ContactFormEntity
-from src.data.UserEntity import UserEntity
+from src.data.UserClaimsPrincipal import UserClaimsPrincipal
 from src.models.BaseModel.TransientObject import TransientObject
-from src.models.ChatMessageEntity import ChatMessageEntity
+from src.models.ContactMessageEntity import ContactMessageEntity
 
 
 class ApplicationContext:
@@ -56,6 +56,8 @@ class ApplicationContext:
         if condition is not None:
             query += f" WHERE {condition}"
 
+        print(query)
+
         cursor = self.__connect().cursor(dictionary=True)
 
         result: list[T] = list[T]()
@@ -74,7 +76,7 @@ class ApplicationContext:
         return result
 
     def Add[T](self, data: T) -> int | None:
-        return  self.__execute_insert_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
+        return self.__execute_insert_query(self.ins_query_maker(self.__GetTableName(type(data)), data.GetCurrent()))
 
     def Delete[T](self, itemType: T, Id):
         delete_comment = f"DELETE FROM {self.__GetTableName(type(itemType))} WHERE id = {Id}"
@@ -115,10 +117,11 @@ class ApplicationContext:
     def __execute_insert_query(self, query) -> int | None:
         cursor = self.__connect().cursor()
         try:
+            print(query)
             cursor.execute(query)
             self.__connect().commit()
             print("Query executed successfully")
-            return cursor.getlastrowid()
+            return cursor.lastrowid
         except Error as e:
             print(f"The error '{e}' occurred")
 
@@ -133,11 +136,14 @@ class ApplicationContext:
                 sql += '\'' + str(rowdict[keys[i]]) + '\''
             elif type(rowdict[keys[i]]).__name__ == 'NoneType':
                 sql += ' NULL'
+            elif issubclass(type(rowdict[keys[i]]), Enum):
+                sql += str(rowdict[keys[i]].value)
             else:
                 sql += str(rowdict[keys[i]])
 
             if i < dictsize - 1:
                 sql += ', '
+
         return "insert into " + str(tablename) + " (" + ", ".join(keys) + ") values (" + sql + ")"
 
     def __GetTableName(self, type) -> str:
@@ -157,8 +163,8 @@ class ApplicationContext:
             user_data = cursor.fetchone()  # Fetching the user data as a dictionary
 
             if user_data:
-                # Create and return a UserEntity object
-                return UserEntity(
+                # Create and return a UserClaimsPrincipal object
+                return UserClaimsPrincipal(
                     username=user_data['username'],
                     email=user_data['email'],
                     password=user_data['password'],
@@ -190,29 +196,6 @@ class ApplicationContext:
             print(f"Error updating user password: {e}")
             return False
 
-    def submit_contact_form(self, contact_form_entity: ContactFormEntity):
-        """Inserts contact form data into the database."""
-        insert_query = """
-        INSERT INTO contactformulier_inzendingen (name, email, message, sent_on) 
-        VALUES (%s, %s, %s, %s)
-        """
-        data = (
-            contact_form_entity.name,
-            contact_form_entity.email,
-            contact_form_entity.message,
-            contact_form_entity.sent_on
-        )
-
-        try:
-            cursor = self.__connect().cursor()
-            cursor.execute(insert_query, data)
-            self.__connection.commit()
-            cursor.close()
-            return True
-        except Error as e:
-            print(f"Error inserting contact form data: {e}")
-            return False
-
     def get_user_id_by_username(self, username):
         query = f"SELECT id FROM users WHERE username = '{username}'"
         cursor = self.__connect().cursor(dictionary=True)
@@ -226,18 +209,18 @@ class ApplicationContext:
         finally:
             cursor.close()
 
-    def save_chat_message(self, chat_message: ChatMessageEntity):
+    def save_contact_message(self, contact_message: ContactMessageEntity):
         """Slaat een chatbericht op in de database."""
         insert_query = """
-        INSERT INTO chat_messages (user_id, email, name, message, timestamp) 
+        INSERT INTO contact_messages (user_id, email, name, message, sent_on) 
         VALUES (%s, %s, %s, %s, %s)
         """
         data = (
-            chat_message.user_id,
-            chat_message.email,
-            chat_message.name,
-            chat_message.message,
-            datetime.datetime.now()
+            contact_message.user_id,
+            contact_message.email,
+            contact_message.name,
+            contact_message.message,
+            contact_message.sent_on
         )
 
         try:
@@ -267,13 +250,9 @@ class ApplicationContext:
             cursor.execute("SELECT COUNT(id) AS count FROM booking")
             data['total_bookings'] = cursor.fetchone()['count']
 
-            # Count data in 'chat_messages' table
-            cursor.execute("SELECT COUNT(id) AS count FROM chat_messages")
-            data['total_chat_messages'] = cursor.fetchone()['count']
-
-            # Count data in 'contactformulier_inzendingen' table
-            cursor.execute("SELECT COUNT(inzending_id) AS count FROM contactformulier_inzendingen")
-            data['total_contact_submissions'] = cursor.fetchone()['count']
+            # Count data in 'contact_messages' table
+            cursor.execute("SELECT COUNT(inzending_id) AS count FROM contact_messages")
+            data['total_contact_messages'] = cursor.fetchone()['count']
 
             # Count data in 'users' table
             cursor.execute("SELECT COUNT(id) AS count FROM users")
@@ -295,7 +274,7 @@ class ApplicationContext:
             if self.__connection.is_connected():
                 cursor = self.__connection.cursor(dictionary=True)
                 cursor.execute("SELECT id, username, email, city, postcode, address, housenumber, created_at, "
-                               "credit_card, is_admin FROM users")
+                               "is_admin FROM users")
                 users = cursor.fetchall()
                 cursor.close()
             else:
@@ -352,8 +331,8 @@ class ApplicationContext:
             self.__connect()
             cursor = self.__connection.cursor()
             query = """
-            INSERT INTO booking (user_id, booking_date, start_date, end_date, accommodation_id, num_guests, special_requests)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO booking (user_id, booking_date, start_date, end_date, accommodation_id, special_requests)
+            VALUES (%s, %s, %s, %s, %s, %s)
             """
             cursor.execute(query, (
                 booking_data['user_id'],
@@ -361,7 +340,6 @@ class ApplicationContext:
                 booking_data['start_date'],
                 booking_data['end_date'],
                 booking_data['accommodation_id'],
-                booking_data['num_guests'],
                 booking_data['special_requests']
             ))
             self.__connection.commit()
@@ -492,7 +470,7 @@ class ApplicationContext:
             if cursor:
                 cursor.close()
 
-    def get_all_chat_messages(self):
+    def get_all_contact_messages(self):
         """
         Fetches all chat messages with associated user names from the database.
         """
@@ -503,9 +481,8 @@ class ApplicationContext:
             cursor = connection.cursor(dictionary=True)
             # Adjust the SQL query according to your database schema
             query = """
-                SELECT chat_messages.*, users.username
-                FROM chat_messages
-                LEFT JOIN users ON chat_messages.user_id = users.id
+                SELECT *
+                FROM contact_messages
             """
             cursor.execute(query)
             messages = cursor.fetchall()

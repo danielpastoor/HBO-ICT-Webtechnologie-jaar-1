@@ -1,7 +1,7 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template, request
+from flask import render_template, request, flash
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext

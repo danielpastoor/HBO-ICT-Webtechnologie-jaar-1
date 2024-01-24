@@ -26,22 +26,55 @@
 
 <body class="{{ bodyClass }}">
 
-{% include 'components/header.html' %}
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+            <div class="toast show fade" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body p-0">
+                    <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                        <ul>
+                            {%- for msg in errors %}
+                                <li>{{ msg }}</li>
+                            {% endfor -%}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-    <ul class=flashes>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-{% endwith %}
+    {% with errors = get_flashed_messages(category_filter=["warning"]) %}
+        {% if errors %}
+            <div class="toast show fade" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body p-0">
+                    <div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+                        <ul>
+                            {%- for msg in errors %}
+                                <li>{{ msg }}</li>
+                            {% endfor -%}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+{% include 'components/header.html' %}
 
 <main id="main" role="main">
     {% block content %}
     {% endblock %}
 </main>
+
 {% if current_user.is_authenticated and not current_user.is_admin %}
     <div class="block-chat-wrapper">
         <!-- Chat Icon -->
@@ -66,8 +99,8 @@
                 <label for="chatMessage">Uw bericht:</label>
                 <textarea class="form-control" id="chatMessage" placeholder="Schrijf uw bericht"></textarea>
             </div>
-            <button type="button" class="btn btn-primary" onclick="sendChatMessage()">Verzend Bericht</button>
-            <button type="button" class="btn btn-secondary" onclick="closeChat()">Sluit Chat</button>
+            <button type="button" class="btn btn-primary mt-3" onclick="sendChatMessage()">Verzend Bericht</button>
+            <button type="button" class="btn btn-secondary mt-3" onclick="closeChat()">Sluit Chat</button>
         </div>
     </div>
 {% endif %}
@@ -88,7 +121,7 @@
     function closeChat() {
         var chatPopup = document.getElementById('chatPopup');
         isChatPopupOpen = false;  // Set state to closed
-        chatPopup.style.display = 'none';
+        chatPopup.classList.toggle('active');
     }
 
     function sendChatMessage() {
