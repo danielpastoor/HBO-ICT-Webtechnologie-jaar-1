@@ -1,7 +1,8 @@
-""" Index Controller
+""" Accommodation Controller
 """
 # needed imports
 from flask import render_template, request
+
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
@@ -15,11 +16,12 @@ class AccommodationController(ControllerBase):
         _type_: page
     """
 
-    def get(self):
-        """ Endpoint for getting the general page
-        """
-        applicationContext = ApplicationContext()
+    def __init__(self):
+        self.app_context = ApplicationContext()
 
+    def get(self):
+        """ Endpoint for getting the accommodation page
+        """
         search = request.args.get("search")
         check_in_date = request.args.get("start_date")
         check_out_date = request.args.get("end_date")
@@ -27,6 +29,7 @@ class AccommodationController(ControllerBase):
         join = None
         column = "*"
 
+        # create join if there is a filter
         if check_in_date and check_out_date:
             join = """
             LEFT JOIN booking ON accommodation.id = booking.accommodation_id
@@ -39,6 +42,7 @@ class AccommodationController(ControllerBase):
 
             condition = "booking.accommodation_id IS NULL"
 
+        # create condition if there is a filter
         if search:
             column_search_key = "accommodation.name" if join else "name"
 
@@ -47,24 +51,23 @@ class AccommodationController(ControllerBase):
             else:
                 condition += " AND {} LIKE '%{}%'".format(column_search_key, search)
 
-        # SELECT * FROM table_name
-        data = applicationContext.Get(AccommodationEntity(), column, condition, join)
+        # SELECT * FROM accommodation
+        data = self.app_context.Get(AccommodationEntity(), column, condition, join)
 
         # return rendered html
         return render_template("pages/general/accommodation/accommodation-overview.html", accommodations=data,
                                found_items=len(data))
 
     def accommodation(self, accommodation_id):
-        """ Endpoint for getting the general page
-        """
-        applicationContext = ApplicationContext()
+        """ Endpoint for getting the accommodation detail page with id accommodation_id """
 
-        data = applicationContext.Get(AccommodationEntity(), condition=f"id = {accommodation_id}")
+        data = self.app_context.Get(AccommodationEntity(), condition=f"id = {accommodation_id}")
 
         if len(data) != 1:
             return "There went something wrong", 500
 
-        accommodations = applicationContext.Get(AccommodationEntity())
+        # list of all accommodations for the slider
+        accommodations = self.app_context.Get(AccommodationEntity())
 
         # return rendered html
         return render_template("pages/general/accommodation/accommodation-detail.html", accommodation=data[0],

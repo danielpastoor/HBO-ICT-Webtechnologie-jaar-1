@@ -1,4 +1,4 @@
-""" Index Controller
+""" Manage Accommodation Controller
 """
 # needed imports
 from flask import render_template, request, flash, redirect
@@ -58,9 +58,9 @@ class ManageAccommodationController(ControllerBase):
 
         # Add accommodation to the database
         if self.app_context.add_accommodation(accommodation_data):
-            flash("Accommodation added successfully.", "success")
+            flash("Accommodatie succesvol toegevoegd.", "success")
         else:
-            flash("Failed to add accommodation.", "error")
+            flash("Accommodatie niet toegevoegd.", "error")
 
         return redirect('/manage/accommodations')
 
@@ -79,7 +79,7 @@ class ManageAccommodationController(ControllerBase):
 
     def __delete_accommodation(self, id):
         """
-        Delete an accommodation from the database.
+        Delete accommodation from the database.
         """
         try:
             self.app_context.Delete(AccommodationEntity(), id)
@@ -96,7 +96,7 @@ class ManageAccommodationController(ControllerBase):
             accommodation_to_edit = self.app_context.First(AccommodationEntity(), condition=f"id = {id}")
 
             if not accommodation_to_edit:
-                flash("Accommodation not found.", "error")
+                flash("Accommodatie niet gevonden.", "error")
                 return redirect('/manage/accommodations')  # Adjust as per your route naming
 
             return render_template("pages/manage/manage-edit-accommodation.html",

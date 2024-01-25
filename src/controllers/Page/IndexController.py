@@ -1,13 +1,12 @@
 """ Index Controller
 """
 # needed imports
-from flask import render_template, request, flash
+from flask import render_template
+
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
 from src.models.AccommodationEntity import AccommodationEntity
-from src.models.BaseModel.TransientObject import TransientObject
-from src.models.BookingEntity import BookingEntity
 
 
 class IndexController(ControllerBase):
@@ -17,17 +16,14 @@ class IndexController(ControllerBase):
         _type_: page
     """
 
+    def __init__(self):
+        self.app_context = ApplicationContext()
+
     def index(self):
         """ Endpoint for getting the general page
         """
-        # user_cookie = request.cookies.get('user_cookie') #TODO: revisite later
-        # if user_cookie:
-        # Perform actions based on the user_cookie
-
-        applicationContext = ApplicationContext()
-
         # Get popular accommodation
-        accommodation = applicationContext.First(AccommodationEntity(),
+        accommodation = self.app_context.First(AccommodationEntity(),
                                                  "accommodation.*, COUNT(booking.id) AS booking_count",
                                                  None,
                                                  """
@@ -38,7 +34,8 @@ class IndexController(ControllerBase):
                                                  """
                                                  )
 
-        accommodations = applicationContext.Get(AccommodationEntity())
+        # get accommodations for the slider
+        accommodations = self.app_context.Get(AccommodationEntity())
 
         # return rendered html
         return render_template("pages/general/index.html", accommodation=accommodation, accommodations=accommodations,

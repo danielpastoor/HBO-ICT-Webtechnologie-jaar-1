@@ -4,6 +4,7 @@ can submit something on the general page. There is also a validation
 on the input data from the user.
 """
 import pytest
+
 from src.main import app
 
 

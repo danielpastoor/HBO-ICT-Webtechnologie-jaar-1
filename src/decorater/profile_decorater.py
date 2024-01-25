@@ -1,9 +1,9 @@
 """
 """
 import cProfile
-from os import mkdir, path
 import pstats
 import sys
+from os import mkdir, path
 
 
 def profiler(func):

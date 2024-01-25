@@ -1,19 +1,15 @@
-""" Index Controller
+""" Profile Controller
 """
 # needed imports
-from flask import render_template, request
+from flask import render_template
 from flask_login import login_required
 
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
-from src.data.ApplicationContext import ApplicationContext
-from src.models.AccommodationEntity import AccommodationEntity
-from src.models.BaseModel.TransientObject import TransientObject
-from src.models.BookingEntity import BookingEntity
 
 
 class ProfileController(ControllerBase):
-    """general controller for showing the home page
+    """general controller for showing the setting page
 
     Returns:
         _type_: page

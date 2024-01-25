@@ -1,4 +1,5 @@
 import datetime
+
 from flask import request, jsonify
 from flask_login import current_user
 
@@ -14,6 +15,7 @@ class ChatController(ControllerBase):
         self.app_context = ApplicationContext()
 
     def post(self):
+        # get user
         username = current_user.get_id() if current_user.is_authenticated else None
 
         if username:
@@ -34,6 +36,7 @@ class ChatController(ControllerBase):
         # Sla het bericht op in de database
         success = self.app_context.save_contact_message(chat_message)
 
+        # return message
         if success:
             return jsonify({"message": "Chatbericht opgeslagen"}), 200
         else:

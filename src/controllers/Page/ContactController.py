@@ -1,10 +1,11 @@
-""" Index Controller
+""" Contact Controller
 """
 import datetime
 import re
 
 # needed imports
 from flask import render_template, request, flash, redirect
+
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 from src.data.ApplicationContext import ApplicationContext
@@ -42,19 +43,19 @@ class ContactPage(ControllerBase):
         # Validate name and email
         if not self.__is_valid_name(name):
             # Handle invalid name
-            flash("Invalid name provided.", "error")
+            flash("Ongeldige naam opgegeven.", "error")
             return render_template('pages/general/contact.html')
 
         if not self.__is_valid_email(email):
             # Handle invalid email
-            flash("Invalid email address.", "error")
-            return render_template('pages/general/contact.html')
+            flash("Ongeldig e-mailadres.", "error")
+            return redirect("/contact/")
 
         # Check if the message or email is spam
         if self.spam_filter.is_spam(message, email):
             # Handle spam (log it, redirect, flash message, etc.)
-            flash('Your message looks like spam. Please modify and try again.', 'error')
-            return render_template('pages/general/contact.html')
+            flash('Uw bericht ziet eruit als spam. Wijzig en probeer het opnieuw.', 'error')
+            return redirect("/contact/")
 
         # Create ContactFormEntity
         contact_form = ContactMessageEntity(0, email, name, message, sent_on)
@@ -63,9 +64,9 @@ class ContactPage(ControllerBase):
         success = self.app_context.save_contact_message(contact_form)
 
         if success:
-            flash("Your message has been sent successfully!", "success")
+            flash("Je bericht is succesvol verzonden!", "success")
         else:
-            flash("There was an error sending your message.", "error")
+            flash("Er is een fout opgetreden bij het verzenden van uw bericht.", "error")
 
         return redirect('/contact')
 
