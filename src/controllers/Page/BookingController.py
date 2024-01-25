@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 import flask_login
 # needed imports
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
 from flask_login import current_user
 
 # own imports
@@ -41,6 +41,7 @@ class BookingPage(ControllerBase):
         accommodation = self.app_context.First(AccommodationEntity(), condition=f"id = {accommodation_id}")
 
         if accommodation is None:
+            flash("Accommodatie bestaad niet.", "error")
             return redirect("/error")
 
         if request.method == 'GET':
@@ -68,12 +69,14 @@ class BookingPage(ControllerBase):
 
             # check if there are booking dates
             if not (check_in_date_str and check_out_date_str):
+                flash("Start en eind datum missen.", "error")
                 return redirect("/error")
 
             # get user data
             user = self.app_context.First(UsersEntity(), condition=f"email = '{flask_login.current_user.email}'")
 
             if user is None:
+                flash("Gebruiker bestaat niet.", "error")
                 return redirect("/error")
 
             # get correct date format
@@ -98,6 +101,7 @@ class BookingPage(ControllerBase):
 
 
             if payment.id is None:
+                flash("Betaling registratie is mislukt.", "error")
                 return redirect("/error")
 
             # Loop count of bookings
@@ -145,6 +149,7 @@ class BookingPage(ControllerBase):
 
         # check if payment exist
         if payment is None:
+            flash("Betaling is mislukt.", "error")
             return redirect("/error")
 
         # Update payment

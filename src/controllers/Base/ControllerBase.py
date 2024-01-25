@@ -3,7 +3,10 @@ import functools
 import inspect
 import re
 
-from flask import Flask, Response, make_response, request
+from flask import Flask, Response, make_response, request, flash, redirect
+from flask_login import current_user
+
+from src.data.ApplicationContext import ApplicationContext
 
 
 class ControllerBase:
@@ -256,3 +259,17 @@ def RouteMethods(methods: []):
 
     return decorator
 
+def check_is_admin(f):
+    @functools.wraps(f)
+    def decorated_function(*args, **kwargs):
+        current_username = current_user.get_id()
+        current_user_details = ApplicationContext().get_user_by_username(current_username)
+
+        if not (current_user_details.is_admin if current_user_details else False):
+            # Redirect non-admin users or show an error message
+            flash("Je hebt hier niet genoeg rechten voor..", "error")
+            return redirect('/')  # Redirect to a different page
+
+
+        return f(*args, **kwargs)
+    return decorated_function

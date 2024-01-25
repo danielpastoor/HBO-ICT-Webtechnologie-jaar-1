@@ -5,7 +5,7 @@ from flask import render_template
 from flask_login import login_required
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase
+from src.controllers.Base.ControllerBase import ControllerBase, check_is_admin
 from src.data.ApplicationContext import ApplicationContext
 
 
@@ -15,6 +15,7 @@ class ManageSupportController(ControllerBase):
         self.app_context = ApplicationContext()
 
     @login_required
+    @check_is_admin
     def index(self):
         contact_messages = self.app_context.get_all_contact_messages()  # Method to fetch all chat messages
 

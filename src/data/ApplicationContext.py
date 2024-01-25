@@ -55,8 +55,6 @@ class ApplicationContext:
         if condition is not None:
             query += f" WHERE {condition}"
 
-        print(query)
-
         cursor = self.__connect().cursor(dictionary=True)
 
         result: list[T] = list[T]()
@@ -119,7 +117,6 @@ class ApplicationContext:
     def __execute_insert_query(self, query) -> int | None:
         cursor = self.__connect().cursor()
         try:
-            print(query)
             cursor.execute(query)
             self.__connect().commit()
             cursor.close()

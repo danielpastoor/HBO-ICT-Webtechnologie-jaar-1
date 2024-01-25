@@ -5,7 +5,7 @@ from flask import render_template, redirect, flash, request
 from flask_login import login_required, current_user
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
+from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods, check_is_admin
 from src.data.ApplicationContext import ApplicationContext
 from src.models.BookingEntity import BookingEntity
 
@@ -16,6 +16,7 @@ class ManageBookingController(ControllerBase):
         self.app_context = ApplicationContext()
 
     @login_required
+    @check_is_admin
     def get(self):
         users = self.app_context.get_all_usersnamess()  # Fetch all users
         accommodations = self.app_context.get_all_accommodations()  # Fetch all accommodations
@@ -44,7 +45,9 @@ class ManageBookingController(ControllerBase):
                                accommodations=accommodations, users=users)
 
     @login_required
+    @check_is_admin
     def post(self):
+
         # Handle booking form submission
         booking_data = {
             'user_id': request.form.get('user_id'),
@@ -63,6 +66,7 @@ class ManageBookingController(ControllerBase):
         return redirect('/manage/bookings')  # or the URL of your choice
 
     @login_required
+    @check_is_admin
     def delete_booking(self, id):
         if not current_user.is_admin:
             flash("Je hebt hier niet genoeg rechten voor.", "error")
@@ -89,6 +93,7 @@ class ManageBookingController(ControllerBase):
 
     @RouteMethods(["GET", "POST"])
     @login_required
+    @check_is_admin
     def edit(self, id):
         if request.method == "GET":
             # Fetch user details for editing
