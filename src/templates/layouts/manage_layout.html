@@ -82,9 +82,6 @@
                                 <i class="fas fa-wrench"></i> Instellingen
                             </button>
                             <div class="dropdown-menu">
-                                {% if current_user.is_admin %}
-                                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                                {% endif %}
                                 <a class="dropdown-item" href="/dashboard/settings">Instellingen</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/authentication/logout">Uitloggen</a>
@@ -107,11 +104,11 @@
                     {% endif %}
                 {% endwith %}
 
-                {% with errors = get_flashed_messages(category_filter=["warning"]) %}
-                    {% if errors %}
+                {% with warnings = get_flashed_messages(category_filter=["warning"]) %}
+                    {% if warnings %}
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <ul>
-                                {%- for msg in errors %}
+                                {%- for msg in warnings %}
                                     <li>{{ msg }}</li>
                                 {% endfor -%}
                             </ul>
@@ -120,11 +117,24 @@
                     {% endif %}
                 {% endwith %}
 
-                {% with errors = get_flashed_messages(category_filter=["success"]) %}
-                    {% if errors %}
+                {% with successes = get_flashed_messages(category_filter=["success"]) %}
+                    {% if successes %}
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             <ul>
-                                {%- for msg in errors %}
+                                {%- for msg in successes %}
+                                    <li>{{ msg }}</li>
+                                {% endfor -%}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                {% with infos = get_flashed_messages(category_filter=["info"]) %}
+                    {% if infos %}
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            <ul>
+                                {%- for msg in infos %}
                                     <li>{{ msg }}</li>
                                 {% endfor -%}
                             </ul>

@@ -1,7 +1,6 @@
 import datetime
 import os
 from enum import Enum
-from typing import TypeVar
 
 import mysql.connector
 from mysql.connector import Error
@@ -70,6 +69,8 @@ class ApplicationContext:
                 tmpItem.SetCurrent(r)
                 result.append(tmpItem)
 
+            cursor.close()
+
         except Error as e:
             print(f"The error '{e}' occurred")
 
@@ -110,6 +111,7 @@ class ApplicationContext:
         try:
             cursor.execute(query)
             self.__connect().commit()
+            cursor.close()
             print("Query executed successfully")
         except Error as e:
             print(f"The error '{e}' occurred")
@@ -120,6 +122,7 @@ class ApplicationContext:
             print(query)
             cursor.execute(query)
             self.__connect().commit()
+            cursor.close()
             print("Query executed successfully")
             return cursor.lastrowid
         except Error as e:

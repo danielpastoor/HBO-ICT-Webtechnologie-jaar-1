@@ -2,6 +2,7 @@
 import functools
 import inspect
 import re
+
 from flask import Flask, Response, make_response, request
 
 
@@ -255,18 +256,3 @@ def RouteMethods(methods: []):
 
     return decorator
 
-
-def is_password_complex(password):
-    """Check if the password is complex enough."""
-    min_length = 8
-    if len(password) < min_length:
-        return False
-    if not re.search(r"[0-9]", password):
-        return False
-    if not re.search(r"[A-Z]", password):
-        return False
-    if not re.search(r"[a-z]", password):
-        return False
-    if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
-        return False
-    return True

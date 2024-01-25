@@ -1,21 +1,26 @@
-""" Index Controller
+""" Authentication Controller
 """
+
+import logging
+import re
+
 # needed imports
 from flask import render_template, request, redirect, flash, make_response
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import check_password_hash, generate_password_hash
-import logging
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase, is_password_complex, RouteMethods
+from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
 from src.data.ApplicationContext import ApplicationContext
 from src.data.UserClaimsPrincipal import UserClaimsPrincipal
+from src.models.UsersEntity import UsersEntity
 
 
 class AuthenticationController(ControllerBase):
 
     def __init__(self):
         self.auth_processor = AuthenticationProcessor()
+        self.app_context = ApplicationContext()
 
     def index(self):
         """ Endpoint for getting the login page """
@@ -44,12 +49,12 @@ class AuthenticationController(ControllerBase):
             response = make_response(redirect('/'))
             # Set a cookie with the user's username
             response.set_cookie('user_cookie', user.username, max_age=60 * 60 * 24 * 30)  # Expires in 30 days
-            flash("Login successful!", "success")
+            flash("Inloggen gelukt!", "success")
             return response
         else:
             # Login failed
-            flash("Invalid username or password", "error")
-            return render_template("pages/authentication/authentication.html")
+            flash("Ongeldige gebruikersnaam of wachtwoord!", "error")
+            return redirect('/authentication')
 
     @RouteMethods(["GET", "POST"])
     def resetpassword(self):
@@ -59,45 +64,41 @@ class AuthenticationController(ControllerBase):
 
         elif request.method == "POST":
             """ Handle the reset password POST request """
-            app_context = ApplicationContext()
-
             username = request.form.get('username')
             password = request.form.get('password')
             confirm_password = request.form.get('confirm_password')
 
             # Validate and hash the password
             if password != confirm_password:
-                flash("Passwords do not match", "error")
-                return render_template('pages/authentication/reset-password.html')
+                flash("Wachtwoorden komen niet overeen", "error")
+                return redirect('/authentication/resetpassword')
 
-            if not is_password_complex(password):
-                flash("Password is not complex enough", "error")
-                return render_template('pages/authentication/reset-password.html')
+            if not self.__is_password_complex(password):
+                flash("Wachtwoord is niet complex genoeg", "error")
+                return redirect('/authentication/resetpassword')
 
-            user = app_context.get_user_by_username(username)
+            user = self.app_context.get_user_by_username(username)
 
             if user is None:
-                flash("User not found", "error")
-                return render_template('pages/authentication/reset-password.html')
+                flash("Gebruiker niet gevonden", "error")
+                return redirect('/authentication/resetpassword')
 
             # Update the user's password
-            success = app_context.update_user_password(username, password)
+            success = self.app_context.update_user_password(username, password)
 
             if success:
-                flash("Password reset successful", "success")
-                return redirect("/authentication")
+                flash("Wachtwoord resetten succesvol", "success")
+                return redirect('/authentication')
             else:
-                flash("Password reset failed", "error")
-                return render_template('pages/authentication/reset-password.html')
+                flash("Wachtwoord resetten mislukt", "error")
+                return redirect('/authentication/resetpassword')
 
     @login_required
     def logout(self):
         """Handle the logout process."""
         logout_user()
-        flash("You have been logged out.", "info")
-        # Create a response
-        response = make_response(redirect('/authentication'))
-        return response  # Redirect to the general page or your chosen login page
+        flash("Je bent uitgelogd.", "info")
+        return redirect('/authentication')  # Redirect to the general page or your chosen login page
 
     @RouteMethods(["GET", "POST"])
     def register(self):
@@ -106,7 +107,6 @@ class AuthenticationController(ControllerBase):
             return render_template('pages/authentication/authentication.html', is_register=True)
 
         elif request.method == "POST":
-            app_context = ApplicationContext()
             # Extract form data
             username = request.form.get('username')
             email = request.form.get('email')
@@ -119,12 +119,17 @@ class AuthenticationController(ControllerBase):
 
             # Validate and hash the password
             if password != confirm_password:
-                flash("Passwords do not match", "error")
-                return render_template('pages/authentication/authentication.html', is_register=True)
+                flash("Wachtwoorden komen niet overeen", "error")
+                return redirect('/authentication/register')
 
-            if not is_password_complex(password):
-                flash("Password is not complex enough", "error")
-                return render_template('pages/authentication/authentication.html', is_register=True)
+            if not self.__is_password_complex(password):
+                flash("Wachtwoord is niet complex genoeg", "error")
+                return redirect('/authentication/register')
+
+            if self.app_context.First(UsersEntity(),
+                                      condition=f"username = '{username}' or email = '{email}'") is not None:
+                flash("Gebruiker bestaat al", "error")
+                return redirect('/authentication/register')
 
             hashed_password = generate_password_hash(password)
 
@@ -133,13 +138,28 @@ class AuthenticationController(ControllerBase):
 
             # Attempt to add the new user to the database
             try:
-                app_context.Add(new_user)
-                flash("Registration successful!", "success")
+                self.app_context.Add(new_user)
+                flash("Registratie geslaagd!", "success")
                 return redirect('/authentication')
 
             except Exception as e:
-                flash("Registration failed: " + str(e), "error")
-                return render_template('pages/authentication/authentication.html', is_register=True)
+                flash("Registratie mislukt: " + str(e), "error")
+                return redirect('/authentication/register')
+
+    def __is_password_complex(self, password):
+        """Check if the password is complex enough."""
+        min_length = 8
+        if len(password) < min_length:
+            return False
+        if not re.search(r"[0-9]", password):
+            return False
+        if not re.search(r"[A-Z]", password):
+            return False
+        if not re.search(r"[a-z]", password):
+            return False
+        if not re.search(r"[!@#$%^&*(),.?\":{}|<>]", password):
+            return False
+        return True
 
 
 class AuthenticationProcessor:

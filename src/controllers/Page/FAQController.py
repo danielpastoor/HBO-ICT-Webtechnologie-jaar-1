@@ -1,7 +1,8 @@
-""" Index Controller
+""" FAQ Controller
 """
 # needed imports
 from flask import render_template
+
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase
 
@@ -14,7 +15,7 @@ class FaqPage(ControllerBase):
     """
 
     def index(self):
-        """ Endpoint for getting the general page
+        """ Endpoint for getting the FAQ page
         """
         # return rendered html
         return render_template("pages/general/faq.html")

@@ -1,6 +1,5 @@
-""" Index Controller
+""" Booking Controller
 """
-import flask_login
 # needed imports
 from flask import render_template, redirect, flash, request
 from flask_login import login_required, current_user
@@ -8,7 +7,6 @@ from flask_login import login_required, current_user
 # own imports
 from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
 from src.data.ApplicationContext import ApplicationContext
-from src.models.BaseModel.TransientObject import TransientObject
 from src.models.BookingEntity import BookingEntity
 
 
@@ -98,7 +96,7 @@ class ManageBookingController(ControllerBase):
             accommodations = self.app_context.get_all_accommodations()  # Fetch all accommodations
 
             if not booking_to_edit:
-                flash("Accommodation not found.", "error")
+                flash("Boeking niet gevonden.", "error")
                 return redirect('/manage/bookings')  # Adjust as per your route naming
 
             return render_template("pages/manage/manage-edit-booking.html",
@@ -117,7 +115,7 @@ class ManageBookingController(ControllerBase):
             flash("Booking is geupdate.", "success")
 
             # Redirect back to the dashboard or appropriate page after handling POST
-            return redirect('/manage/bookings')  # or the URL of your choice
+            return redirect('/manage/bookings')
 
 
 if __name__ == "__main__":

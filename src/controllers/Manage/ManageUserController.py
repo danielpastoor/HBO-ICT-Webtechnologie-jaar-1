@@ -1,4 +1,4 @@
-""" Index Controller
+""" Manage User Controller
 """
 # needed imports
 from flask import render_template, request, flash, redirect
@@ -21,8 +21,8 @@ class ManageUserController(ControllerBase):
 
     @login_required
     def get(self):
-        app_context = ApplicationContext()
-        users = app_context.get_all_users()
+        # get all users
+        users = self.app_context.get_all_users()
 
         return render_template("pages/manage/manage-user.html", users=users)
 
@@ -62,11 +62,11 @@ class ManageUserController(ControllerBase):
         # Attempt to add the new user to the database
         try:
             self.app_context.register_user(user_data)
-            flash("Registration successful!", "success")
+            flash("Registratie geslaagd!", "success")
             return redirect('/manage/users')
 
         except Exception as e:
-            flash("Registration failed: " + str(e), "error")
+            flash("Registratie mislukt: " + str(e), "error")
             return redirect('/manage/users')
 
     @login_required
@@ -76,9 +76,9 @@ class ManageUserController(ControllerBase):
             return redirect('/manage/users')  # Redirect to a safe page
 
         if self.__delete_user(user_id):
-            flash("User successfully removed.", "success")
+            flash("Gebruiker succesvol verwijderd.", "success")
         else:
-            flash("Failed to remove user.", "error")
+            flash("Gebruiker niet verwijderd.", "error")
 
         return redirect('/manage/users')  # Redirect to the users list page
 
@@ -93,7 +93,6 @@ class ManageUserController(ControllerBase):
             print(f"Error removing user: {e}")
             return False
 
-
     @RouteMethods(["GET", "POST"])
     @login_required
     def edit(self, user_name):
@@ -105,7 +104,7 @@ class ManageUserController(ControllerBase):
                 return redirect('/manage/users')  # Adjust as per your route naming
 
             return render_template("pages/manage/manage-edit-user.html",
-                               user=user_to_edit)
+                                   user=user_to_edit)
 
         elif request.method == "POST":
             # Extract data from form
@@ -131,7 +130,7 @@ class ManageUserController(ControllerBase):
 
             # Validate data (e.g., check if passwords match)
             if password and password != confirm_password:
-                flash("Passwords do not match.", "error")
+                flash("Wachtwoorden komen niet overeen.", "error")
                 return redirect('/manage/users')
             elif password:
                 # Hash the password
@@ -143,13 +142,12 @@ class ManageUserController(ControllerBase):
             # Attempt to add the new user to the database
             try:
                 self.app_context.Update(UsersEntity(), user_data, user_id)
-                flash("Registration successful!", "success")
+                flash("Registratie geslaagd!", "success")
                 return redirect('/manage/users')
 
             except Exception as e:
-                flash("Registration failed: " + str(e), "error")
+                flash("Registratie mislukt: " + str(e), "error")
                 return redirect('/manage/users')
-
 
 
 if __name__ == "__main__":

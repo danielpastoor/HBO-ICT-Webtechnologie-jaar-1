@@ -1,8 +1,9 @@
 """In deze file worden de scripts gerund"""
 import os
-from sys import argv
-from flask import Flask, url_for
 from datetime import timedelta
+from sys import argv
+
+from flask import Flask
 from flask_login import LoginManager
 from werkzeug.middleware.profiler import ProfilerMiddleware
 
