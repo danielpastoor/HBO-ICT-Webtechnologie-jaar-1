@@ -5,7 +5,7 @@ from flask import render_template
 from flask_login import login_required
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase
+from src.controllers.Base.ControllerBase import ControllerBase, check_is_admin
 from src.data.ApplicationContext import ApplicationContext
 
 
@@ -15,6 +15,7 @@ class AdminDashboardController(ControllerBase):
         self.app_context = ApplicationContext()
 
     @login_required
+    @check_is_admin
     def index(self):
         # get dashboard data
         dashboard_data = self.app_context.get_dashboard_data()

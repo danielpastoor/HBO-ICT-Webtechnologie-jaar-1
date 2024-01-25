@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
+from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods, check_is_admin
 from src.data.ApplicationContext import ApplicationContext
 from src.models.UsersEntity import UsersEntity
 
@@ -20,6 +20,7 @@ class ManageUserController(ControllerBase):
         self.app_context = ApplicationContext()
 
     @login_required
+    @check_is_admin
     def get(self):
         # get all users
         users = self.app_context.get_all_users()
@@ -27,6 +28,7 @@ class ManageUserController(ControllerBase):
         return render_template("pages/manage/manage-user.html", users=users)
 
     @login_required
+    @check_is_admin
     def post(self):
         # Extract data from form
         username = request.form.get('username')
@@ -70,6 +72,7 @@ class ManageUserController(ControllerBase):
             return redirect('/manage/users')
 
     @login_required
+    @check_is_admin
     def delete_user(self, user_id):
         if not current_user.is_admin:
             flash("Je hebt hier niet genoeg rechten voor.", "error")
@@ -95,6 +98,7 @@ class ManageUserController(ControllerBase):
 
     @RouteMethods(["GET", "POST"])
     @login_required
+    @check_is_admin
     def edit(self, user_name):
         if request.method == "GET":
             # Fetch user details for editing

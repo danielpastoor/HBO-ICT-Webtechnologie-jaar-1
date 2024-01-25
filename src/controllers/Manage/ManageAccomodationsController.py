@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 
 # own imports
-from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods
+from src.controllers.Base.ControllerBase import ControllerBase, RouteMethods, check_is_admin
 from src.data.ApplicationContext import ApplicationContext
 from src.models.AccommodationEntity import AccommodationEntity
 
@@ -17,12 +17,14 @@ class ManageAccommodationController(ControllerBase):
         self.app_context = ApplicationContext()
 
     @login_required
+    @check_is_admin
     def index(self):
         accommodations = self.app_context.get_all_accommodations_manage()
 
         return render_template("pages/manage/manage-accommodation.html", accommodations=accommodations)
 
     @login_required
+    @check_is_admin
     def post(self):
         """ Handle the form submission for adding new accommodation. """
 
@@ -65,6 +67,7 @@ class ManageAccommodationController(ControllerBase):
         return redirect('/manage/accommodations')
 
     @login_required
+    @check_is_admin
     def delete_accommodation(self, id):
         if not current_user.is_admin:
             flash("Je hebt hier niet genoeg rechten voor.", "error")
@@ -90,6 +93,7 @@ class ManageAccommodationController(ControllerBase):
 
     @RouteMethods(["GET", "POST"])
     @login_required
+    @check_is_admin
     def edit(self, id):
         if request.method == "GET":
             # Fetch user details for editing
